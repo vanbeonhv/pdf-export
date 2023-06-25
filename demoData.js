@@ -1,7 +1,7 @@
 const pqaDetail = {
   id: 'fc80d77a-db6d-4ecd-8bf7-d629e9482809',
   name: 'dummy name',
-  projectCode: 'kcd',
+  projectCode: 'kcde',
   trade1Score: 9.5,
   trade2Score: 8.2,
   observationScore: 7.8,
@@ -21,13 +21,13 @@ const pqaDetail = {
     name: 'dummy name',
     trade: 'Trade A',
     location: 'tower1',
-    scoreList: [10, 20, 30],
+    scoreList: [10, 10, 0, 0, 10, 0, 10, 10],
     noteList: ['Note 1', 'Note 2'],
     isDeleted: false,
     createdBy: 'nguyen_huuvan@wohhup.com.vn',
     createdDate: '2023-06-21T13:41:19.621282Z',
     updatedBy: 'nguyen_huuvan@wohhup.com.vn',
-    updatedDate: '2023-06-22T08:46:18.840229Z'
+    updatedDate: '2023-06-22T08:46:18.840229Z',
   },
   subAppPqaCheckList2: {
     id: 'ad1182e5-2434-4315-a343-439d16a32806',
@@ -35,13 +35,13 @@ const pqaDetail = {
     name: 'dummy name',
     trade: 'Trade A',
     location: 'Location b',
-    scoreList: [10, 20, 30],
+    scoreList: [10, 0, 0, 10, 10, 0, 10, 10],
     noteList: ['Note 1', 'Note 2'],
     isDeleted: false,
     createdBy: 'nguyen_huuvan@wohhup.com.vn',
     createdDate: '2023-06-21T13:42:11.133845Z',
     updatedBy: 'nguyen_huuvan@wohhup.com.vn',
-    updatedDate: '2023-06-22T08:46:18.84034Z'
+    updatedDate: '2023-06-22T08:46:18.84034Z',
   },
   subAppPqaObservation: {
     id: 'b322da7e-7dab-4126-902f-04d22cad330e',
@@ -54,7 +54,7 @@ const pqaDetail = {
     createdBy: 'nguyen_huuvan@wohhup.com.vn',
     createdDate: '2023-06-21T13:42:11.310243Z',
     updatedBy: 'nguyen_huuvan@wohhup.com.vn',
-    updatedDate: '2023-06-22T08:46:18.84043Z'
+    updatedDate: '2023-06-22T08:46:18.84043Z',
   },
   subAppPqaLastMonthFinding: {
     id: '32f32876-6075-4304-8bad-60f63b923c54',
@@ -65,13 +65,13 @@ const pqaDetail = {
       partial: 3,
       no: 1,
       na: 1,
-      total_findings: 12
+      total_findings: 12,
     },
     isDeleted: false,
     createdBy: 'nguyen_huuvan@wohhup.com.vn',
     createdDate: '2023-06-21T13:42:14.513989Z',
     updatedBy: 'nguyen_huuvan@wohhup.com.vn',
-    updatedDate: '2023-06-22T08:46:18.840519Z'
+    updatedDate: '2023-06-22T08:46:18.840519Z',
   },
   subAppPqaFinding: [
     {
@@ -87,9 +87,9 @@ const pqaDetail = {
       createdBy: 'nguyen_huuvan@wohhup.com.vn',
       createdDate: '2023-06-21T13:42:14.691338Z',
       updatedBy: 'nguyen_huuvan@wohhup.com.vn',
-      updatedDate: '2023-06-22T08:46:18.840604Z'
-    }
-  ]
+      updatedDate: '2023-06-22T08:46:18.840604Z',
+    },
+  ],
 };
 
 const fontData =
