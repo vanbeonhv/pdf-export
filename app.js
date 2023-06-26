@@ -1,11 +1,8 @@
 const { jsPDF } = require('jspdf');
 require('jspdf-autotable');
-const { fetchPqaData } = require('./fetchPqaData');
-const { exec } = require('child_process');
+const fs = require('fs');
 const dayjs = require('dayjs');
-const { fs } = require('fs');
 
-const { convertFont } = require('./convertFont');
 const { getSecondLineText } = require('./util/getSecondLineText');
 const { getFullProjectName } = require('./util/getFullProjectName');
 const { getConform } = require('./util/getConfrom');
@@ -14,14 +11,15 @@ const { getClose } = require('./util/getClose');
 const { S3Client, PutObjectCommand } = require('@aws-sdk/client-s3');
 
 const BUCKET_NAME = 'wh-idd-test';
-const s3Client = new S3Client();
-
+const REGION = 'ap-southeast-1';
+const s3Client = new S3Client({
+  region: REGION,
+});
 // generatePdf('8e6251a4-49f6-4552-8b1c-73302519d6aa')
 
-// exports.lambdaHandler = async (pqaId) => {
-const generatePdf = async (pqaId) => {
+exports.lambdaHandler = async (event) => {
+  const pqaDetail = { ...event };
   try {
-    const pqaDetail = await fetchPqaData(pqaId);
     const {
       projectCode,
       createdDate,
@@ -35,7 +33,7 @@ const generatePdf = async (pqaId) => {
       subAppPqaCheckList2,
       subAppPqaObservation,
       subAppPqaLastMonthFinding,
-      subAppPqaFinding
+      subAppPqaFinding,
     } = pqaDetail;
 
     const projectName = getFullProjectName(projectCode);
@@ -43,15 +41,7 @@ const generatePdf = async (pqaId) => {
     const xStart = 12;
     let rowY = 5;
 
-    const createText = (
-      text,
-      x,
-      y,
-      options = {},
-      isBold = false,
-      fontSize = 9,
-      textColor = 'black'
-    ) => {
+    const createText = (text, x, y, options = {}, isBold = false, fontSize = 9, textColor = 'black') => {
       doc?.setFontSize(fontSize);
       doc?.setTextColor(textColor);
       doc?.setFont(undefined, !isBold ? 'normal' : 'bold');
@@ -68,21 +58,14 @@ const generatePdf = async (pqaId) => {
       createText('Project:', xStart, 25, {}, false, 12);
       createText(projectName, 27, 25, {}, false, 12);
       createText('Date:', 140, 25, {}, false, 12);
-      createText(
-        dayjs(createdDate).format('DD-MMM-YYYY'),
-        150,
-        25,
-        {},
-        false,
-        12
-      );
+      createText(dayjs(createdDate).format('DD-MMM-YYYY'), 150, 25, {}, false, 12);
       rowY += 12;
     };
 
     //Begin generate pdf
     const doc = new jsPDF({
       unit: 'mm',
-      format: [190.5, 275.2]
+      format: [190.5, 275.2],
     });
 
     //First page
@@ -92,49 +75,33 @@ const generatePdf = async (pqaId) => {
     createText('Project:', 40, 134, {}, false, 22);
     createText(projectName, 68, 134, {}, false, 18);
     createText('Audit Date:', 40, 154, {}, false, 22);
-    createText(
-      dayjs(createdDate).format('DD-MMM-YYYY'),
-      80,
-      154,
-      {},
-      false,
-      18
-    );
+    createText(dayjs(createdDate).format('DD-MMM-YYYY'), 80, 154, {}, false, 18);
     createText('Audited by:', 40, 174, {}, false, 22);
     createText(pqaDetail.name, 80, 174, {}, false, 18);
 
     //table
     const headers = [
       ['Trade 1', 'Trade 2', 'Observation', 'PQA', 'Findings', '       '],
-      ['', '', '', ' ', '', '']
+      ['', '', '', ' ', '', ''],
     ];
-    const pointList = [
-      [
-        trade1Score,
-        trade2Score,
-        observationScore,
-        lastMonthPqaScore,
-        findingScore,
-        ''
-      ]
-    ];
+    const pointList = [[trade1Score, trade2Score, observationScore, lastMonthPqaScore, findingScore, '']];
     doc.autoTable({
       head: headers,
       body: pointList,
       startY: 200,
       theme: 'plain',
       styles: {
-        halign: 'center'
+        halign: 'center',
       },
       headStyles: {
         fontSize: 12,
         fontStyle: 'normal',
         cellPadding: { top: 2, right: 5, bottom: 0, left: 5 },
-        minCellHeight: 9
+        minCellHeight: 9,
       },
       bodyStyles: {
         cellPadding: { top: 5, right: 5, bottom: 0, left: 5 },
-        fontSize: 18
+        fontSize: 18,
       },
       didDrawPage: function (data) {
         const columnList = data.table.columns;
@@ -143,12 +110,7 @@ const generatePdf = async (pqaId) => {
         headers[0].forEach((column, columnIndex) => {
           const startX =
             data.settings.margin.left +
-            columnList
-              .slice(0, columnIndex)
-              .reduce(
-                (totalWidth, currentWidth) => totalWidth + currentWidth.width,
-                0
-              );
+            columnList.slice(0, columnIndex).reduce((totalWidth, currentWidth) => totalWidth + currentWidth.width, 0);
           const startY = data.settings.startY;
 
           //add more line for header
@@ -160,11 +122,11 @@ const generatePdf = async (pqaId) => {
             doc.setFont(undefined, 'bold');
             doc.text('Overall', textX, startY + 4, {
               align: 'center',
-              baseline: 'middle'
+              baseline: 'middle',
             });
             doc.text('Score', textX, textY, {
               align: 'center',
-              baseline: 'middle'
+              baseline: 'middle',
             });
             doc.setFont(undefined, 'normal');
           }
@@ -173,37 +135,27 @@ const generatePdf = async (pqaId) => {
           // Draw the cell background and borders
           doc.text(secondLine, textX, textY, {
             align: 'center',
-            baseline: 'middle'
+            baseline: 'middle',
           });
           if (columnIndex === 2 || columnIndex === 3) {
             doc.text('(15%)', textX, textY + 5, {
               align: 'center',
-              baseline: 'middle'
+              baseline: 'middle',
             });
           }
 
           doc.setLineWidth(0.3);
           doc.setDrawColor('#000000');
-          doc.rect(
-            startX,
-            startY,
-            columnList[columnIndex].width,
-            cellHeight - 1
-          );
-          doc.rect(
-            startX,
-            startY + cellHeight - 1,
-            columnList[columnIndex].width,
-            13
-          );
+          doc.rect(startX, startY, columnList[columnIndex].width, cellHeight - 1);
+          doc.rect(startX, startY + cellHeight - 1, columnList[columnIndex].width, 13);
         });
         doc.setFont(undefined, 'bold');
         doc.setFontSize(18);
         doc.text(totalScore.toString(), 166, 226.5, {
           align: 'center',
-          baseline: 'middle'
+          baseline: 'middle',
         });
-      }
+      },
     });
 
     //Second page
@@ -221,20 +173,14 @@ const generatePdf = async (pqaId) => {
     //table trade 1
 
     const rowsDataTrade1 = [
-      [
-        '1.1',
-        'Latest approved drawing',
-        'Conform',
-        'Site Findings',
-        'Weightage'
-      ],
+      ['1.1', 'Latest approved drawing', 'Conform', 'Site Findings', 'Weightage'],
       ['1.2', 'Approved material(s)', '', '', ''],
       ['1.3', 'Approved method statement', '', '', ''],
       ['1.4', 'Test report submission (pass)', '', '', ''],
       ['1.5', 'Trade demo / GPT conducted', '', '', ''],
       ['1.6', 'Trade book ', '', '', ''],
       ['1.7', 'Critical check implemented', '', '', ''],
-      ['1.8', 'Common check implemented', '', '', '']
+      ['1.8', 'Common check implemented', '', '', ''],
     ];
     const conformList1 = getConform(subAppPqaCheckList1.scoreList);
     subAppPqaCheckList1.scoreList.forEach((score, index) => {
@@ -244,15 +190,7 @@ const generatePdf = async (pqaId) => {
     });
 
     doc.autoTable({
-      head: [
-        [
-          'S/N',
-          ' Audit Items ',
-          'Conform',
-          'Site Findings          ',
-          'Weightage'
-        ]
-      ],
+      head: [['S/N', ' Audit Items ', 'Conform', 'Site Findings          ', 'Weightage']],
       body: rowsDataTrade1,
       startY: rowY,
       margin: { left: xStart },
@@ -261,7 +199,7 @@ const generatePdf = async (pqaId) => {
         fontStyle: 'normal',
         textColor: '#000',
         lineColor: '#000',
-        lineWidth: 0.2
+        lineWidth: 0.2,
       },
       headStyles: { fillColor: '#fff', valign: 'middle', halign: 'center' },
       columnStyles: {
@@ -269,8 +207,8 @@ const generatePdf = async (pqaId) => {
         1: { halign: 'left' },
         2: { halign: 'center' },
         3: { halign: 'left' },
-        4: { halign: 'center' }
-      }
+        4: { halign: 'center' },
+      },
     });
 
     doc.rect(150.7, 101.2, 25.8, 7);
@@ -287,20 +225,14 @@ const generatePdf = async (pqaId) => {
     createText(subAppPqaCheckList2.location, 107, 119, {}, false, 12);
 
     const rowsDataTrade2 = [
-      [
-        '2.1',
-        'Latest approved drawing',
-        'Conform',
-        'Site Findings',
-        'Weightage'
-      ],
+      ['2.1', 'Latest approved drawing', 'Conform', 'Site Findings', 'Weightage'],
       ['2.2', 'Approved material(s)', '', '', ''],
       ['2.3', 'Approved method statement', '', '', ''],
       ['2.4', 'Test report submission (pass)', '', '', ''],
       ['2.5', 'Trade demo / GPT conducted', '', '', ''],
       ['2.6', 'Trade book ', '', '', ''],
       ['2.7', 'Critical check implemented', '', '', ''],
-      ['2.8', 'Common check implemented', '', '', '']
+      ['2.8', 'Common check implemented', '', '', ''],
     ];
     const conformList2 = getConform(subAppPqaCheckList2.scoreList);
     subAppPqaCheckList2.scoreList.forEach((score, index) => {
@@ -310,15 +242,7 @@ const generatePdf = async (pqaId) => {
     });
 
     doc.autoTable({
-      head: [
-        [
-          'S/N',
-          ' Audit Items ',
-          'Conform',
-          'Site Findings          ',
-          'Weightage'
-        ]
-      ],
+      head: [['S/N', ' Audit Items ', 'Conform', 'Site Findings          ', 'Weightage']],
       body: rowsDataTrade2,
       startY: 120,
       margin: { left: xStart },
@@ -327,7 +251,7 @@ const generatePdf = async (pqaId) => {
         fontStyle: 'normal',
         textColor: '#000',
         lineColor: '#000',
-        lineWidth: 0.2
+        lineWidth: 0.2,
       },
       headStyles: { fillColor: '#fff', valign: 'middle', halign: 'center' },
       columnStyles: {
@@ -335,8 +259,8 @@ const generatePdf = async (pqaId) => {
         1: { halign: 'left' },
         2: { halign: 'center' },
         3: { halign: 'left' },
-        4: { halign: 'center' }
-      }
+        4: { halign: 'center' },
+      },
     });
 
     doc.rect(150.7, 188.3, 25.8, 7);
@@ -347,27 +271,13 @@ const generatePdf = async (pqaId) => {
 
     //#region trade 3 table
     doc.rect(xStart, 203, 164.4, 6);
-    createText(
-      '3     Follow-up on site QA/QC observations:',
-      17,
-      207,
-      {},
-      true,
-      10
-    );
-    createText(
-      '(select 3 from previous month to verify)',
-      90,
-      207,
-      {},
-      false,
-      10
-    );
+    createText('3     Follow-up on site QA/QC observations:', 17, 207, {}, true, 10);
+    createText('(select 3 from previous month to verify)', 90, 207, {}, false, 10);
 
     const rowsDataObservation = [
       ['3.1', 'Observation', 'Conform', 'Site Findings', 'Weightage'],
       ['3.2', 'Observation', '', '', ''],
-      ['3.3', 'Observation', '', '', '']
+      ['3.3', 'Observation', '', '', ''],
     ];
     const closeList = getClose(subAppPqaObservation.scoreList);
     subAppPqaObservation.scoreList.forEach((score, index) => {
@@ -387,7 +297,7 @@ const generatePdf = async (pqaId) => {
         fontStyle: 'normal',
         textColor: '#000',
         lineColor: '#000',
-        lineWidth: 0.2
+        lineWidth: 0.2,
       },
       headStyles: { fillColor: '#fff', valign: 'middle', halign: 'center' },
       columnStyles: {
@@ -395,8 +305,8 @@ const generatePdf = async (pqaId) => {
         1: { halign: 'left' },
         2: { halign: 'center' },
         3: { halign: 'left' },
-        4: { halign: 'center' }
-      }
+        4: { halign: 'center' },
+      },
     });
 
     doc.rect(150.7, 188.3, 25.8, 7);
@@ -406,12 +316,12 @@ const generatePdf = async (pqaId) => {
     //#endregion trade 3 table
 
     async function uploadObjectToS3Bucket(objectName, objectData) {
-      fs.writeFileSync('/tmp/pc.pdf', objectData);
-      const fileContent = fs.readFileSync('/tmp/pc.pdf');
+      fs.writeFileSync('./tmp/pc.pdf', objectData);
+      const fileContent = fs.readFileSync('./tmp/pc.pdf');
       const params = {
         Bucket: BUCKET_NAME,
         Key: `dems/${objectName}`,
-        Body: fileContent
+        Body: fileContent,
       };
 
       const uploadCommand = new PutObjectCommand(params);
@@ -425,11 +335,10 @@ const generatePdf = async (pqaId) => {
 
     const arrayBuffer = doc.output('arraybuffer');
     let bf = Buffer.from(arrayBuffer);
-    const key = `pdf-form/${event?.Id}.pdf`;
+    const key = `pdf-form/${pqaDetail.id}.pdf`;
     await uploadObjectToS3Bucket(key, bf);
   } catch (err) {
-    console.log(err);
+    console.log(err.message);
     return null;
   }
 };
-generatePdf('8e6251a4-49f6-4552-8b1c-73302519d6aa');

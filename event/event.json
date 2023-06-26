@@ -1,0 +1,130 @@
+{
+  "id": "fc80d77a-db6d-4ecd-8bf7-d629e9482809",
+  "name": "dummy name",
+  "projectCode": "kcde",
+  "trade1Score": 9.5,
+  "trade2Score": 8.2,
+  "observationScore": 7.8,
+  "lastMonthPqaScore": 8.9,
+  "findingScore": 9.2,
+  "totalScore": 8.7,
+  "status": 1,
+  "remark": "Some remark",
+  "isDeleted": false,
+  "createdBy": "nguyen_huuvan@wohhup.com.vn",
+  "createdDate": "2023-06-21T13: 40: 26.371228Z",
+  "updatedBy": "nguyen_huuvan@wohhup.com.vn",
+  "updatedDate": "2023-06-22T08: 46: 18.840111Z",
+  "subAppPqaCheckList1": {
+    "id": "f90a29f0-c0f1-4cb6-bb24-29c92d2118fe",
+    "pqaId": "fc80d77a-db6d-4ecd-8bf7-d629e9482809",
+    "name": "dummy name",
+    "trade": "Trade A",
+    "location": "tower1",
+    "scoreList": [
+      10,
+      10,
+      0,
+      0,
+      10,
+      0,
+      10,
+      10
+    ],
+    "noteList": [
+      "Note 1",
+      "Note 2"
+    ],
+    "isDeleted": false,
+    "createdBy": "nguyen_huuvan@wohhup.com.vn",
+    "createdDate": "2023-06-21T13: 41: 19.621282Z",
+    "updatedBy": "nguyen_huuvan@wohhup.com.vn",
+    "updatedDate": "2023-06-22T08: 46: 18.840229Z"
+  },
+  "subAppPqaCheckList2": {
+    "id": "ad1182e5-2434-4315-a343-439d16a32806",
+    "pqaId": "fc80d77a-db6d-4ecd-8bf7-d629e9482809",
+    "name": "dummy name",
+    "trade": "Trade A",
+    "location": "Location b",
+    "scoreList": [
+      10,
+      0,
+      0,
+      10,
+      10,
+      0,
+      10,
+      10
+    ],
+    "noteList": [
+      "Note 1",
+      "Note 2"
+    ],
+    "isDeleted": false,
+    "createdBy": "nguyen_huuvan@wohhup.com.vn",
+    "createdDate": "2023-06-21T13: 42: 11.133845Z",
+    "updatedBy": "nguyen_huuvan@wohhup.com.vn",
+    "updatedDate": "2023-06-22T08: 46: 18.84034Z"
+  },
+  "subAppPqaObservation": {
+    "id": "b322da7e-7dab-4126-902f-04d22cad330e",
+    "name": "dummy name",
+    "pqaId": "fc80d77a-db6d-4ecd-8bf7-d629e9482809",
+    "observation": [
+      "Observation 1",
+      "Observation 3"
+    ],
+    "scoreList": [
+      10,
+      20,
+      30
+    ],
+    "remarkList": [
+      "Remark 1",
+      "Remark 2"
+    ],
+    "isDeleted": false,
+    "createdBy": "nguyen_huuvan@wohhup.com.vn",
+    "createdDate": "2023-06-21T13: 42: 11.310243Z",
+    "updatedBy": "nguyen_huuvan@wohhup.com.vn",
+    "updatedDate": "2023-06-22T08: 46: 18.84043Z"
+  },
+  "subAppPqaLastMonthFinding": {
+    "id": "32f32876-6075-4304-8bad-60f63b923c54",
+    "pqaId": "fc80d77a-db6d-4ecd-8bf7-d629e9482809",
+    "name": "dummy name",
+    "scoreList": {
+      "yes": 7,
+      "partial": 3,
+      "no": 1,
+      "na": 1,
+      "total_findings": 12
+    },
+    "isDeleted": false,
+    "createdBy": "nguyen_huuvan@wohhup.com.vn",
+    "createdDate": "2023-06-21T13: 42: 14.513989Z",
+    "updatedBy": "nguyen_huuvan@wohhup.com.vn",
+    "updatedDate": "2023-06-22T08: 46: 18.840519Z"
+  },
+  "subAppPqaFinding": [
+    {
+      "id": "d1dfe921-5a78-4f4b-8cf6-64049364f64b",
+      "pqaId": "fc80d77a-db6d-4ecd-8bf7-d629e9482809",
+      "name": "dummy name",
+      "severityPoint": 10,
+      "frequencyPoint": 5,
+      "points": 15,
+      "findingReport": "Finding reportb",
+      "findingImage": [
+        "image1.jpg",
+        "image2.jpg"
+      ],
+      "isDeleted": false,
+      "createdBy": "nguyen_huuvan@wohhup.com.vn",
+      "createdDate": "2023-06-21T13: 42: 14.691338Z",
+      "updatedBy": "nguyen_huuvan@wohhup.com.vn",
+      "updatedDate": "2023-06-22T08: 46: 18.840604Z"
+    }
+  ]
+}
