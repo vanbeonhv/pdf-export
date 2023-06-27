@@ -17,7 +17,9 @@ const generatePdf = async (pqaDetail) => {
     let testUrl = 'https://www.google.com/logos/doodles/2023/greece-national-elections-2023-6753651837110153-2x.png';
 
     try {
-      const response = await axios.get(testUrl, { responseType: 'arraybuffer' });
+      const response = await axios.get(testUrl, {
+        responseType: 'arraybuffer',
+      });
       if (!response) {
         console.log('fetch error: ' + response);
       }
@@ -220,7 +222,12 @@ const generatePdf = async (pqaDetail) => {
       lineColor: '#000',
       lineWidth: 0.2,
     },
-    headStyles: { fillColor: '#fff', valign: 'top', halign: 'center', minCellHeight: 10 },
+    headStyles: {
+      fillColor: '#fff',
+      valign: 'top',
+      halign: 'center',
+      minCellHeight: 10,
+    },
     columnStyles: {
       0: { halign: 'center' },
       1: { halign: 'left' },
@@ -290,7 +297,12 @@ const generatePdf = async (pqaDetail) => {
       lineColor: '#000',
       lineWidth: 0.2,
     },
-    headStyles: { fillColor: '#fff', valign: 'top', halign: 'center', minCellHeight: 10 },
+    headStyles: {
+      fillColor: '#fff',
+      valign: 'top',
+      halign: 'center',
+      minCellHeight: 10,
+    },
     columnStyles: {
       0: { halign: 'center' },
       1: { halign: 'left' },
@@ -353,7 +365,12 @@ const generatePdf = async (pqaDetail) => {
       lineColor: '#000',
       lineWidth: 0.2,
     },
-    headStyles: { fillColor: '#fff', valign: 'top', halign: 'center', minCellHeight: 10 },
+    headStyles: {
+      fillColor: '#fff',
+      valign: 'top',
+      halign: 'center',
+      minCellHeight: 10,
+    },
     columnStyles: {
       0: { halign: 'center' },
       1: { halign: 'left', minCellWidth: 46 },
@@ -453,8 +470,11 @@ const generatePdf = async (pqaDetail) => {
       console.log(error.message);
     }
   };
-
-  // const imageList = await getImage();
+  const imageList = [
+    [whLogo, whLogo, whLogo],
+    [whLogo, whLogo, whLogo],
+  ];
+  // const c = await getImage();
   const rowsDataTrade5 = [];
   const pointListTrade5 = [];
   subAppPqaFinding.forEach((findings, index) => {
@@ -488,7 +508,7 @@ const generatePdf = async (pqaDetail) => {
       0: { minCellWidth: 10, valign: 'middle', halign: 'center' },
       1: { cellPadding: { top: 1, right: 28.5, botton: 1, left: 1 } },
     },
-    alternateRowStyles: {
+    bodyStyles: {
       minCellHeight: 58,
     },
     didDrawCell: function (data) {
@@ -500,25 +520,28 @@ const generatePdf = async (pqaDetail) => {
 
   rowY += 58;
   let imageUrl = 'https://www.google.com/logos/doodles/2023/greece-national-elections-2023-6753651837110153-2x.png';
-  doc.addImage(whLogo, 'JPEG', 23.5, rowY - 38, 45, 36);
-  doc.addImage(whLogo, 'JPEG', 73.5, rowY - 38, 45, 36);
-  doc.addImage(whLogo, 'JPEG', 123.5, rowY - 38, 45, 36);
 
+  imageList.forEach((images, index) => {
+    doc.addImage(images[0], 'JPEG', 23.5, rowY - 38, 45, 36);
+    doc.addImage(images[1], 'JPEG', 73.5, rowY - 38, 45, 36);
+    doc.addImage(images[2], 'JPEG', 123.5, rowY - 38, 45, 36);
+  });
+
+  rowY = 40.6;
   pointListTrade5.forEach((score) => {
-    rowY = 36.6;
-    rowY += 4;
-    createTextItalic('Severity:', 150, rowY, {}, 12);
-    createText(score.severityPoint.toString(), 168, rowY, {}, false, 12);
+    createTextItalic('Severity:', 150, rowY, {}, 10);
+    createText(score.severityPoint.toString(), 170, rowY, {}, false, 10);
     rowY += 5;
-    createTextItalic('Frequency:', 150, rowY, {}, 12);
-    createText(score.frequencyPoint.toString(), 172.5, rowY, {}, false, 12);
+    createTextItalic('Frequency:', 150, rowY, {}, 10);
+    createText(score.frequencyPoint.toString(), 170.5, rowY, {}, false, 10);
     rowY += 5;
-    createTextItalic('Points:', 150, rowY, {}, 12);
-    createText(score.points.toString(), 168, rowY, {}, false, 12);
+    createTextItalic('Points:', 150, rowY, {}, 10);
+    createText(score.points.toString(), 170, rowY, {}, false, 10);
+    rowY += 48;
   });
 
   doc.save(`${id}.pdf`);
-  exec(`start ${id}.pdf`);
+  exec(`xdg-open ${id}.pdf`);
 };
 
 generatePdf(pqaDetail);

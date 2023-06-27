@@ -27,7 +27,7 @@ const pqaDetail = {
     createdBy: 'nguyen_huuvan@wohhup.com.vn',
     createdDate: '2023-06-21T13:41:19.621282Z',
     updatedBy: 'nguyen_huuvan@wohhup.com.vn',
-    updatedDate: '2023-06-22T08:46:18.840229Z',
+    updatedDate: '2023-06-22T08:46:18.840229Z'
   },
   subAppPqaCheckList2: {
     id: 'ad1182e5-2434-4315-a343-439d16a32806',
@@ -41,7 +41,7 @@ const pqaDetail = {
     createdBy: 'nguyen_huuvan@wohhup.com.vn',
     createdDate: '2023-06-21T13:42:11.133845Z',
     updatedBy: 'nguyen_huuvan@wohhup.com.vn',
-    updatedDate: '2023-06-22T08:46:18.84034Z',
+    updatedDate: '2023-06-22T08:46:18.84034Z'
   },
   subAppPqaObservation: {
     id: 'b322da7e-7dab-4126-902f-04d22cad330e',
@@ -54,7 +54,7 @@ const pqaDetail = {
     createdBy: 'nguyen_huuvan@wohhup.com.vn',
     createdDate: '2023-06-21T13:42:11.310243Z',
     updatedBy: 'nguyen_huuvan@wohhup.com.vn',
-    updatedDate: '2023-06-22T08:46:18.84043Z',
+    updatedDate: '2023-06-22T08:46:18.84043Z'
   },
   subAppPqaLastMonthFinding: {
     id: '32f32876-6075-4304-8bad-60f63b923c54',
@@ -65,13 +65,13 @@ const pqaDetail = {
       partial: 3,
       no: 1,
       na: 1,
-      total_findings: 12,
+      total_findings: 12
     },
     isDeleted: false,
     createdBy: 'nguyen_huuvan@wohhup.com.vn',
     createdDate: '2023-06-21T13:42:14.513989Z',
     updatedBy: 'nguyen_huuvan@wohhup.com.vn',
-    updatedDate: '2023-06-22T08:46:18.840519Z',
+    updatedDate: '2023-06-22T08:46:18.840519Z'
   },
   subAppPqaFinding: [
     {
@@ -85,15 +85,74 @@ const pqaDetail = {
         'T3, B2 & T4 L1 Unauthorized mix use of Skimcoat+ JG Adhesive+ Base plaster to do >10mm thick skimcoat in one go & Presence of PU foam, binding wire and foreign items in skimcoat areas - Recommend to increase daily checks, verify RFWI structural clearance prior to skimcoat works.',
       findingImage: [
         'https://wh-idd-test.s3.ap-southeast-1.amazonaws.com/prefab/subapp/pqa/Screenshot%202023-05-23%20080751.png?response-content-disposition=inline&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEPT%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaDmFwLXNvdXRoZWFzdC0xIkcwRQIhAPLL14YDpC00W35GUlqvTdhviPWhBo0RaqAMCvgTU0AyAiAajQSpF4VDiPlqFYGVNJkm4zbijHfPoAn9bg977reR%2BiqFAwhdEAIaDDk0NjQwOTYyNjUwOSIMazowaLYS%2FJBu5swzKuICHQ7mYRYL7jxjWdFn9HoDdsqSbMYtVyzdvlFVcCzlWX2OX9DZGXp5f1VO52QY141v%2BYzwoptyCaIXs8Vbw2WF78LEwSo1wk83ZzMgwPRzmmgowI%2B1zZtU1CFRaQns6sUgIftkoOGKveAIjZMyFwByWmXWdZngq5kJptVkoOppVnKd%2FhcU8IxFpTXeJ3b2Cruo2W0OUBWBBQcDTmX8noZ6HZpk5N31h8EZtVYKRWfMIUMFTiFPOBV%2BXwtmPaUcrfVG9ZzhfNB6qMI08mu%2FMLNv63asDdRvLqjWnYtJ7SDXhZ8uqcWZ4uq5pSn0S%2FnYVzpX%2FAzY1UWQ8GDb74ibhT3vLakIIkVmWg22HAGnlEQX7FVxozs0yvTyqoQKQygS5AnP0YL8WL%2BlxJsiSZNhOzFZUqkyY0i%2FsvQ4co2fDQI4ScH4vZ3HjMhSZfeJqS32%2FPQXpsDJeX0LMjJwPA%2FGXaVIhDAHMOKT66QGOrMCDBFoqasptxFRC3gXlMQU6tpTOLQnvNW7zyq6eOsLmdcmuBCwjoLZuqGj1Yax%2BZQrcFqbpTlJYUz7NFgRO4ZtEP5U9QIJFvlM6wiaWAD6vR9L%2FU%2F7HJSzQeUWKimDd9kIi4vKkVPwUV%2BLWvJTiZyGGHv%2BmAO31VSe8codOpJUNoy2QKOllpDlw5A5ndDCwlUe5KEuio1f7wdtWgJK9Har8D6cIyQaK0iduZp8M5FEF77HzfK6puakKkYYiuUOdnEbMNqrB8JnN3sLSSnC0GUz2uD5yEa%2BjVqPCR89Qr43O%2BPhXGLK5ni29YQCRJRbLGLrZIer1pIbYMW320zLQOTCk96EtrDypm1mrzyK299UUfAtC6ssGOgxRfyr2bgChxOy4Ia9p4Bdff2p6PkYJm6bfA89cA%3D%3D&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20230627T114639Z&X-Amz-SignedHeaders=host&X-Amz-Expires=299&X-Amz-Credential=ASIA5YWTI3OGVOGQIK5Q%2F20230627%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Signature=c42d713c07f9f40b45ba5ab8aab850fa75637d56e9ec5e127f9e5bbace7a5447',
-        'https://wh-idd-test.s3.ap-southeast-1.amazonaws.com/prefab/subapp/pqa/homepage.png?response-content-disposition=inline&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEPT%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaDmFwLXNvdXRoZWFzdC0xIkcwRQIhAPLL14YDpC00W35GUlqvTdhviPWhBo0RaqAMCvgTU0AyAiAajQSpF4VDiPlqFYGVNJkm4zbijHfPoAn9bg977reR%2BiqFAwhdEAIaDDk0NjQwOTYyNjUwOSIMazowaLYS%2FJBu5swzKuICHQ7mYRYL7jxjWdFn9HoDdsqSbMYtVyzdvlFVcCzlWX2OX9DZGXp5f1VO52QY141v%2BYzwoptyCaIXs8Vbw2WF78LEwSo1wk83ZzMgwPRzmmgowI%2B1zZtU1CFRaQns6sUgIftkoOGKveAIjZMyFwByWmXWdZngq5kJptVkoOppVnKd%2FhcU8IxFpTXeJ3b2Cruo2W0OUBWBBQcDTmX8noZ6HZpk5N31h8EZtVYKRWfMIUMFTiFPOBV%2BXwtmPaUcrfVG9ZzhfNB6qMI08mu%2FMLNv63asDdRvLqjWnYtJ7SDXhZ8uqcWZ4uq5pSn0S%2FnYVzpX%2FAzY1UWQ8GDb74ibhT3vLakIIkVmWg22HAGnlEQX7FVxozs0yvTyqoQKQygS5AnP0YL8WL%2BlxJsiSZNhOzFZUqkyY0i%2FsvQ4co2fDQI4ScH4vZ3HjMhSZfeJqS32%2FPQXpsDJeX0LMjJwPA%2FGXaVIhDAHMOKT66QGOrMCDBFoqasptxFRC3gXlMQU6tpTOLQnvNW7zyq6eOsLmdcmuBCwjoLZuqGj1Yax%2BZQrcFqbpTlJYUz7NFgRO4ZtEP5U9QIJFvlM6wiaWAD6vR9L%2FU%2F7HJSzQeUWKimDd9kIi4vKkVPwUV%2BLWvJTiZyGGHv%2BmAO31VSe8codOpJUNoy2QKOllpDlw5A5ndDCwlUe5KEuio1f7wdtWgJK9Har8D6cIyQaK0iduZp8M5FEF77HzfK6puakKkYYiuUOdnEbMNqrB8JnN3sLSSnC0GUz2uD5yEa%2BjVqPCR89Qr43O%2BPhXGLK5ni29YQCRJRbLGLrZIer1pIbYMW320zLQOTCk96EtrDypm1mrzyK299UUfAtC6ssGOgxRfyr2bgChxOy4Ia9p4Bdff2p6PkYJm6bfA89cA%3D%3D&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20230627T121834Z&X-Amz-SignedHeaders=host&X-Amz-Expires=300&X-Amz-Credential=ASIA5YWTI3OGVOGQIK5Q%2F20230627%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Signature=4b0332ff69acf1adc4bbc4ee019a5d8de88771e659c59d5868e4ee4b0ac9a064',
+        'https://wh-idd-test.s3.ap-southeast-1.amazonaws.com/prefab/subapp/pqa/homepage.png?response-content-disposition=inline&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEPT%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaDmFwLXNvdXRoZWFzdC0xIkcwRQIhAPLL14YDpC00W35GUlqvTdhviPWhBo0RaqAMCvgTU0AyAiAajQSpF4VDiPlqFYGVNJkm4zbijHfPoAn9bg977reR%2BiqFAwhdEAIaDDk0NjQwOTYyNjUwOSIMazowaLYS%2FJBu5swzKuICHQ7mYRYL7jxjWdFn9HoDdsqSbMYtVyzdvlFVcCzlWX2OX9DZGXp5f1VO52QY141v%2BYzwoptyCaIXs8Vbw2WF78LEwSo1wk83ZzMgwPRzmmgowI%2B1zZtU1CFRaQns6sUgIftkoOGKveAIjZMyFwByWmXWdZngq5kJptVkoOppVnKd%2FhcU8IxFpTXeJ3b2Cruo2W0OUBWBBQcDTmX8noZ6HZpk5N31h8EZtVYKRWfMIUMFTiFPOBV%2BXwtmPaUcrfVG9ZzhfNB6qMI08mu%2FMLNv63asDdRvLqjWnYtJ7SDXhZ8uqcWZ4uq5pSn0S%2FnYVzpX%2FAzY1UWQ8GDb74ibhT3vLakIIkVmWg22HAGnlEQX7FVxozs0yvTyqoQKQygS5AnP0YL8WL%2BlxJsiSZNhOzFZUqkyY0i%2FsvQ4co2fDQI4ScH4vZ3HjMhSZfeJqS32%2FPQXpsDJeX0LMjJwPA%2FGXaVIhDAHMOKT66QGOrMCDBFoqasptxFRC3gXlMQU6tpTOLQnvNW7zyq6eOsLmdcmuBCwjoLZuqGj1Yax%2BZQrcFqbpTlJYUz7NFgRO4ZtEP5U9QIJFvlM6wiaWAD6vR9L%2FU%2F7HJSzQeUWKimDd9kIi4vKkVPwUV%2BLWvJTiZyGGHv%2BmAO31VSe8codOpJUNoy2QKOllpDlw5A5ndDCwlUe5KEuio1f7wdtWgJK9Har8D6cIyQaK0iduZp8M5FEF77HzfK6puakKkYYiuUOdnEbMNqrB8JnN3sLSSnC0GUz2uD5yEa%2BjVqPCR89Qr43O%2BPhXGLK5ni29YQCRJRbLGLrZIer1pIbYMW320zLQOTCk96EtrDypm1mrzyK299UUfAtC6ssGOgxRfyr2bgChxOy4Ia9p4Bdff2p6PkYJm6bfA89cA%3D%3D&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20230627T121834Z&X-Amz-SignedHeaders=host&X-Amz-Expires=300&X-Amz-Credential=ASIA5YWTI3OGVOGQIK5Q%2F20230627%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Signature=4b0332ff69acf1adc4bbc4ee019a5d8de88771e659c59d5868e4ee4b0ac9a064'
       ],
       isDeleted: false,
       createdBy: 'nguyen_huuvan@wohhup.com.vn',
       createdDate: '2023-06-21T13:42:14.691338Z',
       updatedBy: 'nguyen_huuvan@wohhup.com.vn',
-      updatedDate: '2023-06-22T08:46:18.840604Z',
+      updatedDate: '2023-06-22T08:46:18.840604Z'
     },
-  ],
+    {
+      id: 'd1dfe921-5a78-4f4b-8cf6-64049364f64b',
+      pqaId: 'fc80d77a-db6d-4ecd-8bf7-d629e9482809',
+      name: 'dummy name',
+      severityPoint: 10,
+      frequencyPoint: 5,
+      points: 15,
+      findingReport:
+        'T3, B2 & T4 L1 Unauthorized mix use of Skimcoat+ JG Adhesive+ Base plaster to do >10mm thick skimcoat in one go & Presence of PU foam, binding wire and foreign items in skimcoat areas - Recommend to increase daily checks, verify RFWI structural clearance prior to skimcoat works.',
+      findingImage: [
+        'https://wh-idd-test.s3.ap-southeast-1.amazonaws.com/prefab/subapp/pqa/Screenshot%202023-05-23%20080751.png?response-content-disposition=inline&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEPT%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaDmFwLXNvdXRoZWFzdC0xIkcwRQIhAPLL14YDpC00W35GUlqvTdhviPWhBo0RaqAMCvgTU0AyAiAajQSpF4VDiPlqFYGVNJkm4zbijHfPoAn9bg977reR%2BiqFAwhdEAIaDDk0NjQwOTYyNjUwOSIMazowaLYS%2FJBu5swzKuICHQ7mYRYL7jxjWdFn9HoDdsqSbMYtVyzdvlFVcCzlWX2OX9DZGXp5f1VO52QY141v%2BYzwoptyCaIXs8Vbw2WF78LEwSo1wk83ZzMgwPRzmmgowI%2B1zZtU1CFRaQns6sUgIftkoOGKveAIjZMyFwByWmXWdZngq5kJptVkoOppVnKd%2FhcU8IxFpTXeJ3b2Cruo2W0OUBWBBQcDTmX8noZ6HZpk5N31h8EZtVYKRWfMIUMFTiFPOBV%2BXwtmPaUcrfVG9ZzhfNB6qMI08mu%2FMLNv63asDdRvLqjWnYtJ7SDXhZ8uqcWZ4uq5pSn0S%2FnYVzpX%2FAzY1UWQ8GDb74ibhT3vLakIIkVmWg22HAGnlEQX7FVxozs0yvTyqoQKQygS5AnP0YL8WL%2BlxJsiSZNhOzFZUqkyY0i%2FsvQ4co2fDQI4ScH4vZ3HjMhSZfeJqS32%2FPQXpsDJeX0LMjJwPA%2FGXaVIhDAHMOKT66QGOrMCDBFoqasptxFRC3gXlMQU6tpTOLQnvNW7zyq6eOsLmdcmuBCwjoLZuqGj1Yax%2BZQrcFqbpTlJYUz7NFgRO4ZtEP5U9QIJFvlM6wiaWAD6vR9L%2FU%2F7HJSzQeUWKimDd9kIi4vKkVPwUV%2BLWvJTiZyGGHv%2BmAO31VSe8codOpJUNoy2QKOllpDlw5A5ndDCwlUe5KEuio1f7wdtWgJK9Har8D6cIyQaK0iduZp8M5FEF77HzfK6puakKkYYiuUOdnEbMNqrB8JnN3sLSSnC0GUz2uD5yEa%2BjVqPCR89Qr43O%2BPhXGLK5ni29YQCRJRbLGLrZIer1pIbYMW320zLQOTCk96EtrDypm1mrzyK299UUfAtC6ssGOgxRfyr2bgChxOy4Ia9p4Bdff2p6PkYJm6bfA89cA%3D%3D&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20230627T114639Z&X-Amz-SignedHeaders=host&X-Amz-Expires=299&X-Amz-Credential=ASIA5YWTI3OGVOGQIK5Q%2F20230627%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Signature=c42d713c07f9f40b45ba5ab8aab850fa75637d56e9ec5e127f9e5bbace7a5447',
+        'https://wh-idd-test.s3.ap-southeast-1.amazonaws.com/prefab/subapp/pqa/homepage.png?response-content-disposition=inline&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEPT%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaDmFwLXNvdXRoZWFzdC0xIkcwRQIhAPLL14YDpC00W35GUlqvTdhviPWhBo0RaqAMCvgTU0AyAiAajQSpF4VDiPlqFYGVNJkm4zbijHfPoAn9bg977reR%2BiqFAwhdEAIaDDk0NjQwOTYyNjUwOSIMazowaLYS%2FJBu5swzKuICHQ7mYRYL7jxjWdFn9HoDdsqSbMYtVyzdvlFVcCzlWX2OX9DZGXp5f1VO52QY141v%2BYzwoptyCaIXs8Vbw2WF78LEwSo1wk83ZzMgwPRzmmgowI%2B1zZtU1CFRaQns6sUgIftkoOGKveAIjZMyFwByWmXWdZngq5kJptVkoOppVnKd%2FhcU8IxFpTXeJ3b2Cruo2W0OUBWBBQcDTmX8noZ6HZpk5N31h8EZtVYKRWfMIUMFTiFPOBV%2BXwtmPaUcrfVG9ZzhfNB6qMI08mu%2FMLNv63asDdRvLqjWnYtJ7SDXhZ8uqcWZ4uq5pSn0S%2FnYVzpX%2FAzY1UWQ8GDb74ibhT3vLakIIkVmWg22HAGnlEQX7FVxozs0yvTyqoQKQygS5AnP0YL8WL%2BlxJsiSZNhOzFZUqkyY0i%2FsvQ4co2fDQI4ScH4vZ3HjMhSZfeJqS32%2FPQXpsDJeX0LMjJwPA%2FGXaVIhDAHMOKT66QGOrMCDBFoqasptxFRC3gXlMQU6tpTOLQnvNW7zyq6eOsLmdcmuBCwjoLZuqGj1Yax%2BZQrcFqbpTlJYUz7NFgRO4ZtEP5U9QIJFvlM6wiaWAD6vR9L%2FU%2F7HJSzQeUWKimDd9kIi4vKkVPwUV%2BLWvJTiZyGGHv%2BmAO31VSe8codOpJUNoy2QKOllpDlw5A5ndDCwlUe5KEuio1f7wdtWgJK9Har8D6cIyQaK0iduZp8M5FEF77HzfK6puakKkYYiuUOdnEbMNqrB8JnN3sLSSnC0GUz2uD5yEa%2BjVqPCR89Qr43O%2BPhXGLK5ni29YQCRJRbLGLrZIer1pIbYMW320zLQOTCk96EtrDypm1mrzyK299UUfAtC6ssGOgxRfyr2bgChxOy4Ia9p4Bdff2p6PkYJm6bfA89cA%3D%3D&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20230627T121834Z&X-Amz-SignedHeaders=host&X-Amz-Expires=300&X-Amz-Credential=ASIA5YWTI3OGVOGQIK5Q%2F20230627%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Signature=4b0332ff69acf1adc4bbc4ee019a5d8de88771e659c59d5868e4ee4b0ac9a064'
+      ],
+      isDeleted: false,
+      createdBy: 'nguyen_huuvan@wohhup.com.vn',
+      createdDate: '2023-06-21T13:42:14.691338Z',
+      updatedBy: 'nguyen_huuvan@wohhup.com.vn',
+      updatedDate: '2023-06-22T08:46:18.840604Z'
+    },
+
+    {
+      id: 'd1dfe921-5a78-4f4b-8cf6-64049364f64b',
+      pqaId: 'fc80d77a-db6d-4ecd-8bf7-d629e9482809',
+      name: 'dummy name',
+      severityPoint: 10,
+      frequencyPoint: 5,
+      points: 15,
+      findingReport:
+        'T3, B2 & T4 L1 Unauthorized mix use of Skimcoat+ JG Adhesive+ Base plaster to do >10mm thick skimcoat in one go & Presence of PU foam, binding wire and foreign items in skimcoat areas - Recommend to increase daily checks, verify RFWI structural clearance prior to skimcoat works.',
+      findingImage: [
+        'https://wh-idd-test.s3.ap-southeast-1.amazonaws.com/prefab/subapp/pqa/Screenshot%202023-05-23%20080751.png?response-content-disposition=inline&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEPT%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaDmFwLXNvdXRoZWFzdC0xIkcwRQIhAPLL14YDpC00W35GUlqvTdhviPWhBo0RaqAMCvgTU0AyAiAajQSpF4VDiPlqFYGVNJkm4zbijHfPoAn9bg977reR%2BiqFAwhdEAIaDDk0NjQwOTYyNjUwOSIMazowaLYS%2FJBu5swzKuICHQ7mYRYL7jxjWdFn9HoDdsqSbMYtVyzdvlFVcCzlWX2OX9DZGXp5f1VO52QY141v%2BYzwoptyCaIXs8Vbw2WF78LEwSo1wk83ZzMgwPRzmmgowI%2B1zZtU1CFRaQns6sUgIftkoOGKveAIjZMyFwByWmXWdZngq5kJptVkoOppVnKd%2FhcU8IxFpTXeJ3b2Cruo2W0OUBWBBQcDTmX8noZ6HZpk5N31h8EZtVYKRWfMIUMFTiFPOBV%2BXwtmPaUcrfVG9ZzhfNB6qMI08mu%2FMLNv63asDdRvLqjWnYtJ7SDXhZ8uqcWZ4uq5pSn0S%2FnYVzpX%2FAzY1UWQ8GDb74ibhT3vLakIIkVmWg22HAGnlEQX7FVxozs0yvTyqoQKQygS5AnP0YL8WL%2BlxJsiSZNhOzFZUqkyY0i%2FsvQ4co2fDQI4ScH4vZ3HjMhSZfeJqS32%2FPQXpsDJeX0LMjJwPA%2FGXaVIhDAHMOKT66QGOrMCDBFoqasptxFRC3gXlMQU6tpTOLQnvNW7zyq6eOsLmdcmuBCwjoLZuqGj1Yax%2BZQrcFqbpTlJYUz7NFgRO4ZtEP5U9QIJFvlM6wiaWAD6vR9L%2FU%2F7HJSzQeUWKimDd9kIi4vKkVPwUV%2BLWvJTiZyGGHv%2BmAO31VSe8codOpJUNoy2QKOllpDlw5A5ndDCwlUe5KEuio1f7wdtWgJK9Har8D6cIyQaK0iduZp8M5FEF77HzfK6puakKkYYiuUOdnEbMNqrB8JnN3sLSSnC0GUz2uD5yEa%2BjVqPCR89Qr43O%2BPhXGLK5ni29YQCRJRbLGLrZIer1pIbYMW320zLQOTCk96EtrDypm1mrzyK299UUfAtC6ssGOgxRfyr2bgChxOy4Ia9p4Bdff2p6PkYJm6bfA89cA%3D%3D&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20230627T114639Z&X-Amz-SignedHeaders=host&X-Amz-Expires=299&X-Amz-Credential=ASIA5YWTI3OGVOGQIK5Q%2F20230627%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Signature=c42d713c07f9f40b45ba5ab8aab850fa75637d56e9ec5e127f9e5bbace7a5447',
+        'https://wh-idd-test.s3.ap-southeast-1.amazonaws.com/prefab/subapp/pqa/homepage.png?response-content-disposition=inline&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEPT%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaDmFwLXNvdXRoZWFzdC0xIkcwRQIhAPLL14YDpC00W35GUlqvTdhviPWhBo0RaqAMCvgTU0AyAiAajQSpF4VDiPlqFYGVNJkm4zbijHfPoAn9bg977reR%2BiqFAwhdEAIaDDk0NjQwOTYyNjUwOSIMazowaLYS%2FJBu5swzKuICHQ7mYRYL7jxjWdFn9HoDdsqSbMYtVyzdvlFVcCzlWX2OX9DZGXp5f1VO52QY141v%2BYzwoptyCaIXs8Vbw2WF78LEwSo1wk83ZzMgwPRzmmgowI%2B1zZtU1CFRaQns6sUgIftkoOGKveAIjZMyFwByWmXWdZngq5kJptVkoOppVnKd%2FhcU8IxFpTXeJ3b2Cruo2W0OUBWBBQcDTmX8noZ6HZpk5N31h8EZtVYKRWfMIUMFTiFPOBV%2BXwtmPaUcrfVG9ZzhfNB6qMI08mu%2FMLNv63asDdRvLqjWnYtJ7SDXhZ8uqcWZ4uq5pSn0S%2FnYVzpX%2FAzY1UWQ8GDb74ibhT3vLakIIkVmWg22HAGnlEQX7FVxozs0yvTyqoQKQygS5AnP0YL8WL%2BlxJsiSZNhOzFZUqkyY0i%2FsvQ4co2fDQI4ScH4vZ3HjMhSZfeJqS32%2FPQXpsDJeX0LMjJwPA%2FGXaVIhDAHMOKT66QGOrMCDBFoqasptxFRC3gXlMQU6tpTOLQnvNW7zyq6eOsLmdcmuBCwjoLZuqGj1Yax%2BZQrcFqbpTlJYUz7NFgRO4ZtEP5U9QIJFvlM6wiaWAD6vR9L%2FU%2F7HJSzQeUWKimDd9kIi4vKkVPwUV%2BLWvJTiZyGGHv%2BmAO31VSe8codOpJUNoy2QKOllpDlw5A5ndDCwlUe5KEuio1f7wdtWgJK9Har8D6cIyQaK0iduZp8M5FEF77HzfK6puakKkYYiuUOdnEbMNqrB8JnN3sLSSnC0GUz2uD5yEa%2BjVqPCR89Qr43O%2BPhXGLK5ni29YQCRJRbLGLrZIer1pIbYMW320zLQOTCk96EtrDypm1mrzyK299UUfAtC6ssGOgxRfyr2bgChxOy4Ia9p4Bdff2p6PkYJm6bfA89cA%3D%3D&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20230627T121834Z&X-Amz-SignedHeaders=host&X-Amz-Expires=300&X-Amz-Credential=ASIA5YWTI3OGVOGQIK5Q%2F20230627%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Signature=4b0332ff69acf1adc4bbc4ee019a5d8de88771e659c59d5868e4ee4b0ac9a064'
+      ],
+      isDeleted: false,
+      createdBy: 'nguyen_huuvan@wohhup.com.vn',
+      createdDate: '2023-06-21T13:42:14.691338Z',
+      updatedBy: 'nguyen_huuvan@wohhup.com.vn',
+      updatedDate: '2023-06-22T08:46:18.840604Z'
+    },
+
+    {
+      id: 'd1dfe921-5a78-4f4b-8cf6-64049364f64b',
+      pqaId: 'fc80d77a-db6d-4ecd-8bf7-d629e9482809',
+      name: 'dummy name',
+      severityPoint: 10,
+      frequencyPoint: 5,
+      points: 15,
+      findingReport:
+        'T3, B2 & T4 L1 Unauthorized mix use of Skimcoat+ JG Adhesive+ Base plaster to do >10mm thick skimcoat in one go & Presence of PU foam, binding wire and foreign items in skimcoat areas - Recommend to increase daily checks, verify RFWI structural clearance prior to skimcoat works.',
+      findingImage: [
+        'https://wh-idd-test.s3.ap-southeast-1.amazonaws.com/prefab/subapp/pqa/Screenshot%202023-05-23%20080751.png?response-content-disposition=inline&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEPT%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaDmFwLXNvdXRoZWFzdC0xIkcwRQIhAPLL14YDpC00W35GUlqvTdhviPWhBo0RaqAMCvgTU0AyAiAajQSpF4VDiPlqFYGVNJkm4zbijHfPoAn9bg977reR%2BiqFAwhdEAIaDDk0NjQwOTYyNjUwOSIMazowaLYS%2FJBu5swzKuICHQ7mYRYL7jxjWdFn9HoDdsqSbMYtVyzdvlFVcCzlWX2OX9DZGXp5f1VO52QY141v%2BYzwoptyCaIXs8Vbw2WF78LEwSo1wk83ZzMgwPRzmmgowI%2B1zZtU1CFRaQns6sUgIftkoOGKveAIjZMyFwByWmXWdZngq5kJptVkoOppVnKd%2FhcU8IxFpTXeJ3b2Cruo2W0OUBWBBQcDTmX8noZ6HZpk5N31h8EZtVYKRWfMIUMFTiFPOBV%2BXwtmPaUcrfVG9ZzhfNB6qMI08mu%2FMLNv63asDdRvLqjWnYtJ7SDXhZ8uqcWZ4uq5pSn0S%2FnYVzpX%2FAzY1UWQ8GDb74ibhT3vLakIIkVmWg22HAGnlEQX7FVxozs0yvTyqoQKQygS5AnP0YL8WL%2BlxJsiSZNhOzFZUqkyY0i%2FsvQ4co2fDQI4ScH4vZ3HjMhSZfeJqS32%2FPQXpsDJeX0LMjJwPA%2FGXaVIhDAHMOKT66QGOrMCDBFoqasptxFRC3gXlMQU6tpTOLQnvNW7zyq6eOsLmdcmuBCwjoLZuqGj1Yax%2BZQrcFqbpTlJYUz7NFgRO4ZtEP5U9QIJFvlM6wiaWAD6vR9L%2FU%2F7HJSzQeUWKimDd9kIi4vKkVPwUV%2BLWvJTiZyGGHv%2BmAO31VSe8codOpJUNoy2QKOllpDlw5A5ndDCwlUe5KEuio1f7wdtWgJK9Har8D6cIyQaK0iduZp8M5FEF77HzfK6puakKkYYiuUOdnEbMNqrB8JnN3sLSSnC0GUz2uD5yEa%2BjVqPCR89Qr43O%2BPhXGLK5ni29YQCRJRbLGLrZIer1pIbYMW320zLQOTCk96EtrDypm1mrzyK299UUfAtC6ssGOgxRfyr2bgChxOy4Ia9p4Bdff2p6PkYJm6bfA89cA%3D%3D&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20230627T114639Z&X-Amz-SignedHeaders=host&X-Amz-Expires=299&X-Amz-Credential=ASIA5YWTI3OGVOGQIK5Q%2F20230627%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Signature=c42d713c07f9f40b45ba5ab8aab850fa75637d56e9ec5e127f9e5bbace7a5447',
+        'https://wh-idd-test.s3.ap-southeast-1.amazonaws.com/prefab/subapp/pqa/homepage.png?response-content-disposition=inline&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEPT%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaDmFwLXNvdXRoZWFzdC0xIkcwRQIhAPLL14YDpC00W35GUlqvTdhviPWhBo0RaqAMCvgTU0AyAiAajQSpF4VDiPlqFYGVNJkm4zbijHfPoAn9bg977reR%2BiqFAwhdEAIaDDk0NjQwOTYyNjUwOSIMazowaLYS%2FJBu5swzKuICHQ7mYRYL7jxjWdFn9HoDdsqSbMYtVyzdvlFVcCzlWX2OX9DZGXp5f1VO52QY141v%2BYzwoptyCaIXs8Vbw2WF78LEwSo1wk83ZzMgwPRzmmgowI%2B1zZtU1CFRaQns6sUgIftkoOGKveAIjZMyFwByWmXWdZngq5kJptVkoOppVnKd%2FhcU8IxFpTXeJ3b2Cruo2W0OUBWBBQcDTmX8noZ6HZpk5N31h8EZtVYKRWfMIUMFTiFPOBV%2BXwtmPaUcrfVG9ZzhfNB6qMI08mu%2FMLNv63asDdRvLqjWnYtJ7SDXhZ8uqcWZ4uq5pSn0S%2FnYVzpX%2FAzY1UWQ8GDb74ibhT3vLakIIkVmWg22HAGnlEQX7FVxozs0yvTyqoQKQygS5AnP0YL8WL%2BlxJsiSZNhOzFZUqkyY0i%2FsvQ4co2fDQI4ScH4vZ3HjMhSZfeJqS32%2FPQXpsDJeX0LMjJwPA%2FGXaVIhDAHMOKT66QGOrMCDBFoqasptxFRC3gXlMQU6tpTOLQnvNW7zyq6eOsLmdcmuBCwjoLZuqGj1Yax%2BZQrcFqbpTlJYUz7NFgRO4ZtEP5U9QIJFvlM6wiaWAD6vR9L%2FU%2F7HJSzQeUWKimDd9kIi4vKkVPwUV%2BLWvJTiZyGGHv%2BmAO31VSe8codOpJUNoy2QKOllpDlw5A5ndDCwlUe5KEuio1f7wdtWgJK9Har8D6cIyQaK0iduZp8M5FEF77HzfK6puakKkYYiuUOdnEbMNqrB8JnN3sLSSnC0GUz2uD5yEa%2BjVqPCR89Qr43O%2BPhXGLK5ni29YQCRJRbLGLrZIer1pIbYMW320zLQOTCk96EtrDypm1mrzyK299UUfAtC6ssGOgxRfyr2bgChxOy4Ia9p4Bdff2p6PkYJm6bfA89cA%3D%3D&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20230627T121834Z&X-Amz-SignedHeaders=host&X-Amz-Expires=300&X-Amz-Credential=ASIA5YWTI3OGVOGQIK5Q%2F20230627%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Signature=4b0332ff69acf1adc4bbc4ee019a5d8de88771e659c59d5868e4ee4b0ac9a064'
+      ],
+      isDeleted: false,
+      createdBy: 'nguyen_huuvan@wohhup.com.vn',
+      createdDate: '2023-06-21T13:42:14.691338Z',
+      updatedBy: 'nguyen_huuvan@wohhup.com.vn',
+      updatedDate: '2023-06-22T08:46:18.840604Z'
+    }
+  ]
 };
 
 const fontData =
