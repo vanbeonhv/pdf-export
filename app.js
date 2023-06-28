@@ -9,26 +9,17 @@ const axios = require('axios');
 const { getSecondLineText } = require('./util/getSecondLineText');
 const { getFullProjectName } = require('./util/getFullProjectName');
 const { getConform } = require('./util/getConfrom');
-const { pqaDetail, fontData, whLogo } = require('./demoData');
+const { pqaDetail, whLogo } = require('./demoData');
 const { getClose } = require('./util/getClose');
 
 const generatePdf = async (pqaDetail) => {
-  const getBase64FromUrl = async (url) => {
-    let testUrl = 'https://www.google.com/logos/doodles/2023/greece-national-elections-2023-6753651837110153-2x.png';
-
-    try {
-      const response = await axios.get(testUrl, {
-        responseType: 'arraybuffer',
-      });
-      if (!response) {
-        console.log('fetch error: ' + response);
-      }
-      const base64 = Buffer.from(response.data, 'binary').toString('base64');
-      return base64;
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
+  async function getBase64(key) {
+    if (!key) return null;
+    const params = { Bucket: BUCKET_NAME, Key: `prefab/${key}` };
+    const data = await s3bucket.getObject(params).promise();
+    let buffer64 = Buffer.from(data.Body).toString('base64');
+    return 'data:image/png;base64,' + buffer64;
+  }
 
   const {
     id,
@@ -88,7 +79,6 @@ const generatePdf = async (pqaDetail) => {
   });
 
   //First page
-  doc.addFileToVFS('FiraSans.ttf', fontData);
   doc.addImage(whLogo, 'JPEG', 45, 55, 100, 30);
   createText('Project Quality Audit', 40, 105, {}, true, 32);
   createText('Project:', 40, 134, {}, false, 22);
@@ -470,78 +460,113 @@ const generatePdf = async (pqaDetail) => {
       console.log(error.message);
     }
   };
-  const imageList = [
-    [whLogo, whLogo, whLogo],
-    [whLogo, whLogo, whLogo],
-  ];
-  // const c = await getImage();
-  const rowsDataTrade5 = [];
-  const pointListTrade5 = [];
+
+  const rowsDataTrade5InOnePage = [[]];
+  const pointListTrade5InOnePage = [[]];
+  const imageList = [[]];
+  // const imageList = [
+  //   [
+  //     [whLogo, whLogo, whLogo],
+  //     [whLogo, whLogo],
+  //     [whLogo, whLogo, whLogo],
+  //     [whLogo, whLogo],
+  //   ],
+  //   [
+  //     [whLogo, whLogo],
+  //     [whLogo, whLogo],
+  //     [whLogo, whLogo],
+  //     [whLogo, whLogo],
+  //   ],
+  //   [[whLogo, whLogo]],
+  // ];
+
+  let pageNumber = 0;
   subAppPqaFinding.forEach((findings, index) => {
-    rowsDataTrade5.push([(index + 1).toString(), findings.findingReport]);
-    pointListTrade5.push({
+    if (index > 0 && index % 4 === 0) {
+      //Divide to group 4 findings in one page
+      pageNumber++;
+      rowsDataTrade5InOnePage.push([]);
+      pointListTrade5InOnePage.push([]);
+      imageList.push([]);
+    }
+
+    rowsDataTrade5InOnePage[pageNumber].push([(index + 1).toString(), findings.findingReport]);
+    pointListTrade5InOnePage[pageNumber].push({
       severityPoint: findings.severityPoint,
       frequencyPoint: findings.frequencyPoint,
       points: findings.points,
     });
+    //convert list Image to base64
+    findings.findingImage.forEach((image, index) => {
+      findings.findingImage[index] = 3;
+    });
+
+    imageList[pageNumber].push(findings.findingImage);
   });
 
-  doc.autoTable({
-    head: [
-      [
-        { content: 'S/N', colSpan: 1 },
-        { content: 'Findings', colSpan: 1 },
+  const createTrade5Page = (rowsDataTrade5, pointListTrade5, imageListDetail, index) => {
+    doc.autoTable({
+      head: [
+        [
+          { content: 'S/N', colSpan: 1 },
+          { content: 'Findings', colSpan: 1 },
+        ],
       ],
-    ],
-    body: rowsDataTrade5,
-    startY: rowY,
-    margin: { left: xStart },
-    theme: 'grid',
-    styles: {
-      fontStyle: 'normal',
-      textColor: '#000',
-      lineColor: '#000',
-      lineWidth: 0.2,
-    },
-    headStyles: { fillColor: '#fff', valign: 'middle', halign: 'left' },
-    columnStyles: {
-      0: { minCellWidth: 10, valign: 'middle', halign: 'center' },
-      1: { cellPadding: { top: 1, right: 28.5, botton: 1, left: 1 } },
-    },
-    bodyStyles: {
-      minCellHeight: 58,
-    },
-    didDrawCell: function (data) {
-      console.log('test');
-    },
+      body: rowsDataTrade5,
+      startY: rowY,
+      margin: { left: xStart },
+      theme: 'grid',
+      styles: {
+        fontStyle: 'normal',
+        textColor: '#000',
+        lineColor: '#000',
+        lineWidth: 0.2,
+      },
+      headStyles: { fillColor: '#fff', valign: 'middle', halign: 'left' },
+      columnStyles: {
+        0: { minCellWidth: 10, valign: 'middle', halign: 'center' },
+        1: { minCellWidth: 154, cellPadding: { top: 1, right: 28.5, botton: 1, left: 1 } },
+      },
+      bodyStyles: {
+        minCellHeight: 56,
+      },
+      didDrawCell: function (data) {
+        console.log('test');
+      },
+    });
+
+    const insertImage = (index, rowY) => {
+      imageListDetail[index][0] && doc.addImage(imageListDetail[index][0], 'JPEG', 23.5, rowY - 37, 45, 35);
+      imageListDetail[index][1] && doc.addImage(imageListDetail[index][1], 'JPEG', 73.5, rowY - 37, 45, 35);
+      imageListDetail[index][2] && doc.addImage(imageListDetail[index][2], 'JPEG', 123.5, rowY - 37, 45, 35);
+    };
+    rowY = 36.6;
+    pointListTrade5.forEach((score, index) => {
+      doc.rect(148.9, rowY, 27.5, 16);
+      rowY += 4;
+      createTextItalic('Severity:', 150, rowY, {}, 10);
+      createText(score.severityPoint.toString(), 170, rowY, {}, false, 10);
+      rowY += 5;
+      createTextItalic('Frequency:', 150, rowY, {}, 10);
+      createText(score.frequencyPoint.toString(), 170.5, rowY, {}, false, 10);
+      rowY += 5;
+      createTextItalic('Points:', 150, rowY, {}, 10);
+      createText(score.points.toString(), 170, rowY, {}, false, 10);
+      rowY += 42; //98.6
+      insertImage(index, rowY);
+    });
+  };
+
+  rowsDataTrade5InOnePage.forEach((rowData, index) => {
+    const pointListTrade5 = pointListTrade5InOnePage[index];
+    const imageListDetail = imageList[index];
+
+    createTrade5Page(rowData, pointListTrade5, imageListDetail, index);
+    if (index < rowsDataTrade5InOnePage.length - 1) {
+      addNewPage();
+    }
   });
-  rowY += 7.6;
-  doc.rect(148.9, rowY, 27.5, 16);
-
-  rowY += 58;
-  let imageUrl = 'https://www.google.com/logos/doodles/2023/greece-national-elections-2023-6753651837110153-2x.png';
-
-  imageList.forEach((images, index) => {
-    doc.addImage(images[0], 'JPEG', 23.5, rowY - 38, 45, 36);
-    doc.addImage(images[1], 'JPEG', 73.5, rowY - 38, 45, 36);
-    doc.addImage(images[2], 'JPEG', 123.5, rowY - 38, 45, 36);
-  });
-
-  rowY = 40.6;
-  pointListTrade5.forEach((score) => {
-    createTextItalic('Severity:', 150, rowY, {}, 10);
-    createText(score.severityPoint.toString(), 170, rowY, {}, false, 10);
-    rowY += 5;
-    createTextItalic('Frequency:', 150, rowY, {}, 10);
-    createText(score.frequencyPoint.toString(), 170.5, rowY, {}, false, 10);
-    rowY += 5;
-    createTextItalic('Points:', 150, rowY, {}, 10);
-    createText(score.points.toString(), 170, rowY, {}, false, 10);
-    rowY += 48;
-  });
-
   doc.save(`${id}.pdf`);
-  exec(`xdg-open ${id}.pdf`);
+  exec(`start ${id}.pdf`);
 };
-
 generatePdf(pqaDetail);
