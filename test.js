@@ -7,7 +7,7 @@ const axios = require('axios');
 
 const { getSecondLineText } = require('./util/getSecondLineText');
 const { getFullProjectName } = require('./util/getFullProjectName');
-const { getConform } = require('./util/getConfrom');
+const { getConform } = require('./util/getConform');
 const { whLogo } = require('./demoData');
 const { getClose } = require('./util/getClose');
 
@@ -460,6 +460,23 @@ exports.handler = async (event) => {
     const pointListTrade5InOnePage = [[]];
     const imageList = [[]];
 
+    let pageNumberForImage = 0;
+    async function processImages() {
+      for (let i = 0; i < subAppPqaFinding.length; i++) {
+        if (i > 0 && i % 4 === 0) {
+          pageNumberForImage++;
+          imageList.push([]);
+        }
+        const findingImages = subAppPqaFinding[i].findingImage;
+        const base64Images = await Promise.all(findingImages.map(async (image) => await getBase64(image)));
+        findingImages.splice(0, findingImages.length, ...base64Images);
+        imageList[pageNumberForImage].push(findingImages);
+        console.log(findingImages);
+      }
+    }
+
+    await processImages();
+
     // const imageList = [
     //   [
     //     [whLogo, whLogo, whLogo],
@@ -483,7 +500,6 @@ exports.handler = async (event) => {
         pageNumber++;
         rowsDataTrade5InOnePage.push([]);
         pointListTrade5InOnePage.push([]);
-        imageList.push([]);
       }
 
       rowsDataTrade5InOnePage[pageNumber].push([(index + 1).toString(), findings.findingReport]);
@@ -492,12 +508,6 @@ exports.handler = async (event) => {
         frequencyPoint: findings.frequencyPoint,
         points: findings.points,
       });
-      //convert list Image to base64
-      findings.findingImage.forEach(async (image, index) => {
-        findings.findingImage[index] = await getBase64(image);
-      });
-      imageList[pageNumber].push(findings.findingImage);
-      console.log(findings.findingImage);
     });
 
     const createTrade5Page = (rowsDataTrade5, pointListTrade5, imageListDetail, index) => {
@@ -529,11 +539,6 @@ exports.handler = async (event) => {
         didDrawCell: function (data) {},
       });
 
-      const insertImage = (index, rowY) => {
-        imageListDetail[index][0] && doc.addImage(imageListDetail[index][0], 'JPEG', 23.5, rowY - 37, 45, 35);
-        imageListDetail[index][1] && doc.addImage(imageListDetail[index][1], 'JPEG', 73.5, rowY - 37, 45, 35);
-        imageListDetail[index][2] && doc.addImage(imageListDetail[index][2], 'JPEG', 123.5, rowY - 37, 45, 35);
-      };
       rowY = 36.6;
       pointListTrade5.forEach((score, index) => {
         doc.setLineWidth(0.3);
@@ -549,7 +554,10 @@ exports.handler = async (event) => {
         createTextItalic('Points:', 150, rowY, {}, 10);
         createText(score.points.toString(), 170, rowY, {}, false, 10);
         rowY += 42; //98.6
-        insertImage(index, rowY);
+
+        imageListDetail[index][0] && doc.addImage(imageListDetail[index][0], 'JPEG', 23.5, rowY - 37, 45, 35);
+        imageListDetail[index][1] && doc.addImage(imageListDetail[index][1], 'JPEG', 73.5, rowY - 37, 45, 35);
+        imageListDetail[index][2] && doc.addImage(imageListDetail[index][2], 'JPEG', 123.5, rowY - 37, 45, 35);
       });
     };
 

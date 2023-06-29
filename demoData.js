@@ -116,7 +116,11 @@ const pqaDetail = {
       points: 15,
       findingReport:
         'T3, B2 & T4 L1 Unauthorized mix use of Skimcoat+ JG Adhesive+ Base plaster to do >10mm thick skimcoat in one go & Presence of PU foam, binding wire and foreign items in skimcoat areas - Recommend to increase daily checks, verify RFWI structural clearance prior to skimcoat works.',
-      findingImage: ['subapp/pqa/Screenshot 2023-05-23 080751.png', 'subapp/pqa/Screenshot 2023-05-23 080751.png'],
+      findingImage: [
+        'subapp/pqa/Screenshot 2023-05-23 080751.png',
+        'subapp/pqa/Screenshot 2023-05-23 080751.png',
+        'subapp/pqa/Screenshot 2023-05-23 080751.png',
+      ],
       isDeleted: false,
       createdBy: 'nguyen_huuvan@wohhup.com.vn',
       createdDate: '2023-06-21T13:42:14.691338Z',

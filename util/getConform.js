@@ -4,8 +4,10 @@ const convertScoreToConform = (score) => {
       return 'Yes';
     case 0:
       return 'No';
-    default:
+    case null:
       return 'NA';
+    default:
+      return 'Null';
   }
 };
 

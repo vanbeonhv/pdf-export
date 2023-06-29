@@ -8,7 +8,7 @@ const axios = require('axios');
 
 const { getSecondLineText } = require('./util/getSecondLineText');
 const { getFullProjectName } = require('./util/getFullProjectName');
-const { getConform } = require('./util/getConfrom');
+const { getConform } = require('./util/getConform');
 const { pqaDetail, whLogo } = require('./demoData');
 const { getClose } = require('./util/getClose');
 
@@ -481,6 +481,7 @@ const generatePdf = async (pqaDetail) => {
   // ];
 
   let pageNumber = 0;
+  console.log(pageNumber);
   subAppPqaFinding.forEach((findings, index) => {
     if (index > 0 && index % 4 === 0) {
       //Divide to group 4 findings in one page
