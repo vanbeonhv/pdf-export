@@ -11,8 +11,11 @@ const { getFullProjectName } = require('./util/getFullProjectName');
 const { getConform } = require('./util/getConform');
 const { pqaDetail, whLogo } = require('./demoData');
 const { getClose } = require('./util/getClose');
+const data = require('./test2.js');
 
-const generatePdf = async (pqaDetail) => {
+const generatePdf = async (data) => {
+  const pqaDetail = { ...data };
+
   async function getBase64(key) {
     if (!key) return null;
     const params = { Bucket: BUCKET_NAME, Key: `prefab/${key}` };
@@ -22,7 +25,7 @@ const generatePdf = async (pqaDetail) => {
   }
 
   const {
-    id,
+    Id,
     projectCode,
     createdDate,
     trade1Score,
@@ -463,22 +466,22 @@ const generatePdf = async (pqaDetail) => {
 
   const rowsDataTrade5InOnePage = [[]];
   const pointListTrade5InOnePage = [[]];
-  const imageList = [[]];
-  // const imageList = [
-  //   [
-  //     [whLogo, whLogo, whLogo],
-  //     [whLogo, whLogo],
-  //     [whLogo, whLogo, whLogo],
-  //     [whLogo, whLogo],
-  //   ],
-  //   [
-  //     [whLogo, whLogo],
-  //     [whLogo, whLogo],
-  //     [whLogo, whLogo],
-  //     [whLogo, whLogo],
-  //   ],
-  //   [[whLogo, whLogo]],
-  // ];
+  // const imageList = [[]];
+  const imageList = [
+    [
+      [whLogo, whLogo, whLogo],
+      [whLogo, whLogo],
+      [whLogo, whLogo, whLogo],
+      [whLogo, whLogo],
+    ],
+    [
+      [whLogo, whLogo],
+      [whLogo, whLogo],
+      [whLogo, whLogo],
+      [whLogo, whLogo],
+    ],
+    [[whLogo, whLogo]],
+  ];
 
   let pageNumber = 0;
   console.log(pageNumber);
@@ -488,7 +491,7 @@ const generatePdf = async (pqaDetail) => {
       pageNumber++;
       rowsDataTrade5InOnePage.push([]);
       pointListTrade5InOnePage.push([]);
-      imageList.push([]);
+      // imageList.push([]);
     }
 
     rowsDataTrade5InOnePage[pageNumber].push([(index + 1).toString(), findings.findingReport]);
@@ -498,11 +501,11 @@ const generatePdf = async (pqaDetail) => {
       points: findings.points,
     });
     //convert list Image to base64
-    findings.findingImage.forEach((image, index) => {
-      findings.findingImage[index] = 3;
-    });
+    // findings.findingImage.forEach((image, index) => {
+    //   findings.findingImage[index] = 3;
+    // });
 
-    imageList[pageNumber].push(findings.findingImage);
+    // imageList[pageNumber].push(findings.findingImage);
   });
 
   const createTrade5Page = (rowsDataTrade5, pointListTrade5, imageListDetail, index) => {
@@ -567,7 +570,7 @@ const generatePdf = async (pqaDetail) => {
       addNewPage();
     }
   });
-  doc.save(`${id}.pdf`);
-  exec(`start ${id}.pdf`);
+  doc.save(`${Id}.pdf`);
+  exec(`start ${Id}.pdf`);
 };
-generatePdf(pqaDetail);
+generatePdf(data);

@@ -1,15 +1,15 @@
-const getFullProjectName = (projectCode) => {
-  switch (projectCode) {
-    case 'pdd':
-      return `Punggol Digital District (${projectCode.toUpperCase()})`;
-    case 'kcde':
-      return ` Kim Chuan Depot Extension (${projectCode.toUpperCase()})`;
-    case 'tgw':
-      return `Tengah garden walk (${projectCode.toUpperCase()})`;
-    case 'iwb':
-      return `Irwell Bank (${projectCode.toUpperCase()})`;
+const getFullProjectName = (ProjectCode) => {
+  switch (ProjectCode) {
+    case 'PDD':
+      return `Punggol Digital District (${ProjectCode.toUpperCase()})`;
+    case 'KCDE':
+      return ` Kim Chuan Depot Extension (${ProjectCode.toUpperCase()})`;
+    case 'TGW':
+      return `Tengah garden walk (${ProjectCode.toUpperCase()})`;
+    case 'IWB':
+      return `Irwell Bank (${ProjectCode.toUpperCase()})`;
     default:
-      return `  (${projectCode.toUpperCase()})`;
+      return `  (${ProjectCode.toUpperCase()})`;
   }
 };
 

@@ -26,22 +26,22 @@ exports.handler = async (event) => {
   try {
     const pqaDetail = { ...event };
     const {
-      projectCode,
-      createdDate,
-      trade1Score,
-      trade2Score,
-      observationScore,
-      lastMonthPqaScore,
-      findingScore,
-      totalScore,
-      subAppPqaCheckList1,
-      subAppPqaCheckList2,
-      subAppPqaObservation,
-      subAppPqaLastMonthFinding,
-      subAppPqaFinding,
+      ProjectCode,
+      CreatedDate,
+      Trade1Score,
+      Trade2Score,
+      ObservationScore,
+      LastMonthPqaScore,
+      FindingScore,
+      TotalScore,
+      SubAppPqaCheckList1,
+      SubAppPqaCheckList2,
+      SubAppPqaObservation,
+      SubAppPqaLastMonthFinding,
+      SubAppPqaFinding,
     } = pqaDetail;
 
-    const projectName = getFullProjectName(projectCode);
+    const projectName = getFullProjectName(ProjectCode);
 
     const xStart = 12;
     let rowY = 5;
@@ -71,7 +71,7 @@ exports.handler = async (event) => {
       createText('Project:', xStart, 25, {}, false, 12);
       createText(projectName, 27, 25, {}, false, 12);
       createText('Date:', 140, 25, {}, false, 12);
-      createText(dayjs(createdDate).format('DD-MMM-YYYY'), 150, 25, {}, false, 12);
+      createText(dayjs(CreatedDate).format('DD-MMM-YYYY'), 150, 25, {}, false, 12);
       rowY += 12;
     };
 
@@ -90,16 +90,16 @@ exports.handler = async (event) => {
     createText('Project:', 40, 134, {}, false, 22);
     createText(projectName, 68, 134, {}, false, 18);
     createText('Audit Date:', 40, 154, {}, false, 22);
-    createText(dayjs(createdDate).format('DD-MMM-YYYY'), 80, 154, {}, false, 18);
+    createText(dayjs(CreatedDate).format('DD-MMM-YYYY'), 80, 154, {}, false, 18);
     createText('Audited by:', 40, 174, {}, false, 22);
-    createText(pqaDetail.name, 80, 174, {}, false, 18);
+    createText(pqaDetail.Name, 80, 174, {}, false, 18);
 
     //table
     const headers = [
       ['Trade 1', 'Trade 2', 'Observation', 'PQA', 'Findings', '       '],
       ['', '', '', ' ', '', ''],
     ];
-    const pointList = [[trade1Score, trade2Score, observationScore, lastMonthPqaScore, findingScore, '']];
+    const pointList = [[Trade1Score, Trade2Score, ObservationScore, LastMonthPqaScore, FindingScore, '']];
     doc.autoTable({
       head: headers,
       body: pointList,
@@ -170,7 +170,7 @@ exports.handler = async (event) => {
         });
         doc.setFont(undefined, 'bold');
         doc.setFontSize(18);
-        doc.text(totalScore.toString(), 164, 226.5, {
+        doc.text(TotalScore.toString(), 164, 226.5, {
           align: 'center',
           baseline: 'middle',
         });
@@ -195,11 +195,11 @@ exports.handler = async (event) => {
       ['1.7', 'Critical check implemented', '', '', ''],
       ['1.8', 'Common check implemented', '', '', ''],
     ];
-    const conformList1 = getConform(subAppPqaCheckList1.scoreList);
-    subAppPqaCheckList1.scoreList.forEach((score, index) => {
+    const conformList1 = getConform(SubAppPqaCheckList1.ScoreList);
+    SubAppPqaCheckList1.ScoreList.forEach((score, index) => {
       rowsDataTrade1[index][2] = conformList1[index];
-      rowsDataTrade1[index][3] = subAppPqaCheckList1.noteList[index];
-      rowsDataTrade1[index][4] = subAppPqaCheckList1.scoreList[index];
+      rowsDataTrade1[index][3] = SubAppPqaCheckList1.NoteList[index];
+      rowsDataTrade1[index][4] = SubAppPqaCheckList1.ScoreList[index];
     });
 
     let lastColumnWidth1;
@@ -242,9 +242,9 @@ exports.handler = async (event) => {
 
     createText('1', xStart + 4, rowY - 1.5, {}, true, 12);
     createText('Trade:', secondColumnStartPoint1 + 1, rowY - 1.5, {}, true, 12);
-    createText(subAppPqaCheckList1.trade, secondColumnStartPoint1 + 15, rowY - 1.5, {}, false, 12);
+    createText(SubAppPqaCheckList1.Trade, secondColumnStartPoint1 + 15, rowY - 1.5, {}, false, 12);
     createText('Location:', thirdColumnStartPoint1 + 1, rowY - 1.5, {}, true, 12);
-    createText(subAppPqaCheckList1.location, thirdColumnStartPoint1 + 22, rowY - 1.5, {}, false, 12);
+    createText(SubAppPqaCheckList1.Location, thirdColumnStartPoint1 + 22, rowY - 1.5, {}, false, 12);
 
     rowY += 8.8;
     createText('(10%)', 159.5, rowY, {}, false, 10);
@@ -255,7 +255,7 @@ exports.handler = async (event) => {
     doc.rect(176.4 - lastColumnWidth1, rowY, lastColumnWidth1, 7);
     rowY += 4.8;
     createText('Score', 176.4 - lastColumnWidth1 - 13.3, rowY, {}, false, 12);
-    createText(trade1Score.toString(), 176.4 - lastColumnWidth1 / 2 - 3, rowY, {}, true, 12);
+    createText(Trade1Score.toString(), 176.4 - lastColumnWidth1 / 2 - 3, rowY, {}, true, 12);
     rowY += 5;
     //#endregion trade 1 table
 
@@ -273,11 +273,11 @@ exports.handler = async (event) => {
       ['2.7', 'Critical check implemented', '', '', ''],
       ['2.8', 'Common check implemented', '', '', ''],
     ];
-    const conformList2 = getConform(subAppPqaCheckList2.scoreList);
-    subAppPqaCheckList2.scoreList.forEach((score, index) => {
+    const conformList2 = getConform(SubAppPqaCheckList2.ScoreList);
+    SubAppPqaCheckList2.ScoreList.forEach((score, index) => {
       rowsDataTrade2[index][2] = conformList2[index];
-      rowsDataTrade2[index][3] = subAppPqaCheckList2.noteList[index];
-      rowsDataTrade2[index][4] = subAppPqaCheckList2.scoreList[index];
+      rowsDataTrade2[index][3] = SubAppPqaCheckList2.NoteList[index];
+      rowsDataTrade2[index][4] = SubAppPqaCheckList2.ScoreList[index];
     });
 
     let lastColumnWidth2;
@@ -316,9 +316,9 @@ exports.handler = async (event) => {
     });
     createText('2', xStart + 4, rowY - 1.5, {}, true, 12);
     createText('Trade:', secondColumnStartPoint2 + 1, rowY - 1.5, {}, true, 12);
-    createText(subAppPqaCheckList2.trade, secondColumnStartPoint1 + 15, rowY - 1.5, {}, false, 12);
+    createText(SubAppPqaCheckList2.Trade, secondColumnStartPoint1 + 15, rowY - 1.5, {}, false, 12);
     createText('Location:', thirdColumnStartPoint2 + 1, rowY - 1.5, {}, true, 12);
-    createText(subAppPqaCheckList2.location, thirdColumnStartPoint2 + 22, rowY - 1.5, {}, false, 12);
+    createText(SubAppPqaCheckList2.Location, thirdColumnStartPoint2 + 22, rowY - 1.5, {}, false, 12);
 
     rowY += 8.8;
     createText('(10%)', 159.5, rowY, {}, false, 10);
@@ -329,7 +329,7 @@ exports.handler = async (event) => {
     doc.rect(176.4 - lastColumnWidth2, rowY, lastColumnWidth2, 7);
     rowY += 4.8;
     createText('Score', 176.4 - lastColumnWidth2 - 13.3, rowY, {}, false, 12);
-    createText(trade2Score.toString(), 176.4 - lastColumnWidth2 / 2 - 3, rowY, {}, true, 12);
+    createText(Trade2Score.toString(), 176.4 - lastColumnWidth2 / 2 - 3, rowY, {}, true, 12);
     rowY += 5;
 
     //#endregion trade 2 table
@@ -343,12 +343,12 @@ exports.handler = async (event) => {
       ['3.2', 'Observation', '', '', ''],
       ['3.3', 'Observation', '', '', ''],
     ];
-    const closeList = getClose(subAppPqaObservation.scoreList);
-    subAppPqaObservation.scoreList.forEach((score, index) => {
-      rowsDataObservation[index][1] = subAppPqaObservation.observation[index];
+    const closeList = getClose(SubAppPqaObservation.ScoreList);
+    SubAppPqaObservation.ScoreList.forEach((score, index) => {
+      rowsDataObservation[index][1] = SubAppPqaObservation.Observation[index];
       rowsDataObservation[index][2] = closeList[index];
-      rowsDataObservation[index][3] = subAppPqaObservation.remarkList[index];
-      rowsDataObservation[index][4] = subAppPqaObservation.scoreList[index];
+      rowsDataObservation[index][3] = SubAppPqaObservation.RemarkList[index];
+      rowsDataObservation[index][4] = SubAppPqaObservation.ScoreList[index];
     });
 
     let secondColumnStartPoint3;
@@ -398,12 +398,12 @@ exports.handler = async (event) => {
     rowY += 4.8;
 
     createText('Score', 176.4 - lastColumnWidth3 - 13.3, rowY, {}, false, 12);
-    createText(observationScore.toString(), 176.4 - lastColumnWidth3 / 2 - 3, rowY, {}, true, 12);
+    createText(ObservationScore.toString(), 176.4 - lastColumnWidth3 / 2 - 3, rowY, {}, true, 12);
     rowY += 5;
     //#endregion trade 3 table
 
     //#region trade 4 table
-    const { yes, partial, no, na, total_findings } = subAppPqaLastMonthFinding.scoreList;
+    const { yes, partial, no, na, total_findings } = SubAppPqaLastMonthFinding.ScoreList;
     doc.rect(xStart, rowY, 164.4, 10);
     doc.line(154.4, rowY, 154.4, rowY + 25);
     rowY += 6;
@@ -432,7 +432,7 @@ exports.handler = async (event) => {
     createText('NA', xStart + 128, rowY, {}, false, 12); //+15
     createText(':', xStart + 134, rowY, {}, false, 12);
     createText(no.toString(), xStart + 138, rowY, {}, false, 12); //+4
-    createText(lastMonthPqaScore.toString(), xStart + 150, rowY, {}, true, 12); //+12
+    createText(LastMonthPqaScore.toString(), xStart + 150, rowY, {}, true, 12); //+12
     //#endregion trade 4 table
 
     //#region trade 5 table
@@ -447,7 +447,7 @@ exports.handler = async (event) => {
     createText('Weightage', 157, rowY - 2, {}, false, 10);
     createText('(50%)', 160, rowY + 2, {}, false, 10);
     rowY += 10;
-    createText(findingScore.toString(), 162, rowY, {}, true, 12);
+    createText(FindingScore.toString(), 162, rowY, {}, true, 12);
     createText('Score', 140, rowY, {}, false, 12);
 
     //#endregion trade 5 table
@@ -462,12 +462,12 @@ exports.handler = async (event) => {
 
     let pageNumberForImage = 0;
     async function processImages() {
-      for (let i = 0; i < subAppPqaFinding.length; i++) {
+      for (let i = 0; i < SubAppPqaFinding.length; i++) {
         if (i > 0 && i % 4 === 0) {
           pageNumberForImage++;
           imageList.push([]);
         }
-        const findingImages = subAppPqaFinding[i].findingImage;
+        const findingImages = SubAppPqaFinding[i].FindingImage;
         const base64Images = await Promise.all(findingImages.map(async (image) => await getBase64(image)));
         findingImages.splice(0, findingImages.length, ...base64Images);
         imageList[pageNumberForImage].push(findingImages);
@@ -494,7 +494,7 @@ exports.handler = async (event) => {
     // ];
 
     let pageNumber = 0;
-    subAppPqaFinding.forEach((findings, index) => {
+    SubAppPqaFinding.forEach((findings, index) => {
       if (index > 0 && index % 4 === 0) {
         //Divide to group 4 findings in one page
         pageNumber++;
@@ -502,11 +502,11 @@ exports.handler = async (event) => {
         pointListTrade5InOnePage.push([]);
       }
 
-      rowsDataTrade5InOnePage[pageNumber].push([(index + 1).toString(), findings.findingReport]);
+      rowsDataTrade5InOnePage[pageNumber].push([(index + 1).toString(), findings.FindingReport]);
       pointListTrade5InOnePage[pageNumber].push({
-        severityPoint: findings.severityPoint,
-        frequencyPoint: findings.frequencyPoint,
-        points: findings.points,
+        SeverityPoint: findings.SeverityPoint,
+        FrequencyPoint: findings.FrequencyPoint,
+        Points: findings.Points,
       });
     });
 
@@ -546,13 +546,13 @@ exports.handler = async (event) => {
         doc.rect(148.9, rowY, 27.5, 16);
         rowY += 4;
         createTextItalic('Severity:', 150, rowY, {}, 10);
-        createText(score.severityPoint.toString(), 170, rowY, {}, false, 10);
+        createText(score.SeverityPoint.toString(), 170, rowY, {}, false, 10);
         rowY += 5;
         createTextItalic('Frequency:', 150, rowY, {}, 10);
-        createText(score.frequencyPoint.toString(), 170.5, rowY, {}, false, 10);
+        createText(score.FrequencyPoint.toString(), 170.5, rowY, {}, false, 10);
         rowY += 5;
         createTextItalic('Points:', 150, rowY, {}, 10);
-        createText(score.points.toString(), 170, rowY, {}, false, 10);
+        createText(score.Points.toString(), 170, rowY, {}, false, 10);
         rowY += 42; //98.6
 
         imageListDetail[index][0] && doc.addImage(imageListDetail[index][0], 'JPEG', 23.5, rowY - 37, 45, 35);
@@ -584,7 +584,7 @@ exports.handler = async (event) => {
 
     const arrayBuffer = doc.output('arraybuffer');
     let bf = Buffer.from(arrayBuffer);
-    const key = `pdf-form/${event?.id}.pdf`;
+    const key = `pdf-form/${event?.Id}.pdf`;
     await uploadObjectToS3Bucket(key, bf);
     return key;
   } catch (err) {
