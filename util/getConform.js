@@ -4,7 +4,7 @@ const convertScoreToConform = (score) => {
       return 'Yes';
     case 0:
       return 'No';
-    case null:
+    case 99:
       return 'NA';
     default:
       return 'Null';
@@ -22,5 +22,5 @@ const getConform = (scoreList) => {
 };
 
 module.exports = {
-  getConform,
+  getConform
 };
