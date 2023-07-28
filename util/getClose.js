@@ -7,7 +7,7 @@ const convertScoreToClose = (score) => {
     case 0:
       return 'No';
     case 99:
-      return 'NA';
+      return '-';
     default:
       return '';
   }
