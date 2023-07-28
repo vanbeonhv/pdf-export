@@ -2,9 +2,9 @@ const convertScoreToClose = (score) => {
   switch (score) {
     case 5:
       return 'Yes';
-    case 2.5:
-      return 'No';
     case 0:
+      return 'No';
+    case 99:
       return 'NA';
     default:
       return '';
@@ -13,14 +13,14 @@ const convertScoreToClose = (score) => {
 
 let conform = '';
 const getClose = (scoreList) => {
-  const conformList = [];
+  const closeList = [];
   scoreList.forEach((score) => {
     conform = convertScoreToClose(score);
-    conformList.push(conform);
+    closeList.push(conform);
   });
-  return conformList;
+  return closeList;
 };
 
 module.exports = {
-  getClose,
+  getClose
 };

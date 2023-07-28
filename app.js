@@ -9,9 +9,10 @@ const axios = require('axios');
 const { getSecondLineText } = require('./util/getSecondLineText');
 const { getFullProjectName } = require('./util/getFullProjectName');
 const { getConform } = require('./util/getConform');
-const { pqaDetail, whLogo } = require('./demoData');
+const { whLogo } = require('./demoData');
 const { getClose } = require('./util/getClose');
-const data = require('./test3.js');
+const { getWeightage } = require('./util/getWeightage');
+const data = require('./test2.js');
 
 const generatePdf = async (data) => {
   const pqaDetail = { ...data };
@@ -27,11 +28,12 @@ const generatePdf = async (data) => {
   const {
     Id,
     ProjectCode,
-    CreatedDate,
+    FormDate,
     Trade1Score,
     Trade2Score,
     ObservationScore,
     LastMonthPqaScore,
+    RFWIRecordsScore,
     FindingScore,
     TotalScore,
     SubAppPqaCheckList1,
@@ -84,14 +86,7 @@ const generatePdf = async (data) => {
     createText('Project:', xStart, 25, {}, false, 12);
     createText(projectName, 27, 25, {}, false, 12);
     createText('Date:', 140, 25, {}, false, 12);
-    createText(
-      dayjs(CreatedDate).format('DD-MMM-YYYY'),
-      150,
-      25,
-      {},
-      false,
-      12
-    );
+    createText(dayjs(FormDate).format('DD-MMM-YYYY'), 150, 25, {}, false, 12);
     rowY += 12;
   };
 
@@ -100,7 +95,6 @@ const generatePdf = async (data) => {
     unit: 'mm',
     format: [190.5, 275.2]
   });
-  const testValid = dayjs(CreatedDate).format('DD-MMM-YYYY');
 
   //First page
   doc.addImage(whLogo, 'JPEG', 45, 55, 100, 30);
@@ -108,14 +102,14 @@ const generatePdf = async (data) => {
   createText('Project:', 40, 134, {}, false, 22);
   createText(projectName, 68, 134, {}, false, 18);
   createText('Audit Date:', 40, 154, {}, false, 22);
-  createText(dayjs(CreatedDate).format('DD-MMM-YYYY'), 80, 154, {}, false, 18);
+  createText(dayjs(FormDate).format('DD-MMM-YYYY'), 80, 154, {}, false, 18);
   createText('Audited by:', 40, 174, {}, false, 22);
   createText(pqaDetail.Name, 80, 174, {}, false, 18);
 
   //table
   const headers = [
-    ['Trade 1', 'Trade 2', 'Observation', 'PQA', 'Findings', '       '],
-    ['', '', '', ' ', '', '']
+    ['Trade 1', 'Trade 2', 'Observation', 'PQA', 'RFWI', 'Finding', '       '],
+    ['', '', '', ' ', '', '', '']
   ];
   const pointList = [
     [
@@ -123,8 +117,9 @@ const generatePdf = async (data) => {
       Trade2Score,
       ObservationScore,
       LastMonthPqaScore,
+      RFWIRecordsScore,
       FindingScore,
-      ''
+      TotalScore
     ]
   ];
   doc.autoTable({
@@ -138,16 +133,17 @@ const generatePdf = async (data) => {
     headStyles: {
       fontSize: 12,
       fontStyle: 'normal',
-      cellPadding: { top: 2, right: 5, bottom: 0, left: 5 },
+      cellPadding: { top: 2, right: 3, bottom: 0, left: 3 },
       minCellHeight: 9
     },
     bodyStyles: {
-      cellPadding: { top: 5, right: 5, bottom: 0, left: 5 },
-      fontSize: 18
+      cellPadding: { top: 5, right: 3, bottom: 0, left: 3 },
+      fontSize: 16
     },
     columnStyles: {
       3: { minCellWidth: 23 },
-      5: { minCellWidth: 23 }
+      4: { minCellWidth: 23 },
+      6: { fontStyle: 'bold' }
     },
     didDrawPage: function (data) {
       const columnList = data.table.columns;
@@ -169,7 +165,7 @@ const generatePdf = async (data) => {
         const textX = startX + columnList[columnIndex].width / 2;
         const textY = startY + 10;
 
-        if (columnIndex === 5) {
+        if (columnIndex === 6) {
           doc.setFont(undefined, 'bold');
           doc.text('Overall', textX, startY + 4, {
             align: 'center',
@@ -189,7 +185,13 @@ const generatePdf = async (data) => {
           baseline: 'middle'
         });
         if (columnIndex === 2 || columnIndex === 3) {
-          doc.text('(15%)', textX, textY + 5, {
+          doc.text(`(${getWeightage(2)}%)`, textX, textY + 5, {
+            align: 'center',
+            baseline: 'middle'
+          });
+        }
+        if (columnIndex === 4) {
+          doc.text(`(${getWeightage(4)}%)`, textX, textY + 5, {
             align: 'center',
             baseline: 'middle'
           });
@@ -205,12 +207,13 @@ const generatePdf = async (data) => {
           13
         );
       });
-      doc.setFont(undefined, 'bold');
-      doc.setFontSize(18);
-      doc.text(TotalScore.toString(), 164, 226.5, {
-        align: 'center',
-        baseline: 'middle'
-      });
+      //cmt
+      // doc.setFont(undefined, 'bold');
+      // doc.setFontSize(18);
+      // doc.text(TotalScore.toString(), 164, 226.5, {
+      //   align: 'center',
+      //   baseline: 'middle'
+      // });
     }
   });
 
@@ -312,7 +315,7 @@ const generatePdf = async (data) => {
   );
 
   rowY += 8.8;
-  createText('(10%)', 159.5, rowY, {}, false, 10);
+  createText(`(${getWeightage(1)}%)`, 159.5, rowY, {}, false, 10);
 
   rowY += 61.9;
   doc.rect(176.4 - lastColumnWidth1, rowY, lastColumnWidth1, 7);
@@ -417,7 +420,7 @@ const generatePdf = async (data) => {
   );
 
   rowY += 8.8;
-  createText('(10%)', 159.5, rowY, {}, false, 10);
+  createText(`(${getWeightage(2)}%)`, 159.5, rowY, {}, false, 10);
 
   rowY += 61.9;
   doc.rect(176.4 - lastColumnWidth2, rowY, lastColumnWidth2, 7);
@@ -449,6 +452,9 @@ const generatePdf = async (data) => {
     rowsDataObservation[index][1] = SubAppPqaObservation.Observation[index];
     rowsDataObservation[index][2] = closeList[index];
     rowsDataObservation[index][3] = SubAppPqaObservation.RemarkList[index];
+    if (SubAppPqaObservation.ScoreList[index] === 99) {
+      SubAppPqaObservation.ScoreList[index] = '-';
+    }
     rowsDataObservation[index][4] = SubAppPqaObservation.ScoreList[index];
   });
 
@@ -504,7 +510,7 @@ const generatePdf = async (data) => {
   );
 
   rowY += 8.8;
-  createText('(15%)', 159.5, rowY, {}, false, 10);
+  createText(`(${getWeightage(3)}%)`, 159.5, rowY, {}, false, 10);
 
   rowY += 24;
   doc.rect(176.4 - lastColumnWidth3, rowY, lastColumnWidth3, 7);
@@ -525,7 +531,7 @@ const generatePdf = async (data) => {
   //Third page
   addNewPage();
   //#region Trade 4 table
-  const { yes, partial, no, na, total_findings } =
+  const { yes, partial, no, na, totalFindings } =
     SubAppPqaLastMonthFinding.ScoreList;
   doc.rect(xStart, rowY, 164.4, 10);
   doc.line(154.4, rowY, 154.4, rowY + 25);
@@ -540,7 +546,7 @@ const generatePdf = async (data) => {
     10
   );
   createText('Weightage', 157, rowY - 2, {}, false, 10);
-  createText('(15%)', 160, rowY + 2, {}, false, 10);
+  createText(`(${getWeightage(4)}%)`, 160, rowY + 2, {}, false, 10);
   rowY += 4;
   doc.rect(xStart, rowY, 10, 15);
   doc.rect(xStart + 10, rowY, 154.4, 15);
@@ -549,7 +555,7 @@ const generatePdf = async (data) => {
   createText('Total', xStart + 12, rowY - 2.5, {}, false, 12);
   createText('Findings', xStart + 12, rowY + 2.5, {}, false, 12);
   createText(':', xStart + 30, rowY, {}, false, 12);
-  createText(total_findings.toString(), xStart + 34, rowY, {}, false, 12);
+  createText(totalFindings.toString(), xStart + 34, rowY, {}, false, 12);
   createText('Yes', xStart + 50, rowY, {}, false, 12);
   createText(':', xStart + 58, rowY, {}, false, 12);
   createText(yes.toString(), xStart + 61, rowY, {}, false, 12);
@@ -561,7 +567,7 @@ const generatePdf = async (data) => {
   createText(no.toString(), xStart + 116, rowY, {}, false, 12); //+4
   createText('NA', xStart + 128, rowY, {}, false, 12); //+15
   createText(':', xStart + 134, rowY, {}, false, 12);
-  createText(no.toString(), xStart + 138, rowY, {}, false, 12); //+4
+  createText(na.toString(), xStart + 138, rowY, {}, false, 12); //+4
   createText(LastMonthPqaScore.toString(), xStart + 150, rowY, {}, true, 12); //+12
   //#endregion Trade 4 table
 
@@ -572,9 +578,9 @@ const generatePdf = async (data) => {
   doc.rect(154.4, rowY + 10, 22, 8);
 
   rowY += 6;
-  createText('5', xStart + 4, rowY, {}, true, 12);
+  createText('7', xStart + 4, rowY, {}, true, 12);
   createText(
-    'Site findings - detailed report (next page) ',
+    'Site findings - detailed report ',
     secondColumnStartPoint3 + 1,
     rowY,
     {},
@@ -582,7 +588,7 @@ const generatePdf = async (data) => {
     10
   );
   createText('Weightage', 157, rowY - 2, {}, false, 10);
-  createText('(50%)', 160, rowY + 2, {}, false, 10);
+  createText(`(${getWeightage(7)}%)`, 160, rowY + 2, {}, false, 10);
   rowY += 10;
   createText(FindingScore.toString(), 162, rowY, {}, true, 12);
   createText('Score', 140, rowY, {}, false, 12);
@@ -630,8 +636,8 @@ const generatePdf = async (data) => {
 
   let pageNumber = 0;
   SubAppPqaFinding.forEach((findings, index) => {
-    if (index === 3 || (index > 4 && (index + 1) % 4) === 0) {
-      //Divide to group 3 in first page
+    if (index === 2 || (index > 4 && (index + 1) % 4) === 0) {
+      //Divide to group 2 in first page
       //Divide to group 4 findings in one page from secord page
       pageNumber++;
       rowsDataTrade5InOnePage.push([]);
@@ -648,12 +654,6 @@ const generatePdf = async (data) => {
       frequencyPoint: findings.FrequencyPoint,
       points: findings.Points
     });
-    //convert list Image to base64
-    // findings.findingImage.forEach((image, index) => {
-    //   findings.findingImage[index] = 3;
-    // });
-
-    // imageList[pageNumber].push(findings.findingImage);
   });
 
   const createTrade5Page = (
@@ -691,7 +691,7 @@ const generatePdf = async (data) => {
         minCellHeight: 56
       },
       didDrawCell: function (data) {
-        console.log('test');
+        //dummy
       }
     });
 

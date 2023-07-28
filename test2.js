@@ -1,143 +1,170 @@
 
 const data = 
 {
-  "Id": "8e6251a4-49f6-4552-8b1c-73302519d6aa",
-  "Name": "dummy name",
-  "ProjectCode": "IWB",
-  "Trade1Score": 9.5,
-  "Trade2Score": 8.2,
-  "ObservationScore": 7.8,
-  "LastMonthPqaScore": 8.9,
-  "FindingScore": 9.2,
-  "TotalScore": 8.7,
-  "Status": 1,
-  "Remark": "Some remark",
-  "PdfUrl": null,
+  "Id": "e7b808df-22c9-4083-be39-99b5b2ea97e3",
+  "Name": "Nguyen Huu Van",
+  "ProjectCode": "TGW",
+  "FormDate": "2023-07-26T11:12:33.433Z",
+  "Trade1Score": 6.25,
+  "Trade2Score": 6.25,
+  "ObservationScore": 3.33,
+  "LastMonthPqaScore": 2.5,
+  "RFWIRecordsScore": 10.0,
+  "FindingScore": 44.44,
+  "TotalScore": 67.15,
+  "Status": 99,
+  "Remark": "",
+  "PdfUrl": "prefab/subapp/pqa/pdf-form/e7b808df-22c9-4083-be39-99b5b2ea97e3.pdf",
   "IsDeleted": false,
   "CreatedBy": "nguyen_huuvan@wohhup.com.vn",
-  "CreatedDate": "2023-06-23T08:39:34.494858Z",
+  "CreatedDate": "2023-07-26T11:20:52.040613Z",
   "UpdatedBy": "nguyen_huuvan@wohhup.com.vn",
-  "UpdatedDate": "2023-06-29T06:35:59.132485Z",
+  "UpdatedDate": "2023-07-27T03:08:40.517425Z",
   "SubAppPqaCheckList1": {
-    "Id": "9b3b0a8d-ee3c-4a0a-af49-615f12332e6a",
-    "PqaId": "8e6251a4-49f6-4552-8b1c-73302519d6aa",
-    "Name": "dummy name",
-    "Trade": "Trade B",
-    "Location": "Location A",
+    "Id": "140c1164-f31d-4e0b-9192-eab005906cb8",
+    "PqaId": "e7b808df-22c9-4083-be39-99b5b2ea97e3",
+    "Name": "Nguyen Huu Van",
+    "Trade": "PVC",
+    "Location": "Office",
     "ScoreList": [
+      0,
+      0,
+      99,
       10,
-      20,
-      30
+      10,
+      10,
+      10,
+      10
     ],
     "NoteList": [
-      "Note 1",
-      "Note 2"
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
     ],
     "IsDeleted": false,
     "CreatedBy": "nguyen_huuvan@wohhup.com.vn",
-    "CreatedDate": "2023-06-23T08:39:34.861251Z",
+    "CreatedDate": "2023-07-26T11:20:52.0408Z",
     "UpdatedBy": "nguyen_huuvan@wohhup.com.vn",
-    "UpdatedDate": "2023-06-23T08:55:32.520658Z"
+    "UpdatedDate": "2023-07-27T03:08:40.517425Z"
   },
   "SubAppPqaCheckList2": {
-    "Id": "e4e0c2bf-d359-45e8-bb6a-d3f2b9035366",
-    "PqaId": "8e6251a4-49f6-4552-8b1c-73302519d6aa",
-    "Name": "dummy name",
-    "Trade": "Trade B",
-    "Location": "Location C",
+    "Id": "968977b3-3df2-46df-a09e-5adadd4a2b86",
+    "PqaId": "e7b808df-22c9-4083-be39-99b5b2ea97e3",
+    "Name": "Nguyen Huu Van",
+    "Trade": "kitchen Cabinet",
+    "Location": "E",
     "ScoreList": [
+      99,
+      0,
+      99,
       10,
-      20,
-      30
+      10,
+      10,
+      10,
+      10
     ],
     "NoteList": [
-      "Note 1",
-      "Note 2"
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
     ],
     "IsDeleted": false,
     "CreatedBy": "nguyen_huuvan@wohhup.com.vn",
-    "CreatedDate": "2023-06-23T08:39:35.181951Z",
+    "CreatedDate": "2023-07-26T11:20:52.040959Z",
     "UpdatedBy": "nguyen_huuvan@wohhup.com.vn",
-    "UpdatedDate": "2023-06-23T08:55:32.52076Z"
+    "UpdatedDate": "2023-07-27T03:08:40.517444Z"
   },
   "SubAppPqaObservation": {
-    "Id": "4639a5d1-5167-4345-a870-3e01ad29c9e9",
-    "Name": "dummy name",
-    "PqaId": "8e6251a4-49f6-4552-8b1c-73302519d6aa",
+    "Id": "bca35da7-394f-47a6-bdb3-220ae1a29250",
+    "Name": "Nguyen Huu Van",
+    "PqaId": "e7b808df-22c9-4083-be39-99b5b2ea97e3",
     "Observation": [
-      "Observation 1111111",
-      "Observation 222222222"
+      "Obs 1",
+      "Obs 2",
+      "Obs 3"
     ],
     "ScoreList": [
-      10.0,
-      20.0,
-      30.0
+      5.0,
+      0.0,
+      99
     ],
     "RemarkList": [
-      "Remark 1",
-      "Remark 2"
+      "",
+      "",
+      ""
     ],
     "IsDeleted": false,
     "CreatedBy": "nguyen_huuvan@wohhup.com.vn",
-    "CreatedDate": "2023-06-23T08:39:35.493271Z",
+    "CreatedDate": "2023-07-26T11:20:52.041112Z",
     "UpdatedBy": "nguyen_huuvan@wohhup.com.vn",
-    "UpdatedDate": "2023-06-23T08:55:32.520848Z"
+    "UpdatedDate": "2023-07-27T03:08:40.517449Z"
   },
   "SubAppPqaLastMonthFinding": {
-    "Id": "dbe5ac43-34d3-4b97-8379-007667d88ed9",
-    "PqaId": "8e6251a4-49f6-4552-8b1c-73302519d6aa",
-    "Name": "dummy name",
+    "Id": "2fa38314-95d3-40da-8475-3ce89646ae4f",
+    "PqaId": "e7b808df-22c9-4083-be39-99b5b2ea97e3",
+    "Name": "Nguyen Huu Van",
     "ScoreList": {
-      "yes": 6,
-      "partial": 3,
-      "no": 1,
-      "na": 1,
-      "total_findings": 11
+      "yes": 1,
+      "partial": 2,
+      "no": 3,
+      "na": 2,
+      "totalFindings": 8
     },
     "IsDeleted": false,
     "CreatedBy": "nguyen_huuvan@wohhup.com.vn",
-    "CreatedDate": "2023-06-23T08:39:35.813842Z",
+    "CreatedDate": "2023-07-26T11:20:52.04125Z",
     "UpdatedBy": "nguyen_huuvan@wohhup.com.vn",
-    "UpdatedDate": "2023-06-23T08:55:32.520931Z"
+    "UpdatedDate": "2023-07-27T07:23:08.049892Z"
   },
+  "SubAppPqaRFWIRecords": null,
+  "SubAppPqaSafetyEvaluation": null,
   "SubAppPqaFinding": [
     {
-      "Id": "bf8bf24e-2460-4e01-8159-75b3a216456e",
-      "PqaId": "8e6251a4-49f6-4552-8b1c-73302519d6aa",
-      "Name": "dummy name",
-      "SeverityPoint": 10,
-      "FrequencyPoint": 5,
-      "Points": 15,
-      "FindingReport": "Finding 1",
+      "Id": "1a55f9e1-07ac-4b66-a676-89c6252f9fee",
+      "PqaId": "e7b808df-22c9-4083-be39-99b5b2ea97e3",
+      "Name": "Nguyen Huu Van",
+      "SeverityPoint": 1,
+      "FrequencyPoint": 2,
+      "Points": 40,
+      "FindingReport": "Tesstt 444",
       "FindingImage": [
-        "subapp/pqa/Screenshot 2023-05-23 080751.png",
-        "subapp/pqa/Screenshot 2023-05-23 080751.png"
+        "prefab/subapp/pqa/pexels-andy-vu-3244513.jpg"
       ],
       "IsDeleted": false,
       "CreatedBy": "nguyen_huuvan@wohhup.com.vn",
-      "CreatedDate": "2023-06-23T08:40:25.182751Z",
+      "CreatedDate": "2023-07-26T11:20:52.041815Z",
       "UpdatedBy": "nguyen_huuvan@wohhup.com.vn",
-      "UpdatedDate": "2023-06-23T08:55:32.521005Z"
+      "UpdatedDate": "2023-07-27T03:08:40.517453Z"
     },
     {
-      "Id": "488c79c9-fa90-4dd3-9f7f-ca9ee1323f5a",
-      "PqaId": "8e6251a4-49f6-4552-8b1c-73302519d6aa",
-      "Name": "dummy name",
-      "SeverityPoint": 10,
-      "FrequencyPoint": 20,
-      "Points": 30,
-      "FindingReport": "2222 Finding 2",
+      "Id": "d810ca8a-8f39-4a66-877d-12885f91472c",
+      "PqaId": "e7b808df-22c9-4083-be39-99b5b2ea97e3",
+      "Name": "Nguyen Huu Van",
+      "SeverityPoint": 2,
+      "FrequencyPoint": 1,
+      "Points": 40,
+      "FindingReport": "Test 22222",
       "FindingImage": [
-        "subapp/pqa/Screenshot 2023-05-23 080751.png",
-        "subapp/pqa/Screenshot 2023-05-23 080751.png"
+        "prefab/subapp/pqa/siim-lukka-X-Far-t1woI-unsplash.jpg"
       ],
       "IsDeleted": false,
       "CreatedBy": "nguyen_huuvan@wohhup.com.vn",
-      "CreatedDate": "2023-06-23T08:40:42.387809Z",
+      "CreatedDate": "2023-07-26T11:20:52.041683Z",
       "UpdatedBy": "nguyen_huuvan@wohhup.com.vn",
-      "UpdatedDate": "2023-06-23T08:55:32.932997Z"
+      "UpdatedDate": "2023-07-27T03:08:40.706114Z"
     }
-  ]
+  ],
+    "Token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhYjEzZTM5MC1kYWExLTQzODUtOTdjNi02ZGFlYzI1ZTVjMTkiLCJpc0FkbWluIjpmYWxzZSwiZW1haWwiOiJuZ3V5ZW5faHV1dmFuQHdvaGh1cC5jb20udm4iLCJjb25maXJtZWQiOmZhbHNlLCJuYW1lIjoiTmd1eWVuIEh1dSBWYW4iLCJzaG9ydE5hbWUiOm51bGwsImlhdCI6MTY5MDM2NTUzMCwiZXhwIjoxNjkwNDUxOTMwfQ.WMEqaqIcKw0xPnY8olREX5-No8ffawvqCgF21AkBZK8"
 }
 
 module.exports = data;

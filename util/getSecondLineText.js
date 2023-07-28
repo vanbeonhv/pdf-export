@@ -3,8 +3,9 @@ const Header = {
   TRADE_2: 1,
   OBSERVATION: 2,
   PQA: 3,
-  FINDING: 4,
-  OVERALL: 5,
+  RFWI: 4,
+  FINDING: 5,
+  OVERALL: 6
 };
 
 const getSecondLineText = (columnIndex) => {
@@ -21,6 +22,9 @@ const getSecondLineText = (columnIndex) => {
     case Header.PQA:
       return 'Follow-up';
 
+    case Header.RFWI:
+      return 'Records';
+
     case Header.FINDING:
       return '(50%)';
 
@@ -33,5 +37,5 @@ const getSecondLineText = (columnIndex) => {
 };
 
 module.exports = {
-  getSecondLineText,
+  getSecondLineText
 };

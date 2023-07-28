@@ -3,13 +3,13 @@ require('jspdf-autotable');
 const fs = require('fs');
 const dayjs = require('dayjs');
 const AWS = require('aws-sdk');
-const axios = require('axios');
 
 const { getSecondLineText } = require('./util/getSecondLineText');
 const { getFullProjectName } = require('./util/getFullProjectName');
 const { getConform } = require('./util/getConform');
 const { whLogo } = require('./demoData');
 const { getClose } = require('./util/getClose');
+const { getWeightage } = require('./util/getWeightage');
 
 const s3bucket = new AWS.S3();
 const BUCKET_NAME = 'wh-idd-test';
@@ -26,22 +26,24 @@ exports.handler = async (event) => {
   try {
     const pqaDetail = { ...event };
     const {
-      ProjectCode,
-      CreatedDate,
+      ProjectId,
+      FormDate,
       Trade1Score,
       Trade2Score,
       ObservationScore,
       LastMonthPqaScore,
+      RFWIRecordsScore,
       FindingScore,
       TotalScore,
       SubAppPqaCheckList1,
       SubAppPqaCheckList2,
       SubAppPqaObservation,
       SubAppPqaLastMonthFinding,
-      SubAppPqaFinding
+      SubAppPqaFinding,
+      Token
     } = pqaDetail;
 
-    const projectName = getFullProjectName(ProjectCode);
+    const projectName = await getFullProjectName(ProjectId, Token);
 
     const xStart = 12;
     let rowY = 5;
@@ -75,8 +77,6 @@ exports.handler = async (event) => {
       doc?.text(text, x, y, options);
     };
 
-    const checkAddPage = (y) => y >= 275;
-
     const addNewPage = () => {
       rowY = 5;
       doc.addPage();
@@ -86,14 +86,7 @@ exports.handler = async (event) => {
       createText('Project:', xStart, 25, {}, false, 12);
       createText(projectName, 27, 25, {}, false, 12);
       createText('Date:', 140, 25, {}, false, 12);
-      createText(
-        dayjs(CreatedDate).format('DD-MMM-YYYY'),
-        150,
-        25,
-        {},
-        false,
-        12
-      );
+      createText(dayjs(FormDate).format('DD-MMM-YYYY'), 150, 25, {}, false, 12);
       rowY += 12;
     };
 
@@ -112,21 +105,22 @@ exports.handler = async (event) => {
     createText('Project:', 40, 134, {}, false, 22);
     createText(projectName, 68, 134, {}, false, 18);
     createText('Audit Date:', 40, 154, {}, false, 22);
-    createText(
-      dayjs(CreatedDate).format('DD-MMM-YYYY'),
-      80,
-      154,
-      {},
-      false,
-      18
-    );
+    createText(dayjs(FormDate).format('DD-MMM-YYYY'), 80, 154, {}, false, 18);
     createText('Audited by:', 40, 174, {}, false, 22);
     createText(pqaDetail.Name, 80, 174, {}, false, 18);
 
     //table
     const headers = [
-      ['Trade 1', 'Trade 2', 'Observation', 'PQA', 'Findings', '       '],
-      ['', '', '', ' ', '', '']
+      [
+        'Trade 1',
+        'Trade 2',
+        'Observation',
+        'PQA',
+        'Findings',
+        'RFWI Records',
+        '       '
+      ],
+      ['', '', '', ' ', '', '', '           ']
     ];
     const pointList = [
       [
@@ -134,8 +128,9 @@ exports.handler = async (event) => {
         Trade2Score,
         ObservationScore,
         LastMonthPqaScore,
+        RFWIRecordsScore,
         FindingScore,
-        ''
+        TotalScore
       ]
     ];
     doc.autoTable({
@@ -147,18 +142,19 @@ exports.handler = async (event) => {
         halign: 'center'
       },
       headStyles: {
-        fontSize: 12,
+        fontSize: 11,
         fontStyle: 'normal',
-        cellPadding: { top: 2, right: 5, bottom: 0, left: 5 },
+        cellPadding: { top: 2, right: 3, bottom: 0, left: 3 },
         minCellHeight: 9
       },
       bodyStyles: {
-        cellPadding: { top: 5, right: 5, bottom: 0, left: 5 },
-        fontSize: 18
+        cellPadding: { top: 5, right: 3, bottom: 0, left: 3 },
+        fontSize: 16
       },
       columnStyles: {
         3: { minCellWidth: 23 },
-        5: { minCellWidth: 23 }
+        5: { minCellWidth: 23 },
+        6: { fontStyle: 'bold' }
       },
       didDrawPage: function (data) {
         const columnList = data.table.columns;
@@ -180,7 +176,7 @@ exports.handler = async (event) => {
           const textX = startX + columnList[columnIndex].width / 2;
           const textY = startY + 10;
 
-          if (columnIndex === 5) {
+          if (columnIndex === 6) {
             doc.setFont(undefined, 'bold');
             doc.text('Overall', textX, startY + 4, {
               align: 'center',
@@ -200,7 +196,7 @@ exports.handler = async (event) => {
             baseline: 'middle'
           });
           if (columnIndex === 2 || columnIndex === 3) {
-            doc.text('(15%)', textX, textY + 5, {
+            doc.text(`(${getWeightage(2)}%)`, textX, textY + 5, {
               align: 'center',
               baseline: 'middle'
             });
@@ -221,12 +217,13 @@ exports.handler = async (event) => {
             13
           );
         });
-        doc.setFont(undefined, 'bold');
-        doc.setFontSize(18);
-        doc.text(TotalScore.toString(), 164, 226.5, {
-          align: 'center',
-          baseline: 'middle'
-        });
+        //cmt
+        // doc.setFont(undefined, 'bold');
+        // doc.setFontSize(18);
+        // doc.text(TotalScore.toString(), 164, 226.5, {
+        //   align: 'center',
+        //   baseline: 'middle'
+        // });
       }
     });
 
@@ -339,7 +336,7 @@ exports.handler = async (event) => {
     );
 
     rowY += 8.8;
-    createText('(10%)', 159.5, rowY, {}, false, 10);
+    createText(`(${getWeightage(1)}%)`, 159.5, rowY, {}, false, 10);
 
     rowY += 61.9;
     doc.setLineWidth(0.3);
@@ -459,7 +456,7 @@ exports.handler = async (event) => {
     );
 
     rowY += 8.8;
-    createText('(10%)', 159.5, rowY, {}, false, 10);
+    createText(`(${getWeightage(2)}%)`, 159.5, rowY, {}, false, 10);
 
     rowY += 61.9;
     doc.setLineWidth(0.3);
@@ -479,8 +476,6 @@ exports.handler = async (event) => {
 
     //#endregion trade 2 table
 
-    //Third page
-    addNewPage();
     //#region trade 3 table
     doc.rect(xStart, rowY, 164.4, 6);
     rowY += 6;
@@ -495,6 +490,9 @@ exports.handler = async (event) => {
       rowsDataObservation[index][1] = SubAppPqaObservation.Observation[index];
       rowsDataObservation[index][2] = closeList[index];
       rowsDataObservation[index][3] = SubAppPqaObservation.RemarkList[index];
+      if (SubAppPqaObservation.ScoreList[index] === 99) {
+        SubAppPqaObservation.ScoreList[index] = '-';
+      }
       rowsDataObservation[index][4] = SubAppPqaObservation.ScoreList[index];
     });
 
@@ -550,7 +548,7 @@ exports.handler = async (event) => {
     );
 
     rowY += 8.8;
-    createText('(15%)', 159.5, rowY, {}, false, 10);
+    createText(`(${getWeightage(3)}%)`, 159.5, rowY, {}, false, 10);
 
     rowY += 24;
     doc.setLineWidth(0.3);
@@ -567,11 +565,13 @@ exports.handler = async (event) => {
       true,
       12
     );
-    rowY += 10;
+    rowY += 5;
     //#endregion trade 3 table
 
+    //Third page
+    addNewPage();
     //#region trade 4 table
-    const { yes, partial, no, na, total_findings } =
+    const { yes, partial, no, na, totalFindings } =
       SubAppPqaLastMonthFinding.ScoreList;
     doc.rect(xStart, rowY, 164.4, 10);
     doc.line(154.4, rowY, 154.4, rowY + 25);
@@ -586,7 +586,7 @@ exports.handler = async (event) => {
       10
     );
     createText('Weightage', 157, rowY - 2, {}, false, 10);
-    createText('(15%)', 160, rowY + 2, {}, false, 10);
+    createText(`(${getWeightage(4)}%)`, 160, rowY + 2, {}, false, 10);
     rowY += 4;
     doc.rect(xStart, rowY, 10, 15);
     doc.rect(xStart + 10, rowY, 154.4, 15);
@@ -595,7 +595,7 @@ exports.handler = async (event) => {
     createText('Total', xStart + 12, rowY - 2.5, {}, false, 12);
     createText('Findings', xStart + 12, rowY + 2.5, {}, false, 12);
     createText(':', xStart + 30, rowY, {}, false, 12);
-    createText(total_findings.toString(), xStart + 34, rowY, {}, false, 12);
+    createText(totalFindings.toString(), xStart + 34, rowY, {}, false, 12);
     createText('Yes', xStart + 50, rowY, {}, false, 12);
     createText(':', xStart + 58, rowY, {}, false, 12);
     createText(yes.toString(), xStart + 61, rowY, {}, false, 12);
@@ -607,12 +607,12 @@ exports.handler = async (event) => {
     createText(no.toString(), xStart + 116, rowY, {}, false, 12); //+4
     createText('NA', xStart + 128, rowY, {}, false, 12); //+15
     createText(':', xStart + 134, rowY, {}, false, 12);
-    createText(no.toString(), xStart + 138, rowY, {}, false, 12); //+4
+    createText(na.toString(), xStart + 138, rowY, {}, false, 12); //+4
     createText(LastMonthPqaScore.toString(), xStart + 150, rowY, {}, true, 12); //+12
     //#endregion trade 4 table
 
     //#region trade 5 table
-    rowY += 15;
+    rowY += 10;
     doc.rect(xStart, rowY, 164.4, 10);
     doc.line(154.4, rowY, 154.4, rowY + 10);
     doc.rect(154.4, rowY + 10, 22, 8);
@@ -620,7 +620,7 @@ exports.handler = async (event) => {
     rowY += 6;
     createText('5', xStart + 4, rowY, {}, true, 12);
     createText(
-      'Site findings - detailed report (next page) ',
+      'Site findings - detailed report ',
       secondColumnStartPoint3 + 1,
       rowY,
       {},
@@ -628,16 +628,13 @@ exports.handler = async (event) => {
       10
     );
     createText('Weightage', 157, rowY - 2, {}, false, 10);
-    createText('(50%)', 160, rowY + 2, {}, false, 10);
+    createText(`(${getWeightage(7)}%)`, 160, rowY + 2, {}, false, 10);
     rowY += 10;
     createText(FindingScore.toString(), 162, rowY, {}, true, 12);
     createText('Score', 140, rowY, {}, false, 12);
+    rowY += 10;
 
     //#endregion trade 5 table
-
-    //Forth page
-
-    addNewPage();
 
     const rowsDataTrade5InOnePage = [[]];
     const pointListTrade5InOnePage = [[]];
@@ -646,7 +643,7 @@ exports.handler = async (event) => {
     let pageNumberForImage = 0;
     async function processImages() {
       for (let i = 0; i < SubAppPqaFinding.length; i++) {
-        if (i > 0 && i % 4 === 0) {
+        if (i === 3 || (i > 4 && (i + 1) % 4) === 0) {
           pageNumberForImage++;
           imageList.push([]);
         }
@@ -663,8 +660,9 @@ exports.handler = async (event) => {
 
     let pageNumber = 0;
     SubAppPqaFinding.forEach((findings, index) => {
-      if (index > 0 && index % 4 === 0) {
-        //Divide to group 4 findings in one page
+      if (index === 3 || (index > 4 && (index + 1) % 4) === 0) {
+        //Divide to group 3 in first page
+        //Divide to group 4 findings in one page from secord page
         pageNumber++;
         rowsDataTrade5InOnePage.push([]);
         pointListTrade5InOnePage.push([]);
@@ -718,7 +716,8 @@ exports.handler = async (event) => {
         didDrawCell: function (data) {}
       });
 
-      rowY = 36.6;
+      //Third page need to move down 56mm because we place table of trade 4 + 5 here.
+      rowY = index === 0 ? 92.6 : 36.6;
       pointListTrade5.forEach((score, index) => {
         doc.setLineWidth(0.3);
         doc.setDrawColor('#000000');
@@ -781,7 +780,6 @@ exports.handler = async (event) => {
         Key: objectName,
         Body: fileContent
       };
-      console.log('params.Body', params.Body);
       await s3bucket.upload(params).promise();
     }
 
