@@ -9,9 +9,9 @@ const data =
   "Trade2Score": 6.25,
   "ObservationScore": 3.33,
   "LastMonthPqaScore": 2.5,
-  "RFWIRecordsScore": 10.0,
+  "RFWIRecordsScore": 10,
   "FindingScore": 44.44,
-  "TotalScore": 67.15,
+  "TotalScore": 72.77,
   "Status": 99,
   "Remark": "",
   "PdfUrl": "prefab/subapp/pqa/pdf-form/e7b808df-22c9-4083-be39-99b5b2ea97e3.pdf",
@@ -19,7 +19,7 @@ const data =
   "CreatedBy": "nguyen_huuvan@wohhup.com.vn",
   "CreatedDate": "2023-07-26T11:20:52.040613Z",
   "UpdatedBy": "nguyen_huuvan@wohhup.com.vn",
-  "UpdatedDate": "2023-07-27T03:08:40.517425Z",
+  "UpdatedDate": "2023-07-28T01:40:47.572027Z",
   "SubAppPqaCheckList1": {
     "Id": "140c1164-f31d-4e0b-9192-eab005906cb8",
     "PqaId": "e7b808df-22c9-4083-be39-99b5b2ea97e3",
@@ -94,8 +94,8 @@ const data =
       "Obs 3"
     ],
     "ScoreList": [
-      5.0,
-      0.0,
+      5,
+      0,
       99
     ],
     "RemarkList": [
@@ -124,10 +124,42 @@ const data =
     "CreatedBy": "nguyen_huuvan@wohhup.com.vn",
     "CreatedDate": "2023-07-26T11:20:52.04125Z",
     "UpdatedBy": "nguyen_huuvan@wohhup.com.vn",
-    "UpdatedDate": "2023-07-27T07:23:08.049892Z"
+    "UpdatedDate": "2023-07-28T07:00:15.571825Z"
   },
-  "SubAppPqaRFWIRecords": null,
-  "SubAppPqaSafetyEvaluation": null,
+  "SubAppPqaRFWIRecords": {
+    "Id": "be5fa289-33a6-481b-acef-ca67f9d844e9",
+    "PqaId": "e7b808df-22c9-4083-be39-99b5b2ea97e3",
+    "Name": "Nguyen Huu Van",
+    "Remark": "Test 6",
+    "ScoreList": {
+      "yesNumber": 2,
+      "partialNumber": 3,
+      "noNumber": 1,
+      "naNumber": 2,
+      "totalFindings": 8
+    },
+    "IsDeleted": false,
+    "CreatedBy": "nguyen_huuvan@wohhup.com.vn",
+    "CreatedDate": "2023-07-26T11:20:52.041394Z",
+    "UpdatedBy": "nguyen_huuvan@wohhup.com.vn",
+    "UpdatedDate": "2023-07-28T07:00:15.571928Z"
+  },
+  "SubAppPqaSafetyEvaluation": {
+    "Id": "1e894be0-687f-4597-b0c5-750f5c12b9e7",
+    "PqaId": "e7b808df-22c9-4083-be39-99b5b2ea97e3",
+    "Name": "Nguyen Huu Van",
+    "Remark": "Test 7",
+    "ScoreList": {
+      "yesNumber": 3,
+      "noNumber": 1,
+      "totalAward": 2
+    },
+    "IsDeleted": false,
+    "CreatedBy": "nguyen_huuvan@wohhup.com.vn",
+    "CreatedDate": "2023-07-26T11:20:52.041532Z",
+    "UpdatedBy": "nguyen_huuvan@wohhup.com.vn",
+    "UpdatedDate": "2023-07-28T07:00:15.572019Z"
+  },
   "SubAppPqaFinding": [
     {
       "Id": "1a55f9e1-07ac-4b66-a676-89c6252f9fee",
@@ -145,7 +177,62 @@ const data =
       "CreatedDate": "2023-07-26T11:20:52.041815Z",
       "UpdatedBy": "nguyen_huuvan@wohhup.com.vn",
       "UpdatedDate": "2023-07-27T03:08:40.517453Z"
-    },
+    }
+    ,
+    {
+      "Id": "d810ca8a-8f39-4a66-877d-12885f91472c",
+      "PqaId": "e7b808df-22c9-4083-be39-99b5b2ea97e3",
+      "Name": "Nguyen Huu Van",
+      "SeverityPoint": 2,
+      "FrequencyPoint": 1,
+      "Points": 40,
+      "FindingReport": "Test 22222",
+      "FindingImage": [
+        "prefab/subapp/pqa/siim-lukka-X-Far-t1woI-unsplash.jpg"
+      ],
+      "IsDeleted": false,
+      "CreatedBy": "nguyen_huuvan@wohhup.com.vn",
+      "CreatedDate": "2023-07-26T11:20:52.041683Z",
+      "UpdatedBy": "nguyen_huuvan@wohhup.com.vn",
+      "UpdatedDate": "2023-07-27T03:08:40.706114Z"
+    }
+    ,
+    {
+      "Id": "d810ca8a-8f39-4a66-877d-12885f91472c",
+      "PqaId": "e7b808df-22c9-4083-be39-99b5b2ea97e3",
+      "Name": "Nguyen Huu Van",
+      "SeverityPoint": 2,
+      "FrequencyPoint": 1,
+      "Points": 40,
+      "FindingReport": "Test 22222",
+      "FindingImage": [
+        "prefab/subapp/pqa/siim-lukka-X-Far-t1woI-unsplash.jpg"
+      ],
+      "IsDeleted": false,
+      "CreatedBy": "nguyen_huuvan@wohhup.com.vn",
+      "CreatedDate": "2023-07-26T11:20:52.041683Z",
+      "UpdatedBy": "nguyen_huuvan@wohhup.com.vn",
+      "UpdatedDate": "2023-07-27T03:08:40.706114Z"
+    }
+    ,
+    {
+      "Id": "d810ca8a-8f39-4a66-877d-12885f91472c",
+      "PqaId": "e7b808df-22c9-4083-be39-99b5b2ea97e3",
+      "Name": "Nguyen Huu Van",
+      "SeverityPoint": 2,
+      "FrequencyPoint": 1,
+      "Points": 40,
+      "FindingReport": "Test 22222",
+      "FindingImage": [
+        "prefab/subapp/pqa/siim-lukka-X-Far-t1woI-unsplash.jpg"
+      ],
+      "IsDeleted": false,
+      "CreatedBy": "nguyen_huuvan@wohhup.com.vn",
+      "CreatedDate": "2023-07-26T11:20:52.041683Z",
+      "UpdatedBy": "nguyen_huuvan@wohhup.com.vn",
+      "UpdatedDate": "2023-07-27T03:08:40.706114Z"
+    }
+    ,
     {
       "Id": "d810ca8a-8f39-4a66-877d-12885f91472c",
       "PqaId": "e7b808df-22c9-4083-be39-99b5b2ea97e3",
@@ -164,7 +251,7 @@ const data =
       "UpdatedDate": "2023-07-27T03:08:40.706114Z"
     }
   ],
-    "Token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhYjEzZTM5MC1kYWExLTQzODUtOTdjNi02ZGFlYzI1ZTVjMTkiLCJpc0FkbWluIjpmYWxzZSwiZW1haWwiOiJuZ3V5ZW5faHV1dmFuQHdvaGh1cC5jb20udm4iLCJjb25maXJtZWQiOmZhbHNlLCJuYW1lIjoiTmd1eWVuIEh1dSBWYW4iLCJzaG9ydE5hbWUiOm51bGwsImlhdCI6MTY5MDM2NTUzMCwiZXhwIjoxNjkwNDUxOTMwfQ.WMEqaqIcKw0xPnY8olREX5-No8ffawvqCgF21AkBZK8"
+  "Token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhYjEzZTM5MC1kYWExLTQzODUtOTdjNi02ZGFlYzI1ZTVjMTkiLCJpc0FkbWluIjpmYWxzZSwiZW1haWwiOiJuZ3V5ZW5faHV1dmFuQHdvaGh1cC5jb20udm4iLCJjb25maXJtZWQiOmZhbHNlLCJuYW1lIjoiTmd1eWVuIEh1dSBWYW4iLCJzaG9ydE5hbWUiOm51bGwsImlhdCI6MTY5MDQ1MTk2OSwiZXhwIjoxNjkwNTM4MzY5fQ.StAeqCLohb8dlJYtqRQRl3JNceVDO9bbG0PWqkVCk2Y"
 }
 
 module.exports = data;

@@ -40,6 +40,8 @@ const generatePdf = async (data) => {
     SubAppPqaCheckList2,
     SubAppPqaObservation,
     SubAppPqaLastMonthFinding,
+    SubAppPqaRFWIRecords,
+    SubAppPqaSafetyEvaluation,
     SubAppPqaFinding
   } = pqaDetail;
 
@@ -559,20 +561,171 @@ const generatePdf = async (data) => {
   createText('Yes', xStart + 50, rowY, {}, false, 12);
   createText(':', xStart + 58, rowY, {}, false, 12);
   createText(yes.toString(), xStart + 61, rowY, {}, false, 12);
-  createText('Partial', xStart + 76, rowY, {}, false, 12); //+15
+  createText('Partial', xStart + 76, rowY, {}, false, 12); //+12
   createText(':', xStart + 88, rowY, {}, false, 12);
   createText(partial.toString(), xStart + 92, rowY, {}, false, 12); //+4
   createText('No', xStart + 107, rowY, {}, false, 12); //+15
   createText(':', xStart + 113, rowY, {}, false, 12);
-  createText(no.toString(), xStart + 116, rowY, {}, false, 12); //+4
-  createText('NA', xStart + 128, rowY, {}, false, 12); //+15
-  createText(':', xStart + 134, rowY, {}, false, 12);
-  createText(na.toString(), xStart + 138, rowY, {}, false, 12); //+4
-  createText(LastMonthPqaScore.toString(), xStart + 150, rowY, {}, true, 12); //+12
+  createText(no.toString(), xStart + 116, rowY, {}, false, 12); //+3
+  createText('NA', xStart + 128, rowY, {}, false, 12); //+12
+  createText(':', xStart + 134, rowY, {}, false, 12); //+4
+  createText(na.toString(), xStart + 138, rowY, {}, false, 12); //+12
+  createText(LastMonthPqaScore.toString(), xStart + 150, rowY, {}, true, 12);
   //#endregion Trade 4 table
 
   //#region Trade 5 table
   rowY += 10;
+  const {
+    yesNumber,
+    partialNumber,
+    noNumber,
+    naNumber,
+    totalFindings: totalFindingsNumber
+  } = SubAppPqaRFWIRecords.ScoreList;
+  const remark = SubAppPqaRFWIRecords.Remark;
+  doc.rect(xStart, rowY, 164.4, 10);
+  doc.line(154.4, rowY, 154.4, rowY + 25);
+  rowY += 6;
+  createText('5', xStart + 4, rowY, {}, true, 12);
+  createText(
+    'Vertication Of RFWI Records',
+    secondColumnStartPoint3 + 1,
+    rowY,
+    {},
+    true,
+    10
+  );
+  createText('Weightage', 157, rowY - 2, {}, false, 10);
+  createText(`(${getWeightage(4)}%)`, 160, rowY + 2, {}, false, 10);
+
+  rowY += 4;
+  doc.rect(xStart, rowY, 10, 15);
+  doc.rect(xStart + 10, rowY, 154.4, 15);
+
+  rowY += 10;
+  createText('5.1', xStart + 2, rowY, {}, false, 12);
+  createText('Total', xStart + 12, rowY - 2.5, {}, false, 12);
+  createText('Findings', xStart + 12, rowY + 2.5, {}, false, 12);
+  createText(':', xStart + 30, rowY, {}, false, 12);
+  createText(totalFindingsNumber.toString(), xStart + 34, rowY, {}, false, 12);
+  createText('Yes', xStart + 50, rowY, {}, false, 12);
+  createText(':', xStart + 58, rowY, {}, false, 12);
+  createText(yesNumber.toString(), xStart + 61, rowY, {}, false, 12);
+  createText('Partial', xStart + 76, rowY, {}, false, 12); //+12
+  createText(':', xStart + 88, rowY, {}, false, 12);
+  createText(partialNumber.toString(), xStart + 92, rowY, {}, false, 12); //+4
+  createText('No', xStart + 107, rowY, {}, false, 12); //+15
+  createText(':', xStart + 113, rowY, {}, false, 12);
+  createText(noNumber.toString(), xStart + 116, rowY, {}, false, 12); //+3
+  createText('NA', xStart + 128, rowY, {}, false, 12); //+12
+  createText(':', xStart + 134, rowY, {}, false, 12); //+4
+  createText(naNumber.toString(), xStart + 138, rowY, {}, false, 12); //+12
+  createText(RFWIRecordsScore.toString(), xStart + 150, rowY, {}, true, 12);
+
+  rowY += 5;
+  let remarkHeightRFWI = 0;
+  doc.autoTable({
+    head: [[`Remark: ${remark}`]],
+    startY: rowY,
+    margin: { left: xStart + 10 },
+    theme: 'grid',
+    styles: {
+      fontStyle: 'normal',
+      textColor: '#000',
+      lineColor: '#000',
+      lineWidth: 0.2
+    },
+    headStyles: {
+      fillColor: '#fff',
+      valign: 'top',
+      halign: 'left',
+      minCellHeight: 20
+    },
+    didDrawCell: (data) => {
+      doc.rect(xStart, rowY, 10, data.cell.height);
+      remarkHeightRFWI = remarkHeightRFWI + data.cell.height;
+      createText('5.2', xStart + 2, rowY + remarkHeightRFWI / 2, {}, false, 12);
+    }
+  });
+  //#endregion Trade 5 table
+
+  //#region Trade 6 table
+  rowY = rowY + remarkHeightRFWI + 10;
+  const {
+    yesNumber: yesNumberSafety,
+    noNumber: noNumberSafety,
+    totalAward
+  } = SubAppPqaSafetyEvaluation.ScoreList;
+  const remarkSafety = SubAppPqaRFWIRecords.Remark;
+  doc.rect(xStart, rowY, 164.4, 10);
+  doc.line(154.4, rowY, 154.4, rowY + 25);
+  rowY += 6;
+  createText('6', xStart + 4, rowY, {}, true, 12);
+  createText(
+    'Vertication Of Pre-Award Safety Evaluation',
+    secondColumnStartPoint3 + 1,
+    rowY,
+    {},
+    true,
+    10
+  );
+  createText('Weightage', 157, rowY - 2, {}, false, 10);
+  createText(`(--%)`, 162, rowY + 2, {}, false, 10);
+
+  rowY += 4;
+  doc.rect(xStart, rowY, 10, 15);
+  doc.rect(xStart + 10, rowY, 154.4, 15);
+
+  rowY += 10;
+  createText('6.1', xStart + 2, rowY, {}, false, 12);
+  createText('Total Award', xStart + 12, rowY, {}, false, 12);
+  createText(':', xStart + 36, rowY, {}, false, 12);
+  createText(totalAward.toString(), xStart + 38, rowY, {}, false, 12);
+  createText('Yes', xStart + 80, rowY, {}, false, 12);
+  createText(':', xStart + 88, rowY, {}, false, 12);
+  createText(yesNumberSafety.toString(), xStart + 91, rowY, {}, false, 12);
+  createText('No', xStart + 128, rowY, {}, false, 12);
+  createText(':', xStart + 134, rowY, {}, false, 12);
+  createText(noNumberSafety.toString(), xStart + 138, rowY, {}, false, 12);
+  createText('-', xStart + 150, rowY, {}, true, 12);
+
+  rowY += 5;
+  let remarkHeightSafety = 0;
+  doc.autoTable({
+    head: [[`Remark: ${remarkSafety}`]],
+    startY: rowY,
+    margin: { left: xStart + 10 },
+    theme: 'grid',
+    styles: {
+      fontStyle: 'normal',
+      textColor: '#000',
+      lineColor: '#000',
+      lineWidth: 0.2
+    },
+    headStyles: {
+      fillColor: '#fff',
+      valign: 'top',
+      halign: 'left',
+      minCellHeight: 20
+    },
+    didDrawCell: (data) => {
+      doc.rect(xStart, rowY, 10, data.cell.height);
+      remarkHeightSafety = remarkHeightSafety + data.cell.height;
+      createText(
+        '6.2',
+        xStart + 2,
+        rowY + remarkHeightSafety / 2,
+        {},
+        false,
+        12
+      );
+    }
+  });
+
+  //#endregion Trade 6 table
+
+  //#region Trade 7 table
+  rowY = rowY + remarkHeightSafety + 10;
   doc.rect(xStart, rowY, 164.4, 10);
   doc.line(154.4, rowY, 154.4, rowY + 10);
   doc.rect(154.4, rowY + 10, 22, 8);
@@ -580,7 +733,7 @@ const generatePdf = async (data) => {
   rowY += 6;
   createText('7', xStart + 4, rowY, {}, true, 12);
   createText(
-    'Site findings - detailed report ',
+    'Site findings - detailed report (next page)',
     secondColumnStartPoint3 + 1,
     rowY,
     {},
@@ -593,8 +746,11 @@ const generatePdf = async (data) => {
   createText(FindingScore.toString(), 162, rowY, {}, true, 12);
   createText('Score', 140, rowY, {}, false, 12);
   rowY += 10;
+  rowY += 56;
 
-  //#endregion Trade 5 table
+  //#endregion Trade 7 table
+
+  addNewPage();
 
   const getImage = async () => {
     try {
@@ -613,13 +769,14 @@ const generatePdf = async (data) => {
     }
   };
 
-  const rowsDataTrade5InOnePage = [[]];
-  const pointListTrade5InOnePage = [[]];
+  const rowsDataTrade7InOnePage = [[]];
+  const pointListTrade7InOnePage = [[]];
   // const imageList = [[]];
   const imageList = [
     [
       [whLogo, whLogo, whLogo],
       [whLogo, whLogo],
+      [whLogo, whLogo, whLogo],
       [whLogo, whLogo, whLogo]
     ],
     [
@@ -627,29 +784,26 @@ const generatePdf = async (data) => {
       [whLogo, whLogo],
       [whLogo, whLogo],
       [whLogo, whLogo]
-    ],
-    [
-      [whLogo, whLogo],
-      [whLogo, whLogo]
     ]
+    // [
+    //   [whLogo, whLogo],
+    //   [whLogo, whLogo]
+    // ]
   ];
 
   let pageNumber = 0;
   SubAppPqaFinding.forEach((findings, index) => {
-    if (index === 2 || (index > 4 && (index + 1) % 4) === 0) {
-      //Divide to group 2 in first page
-      //Divide to group 4 findings in one page from secord page
+    if (index > 0 && index % 4 === 0) {
       pageNumber++;
-      rowsDataTrade5InOnePage.push([]);
-      pointListTrade5InOnePage.push([]);
-      // imageList.push([]);
+      rowsDataTrade7InOnePage.push([]);
+      pointListTrade7InOnePage.push([]);
     }
 
-    rowsDataTrade5InOnePage[pageNumber].push([
+    rowsDataTrade7InOnePage[pageNumber].push([
       (index + 1).toString(),
       findings.FindingReport
     ]);
-    pointListTrade5InOnePage[pageNumber].push({
+    pointListTrade7InOnePage[pageNumber].push({
       severityPoint: findings.SeverityPoint,
       frequencyPoint: findings.FrequencyPoint,
       points: findings.Points
@@ -657,8 +811,8 @@ const generatePdf = async (data) => {
   });
 
   const createTrade5Page = (
-    rowsDataTrade5,
-    pointListTrade5,
+    rowsDataTrade7,
+    pointListTrade7,
     imageListDetail,
     index
   ) => {
@@ -669,7 +823,7 @@ const generatePdf = async (data) => {
           { content: 'Findings', colSpan: 1 }
         ]
       ],
-      body: rowsDataTrade5,
+      body: rowsDataTrade7,
       startY: rowY,
       margin: { left: xStart },
       theme: 'grid',
@@ -725,9 +879,8 @@ const generatePdf = async (data) => {
         );
     };
 
-    //Third page need to move down 56mm because we place table of trade 4 + 5 here.
-    rowY = index === 0 ? 92.6 : 36.6;
-    pointListTrade5.forEach((score, pointListIndex) => {
+    rowY = 36.6;
+    pointListTrade7.forEach((score, pointListIndex) => {
       doc.rect(148.9, rowY, 27.5, 16);
       rowY += 4;
       createTextItalic('Severity:', 150, rowY, {}, 10);
@@ -738,17 +891,17 @@ const generatePdf = async (data) => {
       rowY += 5;
       createTextItalic('Points:', 150, rowY, {}, 10);
       createText(score.points.toString(), 170, rowY, {}, false, 10);
-      rowY += 42; //98.6
+      rowY += 42;
       insertImage(pointListIndex, rowY);
     });
   };
 
-  rowsDataTrade5InOnePage.forEach((rowData, index) => {
-    const pointListTrade5 = pointListTrade5InOnePage[index];
+  rowsDataTrade7InOnePage.forEach((rowData, index) => {
+    const pointListTrade7 = pointListTrade7InOnePage[index];
     const imageListDetail = imageList[index];
 
-    createTrade5Page(rowData, pointListTrade5, imageListDetail, index);
-    if (index < rowsDataTrade5InOnePage.length - 1) {
+    createTrade5Page(rowData, pointListTrade7, imageListDetail, index);
+    if (index < rowsDataTrade7InOnePage.length - 1) {
       addNewPage();
     }
   });
