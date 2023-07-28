@@ -710,7 +710,7 @@ exports.handler = async (event) => {
       noNumber: noNumberSafety,
       totalAward
     } = SubAppPqaSafetyEvaluation.ScoreList;
-    const remarkSafety = SubAppPqaRFWIRecords.Remark;
+    const remarkSafety = SubAppPqaSafetyEvaluation.Remark;
     doc.rect(xStart, rowY, 164.4, 10);
     doc.line(154.4, rowY, 154.4, rowY + 25);
     rowY += 6;
