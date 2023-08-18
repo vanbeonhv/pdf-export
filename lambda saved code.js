@@ -702,13 +702,15 @@ exports.handler = async (event) => {
     //#endregion Trade 5 table
 
     //#region Trade 6 table
+    doc.setLineWidth(0.3);
+    doc.setDrawColor('#000000');
     rowY = rowY + remarkHeightRFWI + 10;
     const {
       yesNumber: yesNumberSafety,
       noNumber: noNumberSafety,
       totalAward
     } = SubAppPqaSafetyEvaluation.ScoreList;
-    const remarkSafety = SubAppPqaRFWIRecords.Remark;
+    const remarkSafety = SubAppPqaSafetyEvaluation.Remark;
     doc.rect(xStart, rowY, 164.4, 10);
     doc.line(154.4, rowY, 154.4, rowY + 25);
     rowY += 6;
@@ -777,6 +779,8 @@ exports.handler = async (event) => {
     //#endregion Trade 6 table
 
     //#region trade 7 table
+    doc.setLineWidth(0.3);
+    doc.setDrawColor('#000000');
     rowY = rowY + remarkHeightSafety + 10;
     doc.rect(xStart, rowY, 164.4, 10);
     doc.line(154.4, rowY, 154.4, rowY + 10);
@@ -802,8 +806,8 @@ exports.handler = async (event) => {
     //#endregion trade 7 table
     addNewPage();
 
-    const rowsDataTrade5InOnePage = [[]];
-    const pointListTrade5InOnePage = [[]];
+    const rowsDataTrade7InOnePage = [[]];
+    const pointListTrade7InOnePage = [[]];
     const imageList = [[]];
 
     let pageNumberForImage = 0;
@@ -826,19 +830,19 @@ exports.handler = async (event) => {
 
     let pageNumber = 0;
     SubAppPqaFinding.forEach((findings, index) => {
-      if (index === 3 || (index > 4 && (index + 1) % 4) === 0) {
+      if (index > 0 && index % 4 === 0) {
         //Divide to group 3 in first page
         //Divide to group 4 findings in one page from secord page
         pageNumber++;
-        rowsDataTrade5InOnePage.push([]);
-        pointListTrade5InOnePage.push([]);
+        rowsDataTrade7InOnePage.push([]);
+        pointListTrade7InOnePage.push([]);
       }
 
-      rowsDataTrade5InOnePage[pageNumber].push([
+      rowsDataTrade7InOnePage[pageNumber].push([
         (index + 1).toString(),
         findings.FindingReport
       ]);
-      pointListTrade5InOnePage[pageNumber].push({
+      pointListTrade7InOnePage[pageNumber].push({
         SeverityPoint: findings.SeverityPoint,
         FrequencyPoint: findings.FrequencyPoint,
         Points: findings.Points
@@ -846,8 +850,8 @@ exports.handler = async (event) => {
     });
 
     const createTrade5Page = (
-      rowsDataTrade5,
-      pointListTrade5,
+      rowsDataTrade7,
+      pointListTrade7,
       imageListDetail,
       index
     ) => {
@@ -858,7 +862,7 @@ exports.handler = async (event) => {
             { content: 'Findings', colSpan: 1 }
           ]
         ],
-        body: rowsDataTrade5,
+        body: rowsDataTrade7,
         startY: rowY,
         margin: { left: xStart },
         theme: 'grid',
@@ -883,7 +887,7 @@ exports.handler = async (event) => {
       });
 
       rowY = 36.6;
-      pointListTrade5.forEach((score, index) => {
+      pointListTrade7.forEach((score, index) => {
         doc.setLineWidth(0.3);
         doc.setDrawColor('#000000');
         doc.rect(148.9, rowY, 27.5, 16);
@@ -928,12 +932,12 @@ exports.handler = async (event) => {
       });
     };
 
-    rowsDataTrade5InOnePage.forEach((rowData, index) => {
-      const pointListTrade5 = pointListTrade5InOnePage[index];
+    rowsDataTrade7InOnePage.forEach((rowData, index) => {
+      const pointListTrade7 = pointListTrade7InOnePage[index];
       const imageListDetail = imageList[index];
 
-      createTrade5Page(rowData, pointListTrade5, imageListDetail, index);
-      if (index < rowsDataTrade5InOnePage.length - 1) {
+      createTrade5Page(rowData, pointListTrade7, imageListDetail, index);
+      if (index < rowsDataTrade7InOnePage.length - 1) {
         addNewPage();
       }
     });

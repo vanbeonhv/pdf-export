@@ -120,6 +120,7 @@ const data =
       "na": 2,
       "totalFindings": 8
     },
+    "IsActive": false,
     "IsDeleted": false,
     "CreatedBy": "nguyen_huuvan@wohhup.com.vn",
     "CreatedDate": "2023-07-26T11:20:52.04125Z",
@@ -130,13 +131,32 @@ const data =
     "Id": "be5fa289-33a6-481b-acef-ca67f9d844e9",
     "PqaId": "e7b808df-22c9-4083-be39-99b5b2ea97e3",
     "Name": "Nguyen Huu Van",
-    "Remark": "Test 6",
-    "ScoreList": {
+    "Archi": {
+      "tradePoint": 0.5,
       "yesNumber": 2,
       "partialNumber": 3,
       "noNumber": 1,
       "naNumber": 2,
-      "totalFindings": 8
+      "totalFindings": 8,
+      "remarkRFWI": "testing1"
+    },
+    "Structural": {
+      "tradePoint": 0.5,
+      "yesNumber": 2,
+      "partialNumber": 3,
+      "noNumber": 1,
+      "naNumber": 2,
+      "totalFindings": 8,
+      "remarkRFWI": "testing2"
+    },
+    "Mep": {
+      "tradePoint": 0.5,
+      "yesNumber": 2,
+      "partialNumber": 3,
+      "noNumber": 1,
+      "naNumber": 2,
+      "totalFindings": 8,
+      "remarkRFWI": "testing3"
     },
     "IsDeleted": false,
     "CreatedBy": "nguyen_huuvan@wohhup.com.vn",
@@ -165,9 +185,9 @@ const data =
       "Id": "1a55f9e1-07ac-4b66-a676-89c6252f9fee",
       "PqaId": "e7b808df-22c9-4083-be39-99b5b2ea97e3",
       "Name": "Nguyen Huu Van",
-      "SeverityPoint": 1,
-      "FrequencyPoint": 2,
-      "Points": 40,
+      "SeverityPoint": 0,
+      "FrequencyPoint": 0,
+      "Points": 99,
       "FindingReport": "Tesstt 444",
       "FindingImage": [
         "prefab/subapp/pqa/pexels-andy-vu-3244513.jpg"

@@ -1,242 +1,163 @@
 const data = {
-  Id: 'ceebf3e3-366e-46b7-b9cf-5726c22691c0',
+  Id: '904e5145-b934-4d42-bb62-d80e3738cc1f',
   Name: 'Nguyen Huu Van',
-  ProjectCode: 'TGW',
-  Trade1Score: 7.5,
-  Trade2Score: 6.25,
+  ProjectId: '20aee102-cfea-40de-b2be-e661b23fb71e',
+  FormDate: '2023-08-17T06:08:35.809Z',
+  Trade1Score: 10.0,
+  Trade2Score: 8.57,
   ObservationScore: 7.5,
-  LastMonthPqaScore: 8.75,
-  FindingScore: 30,
-  TotalScore: 60,
-  Status: 99,
+  LastMonthPqaScore: 0.0,
+  RFWIRecordsScore: 5.17,
+  FindingScore: 50.0,
+  TotalScore: 90.18,
+  Status: 1,
   Remark: '',
-  PdfUrl:
-    '{errorType:Runtime.ExitError,errorMessage:RequestId: 4e50412e-17a4-4914-81bf-7005ea09816d Error: Runtime exited with error: signal: killed}',
+  PdfUrl: '',
   IsDeleted: false,
   CreatedBy: 'nguyen_huuvan@wohhup.com.vn',
-  CreatedDate: '2023-07-11T06:35:14.38744Z',
+  CreatedDate: '2023-08-17T06:10:33.796159Z',
   UpdatedBy: 'nguyen_huuvan@wohhup.com.vn',
-  UpdatedDate: '2023-07-11T06:39:59.3523Z',
+  UpdatedDate: '2023-08-18T03:50:31.700381Z',
   SubAppPqaCheckList1: {
-    Id: '9b00de59-a431-4e88-8c8d-e601b5c1789b',
-    PqaId: 'ceebf3e3-366e-46b7-b9cf-5726c22691c0',
+    Id: 'e026c67b-7428-4874-b2a7-50a4e061d3fc',
+    PqaId: '904e5145-b934-4d42-bb62-d80e3738cc1f',
     Name: 'Nguyen Huu Van',
-    Trade: 'BMU',
-    Location: 'Dining Room',
-    ScoreList: [0, 99, 10, 10, 10, 10, 10, 10],
-    NoteList: ['testing note 1', '', '', '', '', '', '', ''],
+    Trade: 'kitchen Cabinet',
+    Location: 'SPV',
+    ScoreList: [10, 10, 99, 10, 10, 10, 10, 10],
+    NoteList: ['', '', '', '', '', '', '', ''],
     IsDeleted: false,
     CreatedBy: 'nguyen_huuvan@wohhup.com.vn',
-    CreatedDate: '2023-07-11T06:35:14.387698Z',
+    CreatedDate: '2023-08-17T06:10:33.796169Z',
     UpdatedBy: 'nguyen_huuvan@wohhup.com.vn',
-    UpdatedDate: '2023-07-11T06:35:14.387746Z'
+    UpdatedDate: '2023-08-17T06:10:33.796174Z'
   },
   SubAppPqaCheckList2: {
-    Id: '9034cd6b-bf85-43c0-9bd4-fa87238f3b89',
-    PqaId: 'ceebf3e3-366e-46b7-b9cf-5726c22691c0',
+    Id: 'af02888c-31e6-47d5-97db-d351ac6f38fc',
+    PqaId: '904e5145-b934-4d42-bb62-d80e3738cc1f',
     Name: 'Nguyen Huu Van',
-    Trade: 'Cement Screed ',
-    Location: 'Bedroom',
-    ScoreList: [10, 0, 99, 10, 10, 10, 10, 0],
-    NoteList: ['testing note 2', '', '', '', '', '', '', ''],
+    Trade: 'Metal Ceiling',
+    Location: 'SPV',
+    ScoreList: [10, 10, 10, 10, 10, 99, 0, 10],
+    NoteList: ['', '', '', '', '', '', '', ''],
     IsDeleted: false,
     CreatedBy: 'nguyen_huuvan@wohhup.com.vn',
-    CreatedDate: '2023-07-11T06:35:14.387875Z',
+    CreatedDate: '2023-08-17T06:10:33.796176Z',
     UpdatedBy: 'nguyen_huuvan@wohhup.com.vn',
-    UpdatedDate: '2023-07-11T06:35:14.387919Z'
+    UpdatedDate: '2023-08-17T06:10:33.796177Z'
   },
   SubAppPqaObservation: {
-    Id: '21505fe1-b5f5-4f18-9973-81a5eeba5a18',
+    Id: '9c066500-d589-4f40-aa25-f0b89de79c70',
     Name: 'Nguyen Huu Van',
-    PqaId: 'ceebf3e3-366e-46b7-b9cf-5726c22691c0',
-    Observation: ['obs 1', 'obs 2', 'obs 3'],
-    ScoreList: [5, 2.5, 0],
-    RemarkList: ['testing note 3', '', ''],
+    PqaId: '904e5145-b934-4d42-bb62-d80e3738cc1f',
+    Observation: ['abc', 'abc2', ''],
+    ScoreList: [5.0, 2.5, 99.0],
+    RemarkList: ['', '', ''],
     IsDeleted: false,
     CreatedBy: 'nguyen_huuvan@wohhup.com.vn',
-    CreatedDate: '2023-07-11T06:35:14.388042Z',
+    CreatedDate: '2023-08-17T06:10:33.796185Z',
     UpdatedBy: 'nguyen_huuvan@wohhup.com.vn',
-    UpdatedDate: '2023-07-11T06:35:14.388078Z'
+    UpdatedDate: '2023-08-17T06:10:33.796187Z'
   },
   SubAppPqaLastMonthFinding: {
-    Id: '4839eefe-95b6-48a0-9b8d-66c59249ef0a',
-    PqaId: 'ceebf3e3-366e-46b7-b9cf-5726c22691c0',
+    Id: '8c6878e5-05f9-4ec2-b2b4-457f45515862',
+    PqaId: '904e5145-b934-4d42-bb62-d80e3738cc1f',
     Name: 'Nguyen Huu Van',
-    ScoreList: {
-      yes: 3,
-      partial: 1,
-      no: 1,
-      na: 1,
-      total_findings: 0
+    ScoreList: { yes: 0, partial: 0, no: 0, na: 0, totalFindings: 0 },
+    IsActive: false,
+    IsDeleted: false,
+    CreatedBy: 'nguyen_huuvan@wohhup.com.vn',
+    CreatedDate: '2023-08-17T06:10:33.796195Z',
+    UpdatedBy: 'nguyen_huuvan@wohhup.com.vn',
+    UpdatedDate: '2023-08-18T03:50:31.700484Z'
+  },
+  SubAppPqaRFWIRecords: {
+    Id: '01ae08c7-7e63-403b-a9df-1e9376bc6d08',
+    PqaId: '904e5145-b934-4d42-bb62-d80e3738cc1f',
+    Name: 'Nguyen Huu Van',
+    Archi: {
+      tradePoint: 0.5,
+      yesNumber: 2,
+      partialNumber: 2,
+      noNumber: 2,
+      naNumber: 2,
+      totalFindings: 6,
+      remarkRFWI: 'testing2 '
+    },
+    Structural: {
+      tradePoint: 0.63,
+      yesNumber: 2,
+      partialNumber: 1,
+      noNumber: 1,
+      naNumber: 1,
+      totalFindings: 4,
+      remarkRFWI: 'testing 1'
+    },
+    Mep: {
+      tradePoint: 0.42,
+      yesNumber: 2,
+      partialNumber: 1,
+      noNumber: 3,
+      naNumber: 3,
+      totalFindings: 6,
+      remarkRFWI: 'testing 3'
     },
     IsDeleted: false,
     CreatedBy: 'nguyen_huuvan@wohhup.com.vn',
-    CreatedDate: '2023-07-11T06:35:14.388199Z',
+    CreatedDate: '2023-08-17T06:10:33.796199Z',
     UpdatedBy: 'nguyen_huuvan@wohhup.com.vn',
-    UpdatedDate: '2023-07-11T06:35:14.388241Z'
+    UpdatedDate: '2023-08-18T03:50:31.700581Z'
+  },
+  SubAppPqaSafetyEvaluation: {
+    Id: '3bb80793-a454-41e5-967a-c20b1658285f',
+    PqaId: '904e5145-b934-4d42-bb62-d80e3738cc1f',
+    Name: 'Nguyen Huu Van',
+    Remark: '',
+    ScoreList: { yesNumber: 2, noNumber: 1, totalAward: 1 },
+    IsDeleted: false,
+    CreatedBy: 'nguyen_huuvan@wohhup.com.vn',
+    CreatedDate: '2023-08-17T06:10:33.796207Z',
+    UpdatedBy: 'nguyen_huuvan@wohhup.com.vn',
+    UpdatedDate: '2023-08-18T03:50:31.70077Z'
   },
   SubAppPqaFinding: [
     {
-      Id: '26502d84-f78d-45d3-8ea8-91c4220da4d0',
-      PqaId: 'ceebf3e3-366e-46b7-b9cf-5726c22691c0',
+      Id: 'f08c5e3e-a564-4751-9a9f-e0cee88442af',
+      PqaId: '904e5145-b934-4d42-bb62-d80e3738cc1f',
+      Name: 'Nguyen Huu Van',
+      SeverityPoint: 0,
+      FrequencyPoint: 0,
+      Points: 99,
+      FindingReport: '',
+      FindingImage: [],
+      IsDeleted: false,
+      CreatedBy: 'nguyen_huuvan@wohhup.com.vn',
+      CreatedDate: '2023-08-17T06:10:33.796212Z',
+      UpdatedBy: 'nguyen_huuvan@wohhup.com.vn',
+      UpdatedDate: '2023-08-17T06:10:33.796212Z'
+    },
+    {
+      Id: '2781427b-7027-4fd2-846d-a1d7e4834d2e',
+      PqaId: '904e5145-b934-4d42-bb62-d80e3738cc1f',
       Name: 'Nguyen Huu Van',
       SeverityPoint: 1,
       FrequencyPoint: 1,
-      Points: 40,
-      FindingReport: 'testing note 7',
-      FindingImage: ['prefab/subapp/pqa/siim-lukka-X-Far-t1woI-unsplash.jpg'],
-      IsDeleted: false,
-      CreatedBy: 'nguyen_huuvan@wohhup.com.vn',
-      CreatedDate: '2023-07-11T06:35:14.388532Z',
-      UpdatedBy: 'nguyen_huuvan@wohhup.com.vn',
-      UpdatedDate: '2023-07-11T06:35:14.388532Z'
-    },
-    {
-      Id: '7af0de6e-2983-43ac-ab09-deb868e0a5bb',
-      PqaId: 'ceebf3e3-366e-46b7-b9cf-5726c22691c0',
-      Name: 'Nguyen Huu Van',
-      SeverityPoint: 1,
-      FrequencyPoint: 2,
-      Points: 30,
-      FindingReport: 'testing note 5',
+      Points: 45,
+      FindingReport: 'testing',
       FindingImage: [
-        'prefab/subapp/pqa/pawel-czerwinski-6lQDFGOB1iw-unsplash.jpg',
-        'prefab/subapp/pqa/sami-takarautio-v05Hv8lT-40-unsplash.jpg',
-        'prefab/subapp/pqa/siim-lukka-X-Far-t1woI-unsplash.jpg'
+        'prefab/subapp/pqa/peter-olexa-mxIGWk111u0-unsplash.jpg',
+        'prefab/subapp/pqa/pexels-andy-vu-3244513.jpg',
+        'prefab/subapp/pqa/pexels-trushotz-3635300.jpg'
       ],
       IsDeleted: false,
       CreatedBy: 'nguyen_huuvan@wohhup.com.vn',
-      CreatedDate: '2023-07-11T06:35:14.388373Z',
+      CreatedDate: '2023-08-17T06:10:33.796212Z',
       UpdatedBy: 'nguyen_huuvan@wohhup.com.vn',
-      UpdatedDate: '2023-07-11T06:35:14.388416Z'
-    },
-    {
-      Id: '803c6f8e-9cc8-436e-9165-54dc40a9c97b',
-      PqaId: 'ceebf3e3-366e-46b7-b9cf-5726c22691c0',
-      Name: 'Nguyen Huu Van',
-      SeverityPoint: 2,
-      FrequencyPoint: 2,
-      Points: 20,
-      FindingReport: 'testing note 6',
-      FindingImage: [
-        'prefab/subapp/pqa/lucas-kapla-wQLAGv4_OYs-unsplash.jpg',
-        'prefab/subapp/pqa/pawel-czerwinski-6lQDFGOB1iw-unsplash.jpg'
-      ],
-      IsDeleted: false,
-      CreatedBy: 'nguyen_huuvan@wohhup.com.vn',
-      CreatedDate: '2023-07-11T06:35:14.388522Z',
-      UpdatedBy: 'nguyen_huuvan@wohhup.com.vn',
-      UpdatedDate: '2023-07-11T06:35:14.388526Z'
-    },
-    {
-      Id: '803c6f8e-9cc8-436e-9165-54dc40a9c97b',
-      PqaId: 'ceebf3e3-366e-46b7-b9cf-5726c22691c0',
-      Name: 'Nguyen Huu Van',
-      SeverityPoint: 2,
-      FrequencyPoint: 2,
-      Points: 20,
-      FindingReport: 'testing note 6',
-      FindingImage: [
-        'prefab/subapp/pqa/lucas-kapla-wQLAGv4_OYs-unsplash.jpg',
-        'prefab/subapp/pqa/pawel-czerwinski-6lQDFGOB1iw-unsplash.jpg'
-      ],
-      IsDeleted: false,
-      CreatedBy: 'nguyen_huuvan@wohhup.com.vn',
-      CreatedDate: '2023-07-11T06:35:14.388522Z',
-      UpdatedBy: 'nguyen_huuvan@wohhup.com.vn',
-      UpdatedDate: '2023-07-11T06:35:14.388526Z'
-    },
-    {
-      Id: '803c6f8e-9cc8-436e-9165-54dc40a9c97b',
-      PqaId: 'ceebf3e3-366e-46b7-b9cf-5726c22691c0',
-      Name: 'Nguyen Huu Van',
-      SeverityPoint: 2,
-      FrequencyPoint: 2,
-      Points: 20,
-      FindingReport: 'testing note 6',
-      FindingImage: [
-        'prefab/subapp/pqa/lucas-kapla-wQLAGv4_OYs-unsplash.jpg',
-        'prefab/subapp/pqa/pawel-czerwinski-6lQDFGOB1iw-unsplash.jpg'
-      ],
-      IsDeleted: false,
-      CreatedBy: 'nguyen_huuvan@wohhup.com.vn',
-      CreatedDate: '2023-07-11T06:35:14.388522Z',
-      UpdatedBy: 'nguyen_huuvan@wohhup.com.vn',
-      UpdatedDate: '2023-07-11T06:35:14.388526Z'
-    },
-    {
-      Id: '803c6f8e-9cc8-436e-9165-54dc40a9c97b',
-      PqaId: 'ceebf3e3-366e-46b7-b9cf-5726c22691c0',
-      Name: 'Nguyen Huu Van',
-      SeverityPoint: 2,
-      FrequencyPoint: 2,
-      Points: 20,
-      FindingReport: 'testing note 6',
-      FindingImage: [
-        'prefab/subapp/pqa/lucas-kapla-wQLAGv4_OYs-unsplash.jpg',
-        'prefab/subapp/pqa/pawel-czerwinski-6lQDFGOB1iw-unsplash.jpg'
-      ],
-      IsDeleted: false,
-      CreatedBy: 'nguyen_huuvan@wohhup.com.vn',
-      CreatedDate: '2023-07-11T06:35:14.388522Z',
-      UpdatedBy: 'nguyen_huuvan@wohhup.com.vn',
-      UpdatedDate: '2023-07-11T06:35:14.388526Z'
-    },
-    {
-      Id: '803c6f8e-9cc8-436e-9165-54dc40a9c97b',
-      PqaId: 'ceebf3e3-366e-46b7-b9cf-5726c22691c0',
-      Name: 'Nguyen Huu Van',
-      SeverityPoint: 2,
-      FrequencyPoint: 2,
-      Points: 20,
-      FindingReport: 'testing note 6',
-      FindingImage: [
-        'prefab/subapp/pqa/lucas-kapla-wQLAGv4_OYs-unsplash.jpg',
-        'prefab/subapp/pqa/pawel-czerwinski-6lQDFGOB1iw-unsplash.jpg'
-      ],
-      IsDeleted: false,
-      CreatedBy: 'nguyen_huuvan@wohhup.com.vn',
-      CreatedDate: '2023-07-11T06:35:14.388522Z',
-      UpdatedBy: 'nguyen_huuvan@wohhup.com.vn',
-      UpdatedDate: '2023-07-11T06:35:14.388526Z'
-    },
-    {
-      Id: '803c6f8e-9cc8-436e-9165-54dc40a9c97b',
-      PqaId: 'ceebf3e3-366e-46b7-b9cf-5726c22691c0',
-      Name: 'Nguyen Huu Van',
-      SeverityPoint: 2,
-      FrequencyPoint: 2,
-      Points: 20,
-      FindingReport: 'testing note 6',
-      FindingImage: [
-        'prefab/subapp/pqa/lucas-kapla-wQLAGv4_OYs-unsplash.jpg',
-        'prefab/subapp/pqa/pawel-czerwinski-6lQDFGOB1iw-unsplash.jpg'
-      ],
-      IsDeleted: false,
-      CreatedBy: 'nguyen_huuvan@wohhup.com.vn',
-      CreatedDate: '2023-07-11T06:35:14.388522Z',
-      UpdatedBy: 'nguyen_huuvan@wohhup.com.vn',
-      UpdatedDate: '2023-07-11T06:35:14.388526Z'
-    },
-    {
-      Id: '803c6f8e-9cc8-436e-9165-54dc40a9c97b',
-      PqaId: 'ceebf3e3-366e-46b7-b9cf-5726c22691c0',
-      Name: 'Nguyen Huu Van',
-      SeverityPoint: 2,
-      FrequencyPoint: 2,
-      Points: 20,
-      FindingReport: 'testing note 6',
-      FindingImage: [
-        'prefab/subapp/pqa/lucas-kapla-wQLAGv4_OYs-unsplash.jpg',
-        'prefab/subapp/pqa/pawel-czerwinski-6lQDFGOB1iw-unsplash.jpg'
-      ],
-      IsDeleted: false,
-      CreatedBy: 'nguyen_huuvan@wohhup.com.vn',
-      CreatedDate: '2023-07-11T06:35:14.388522Z',
-      UpdatedBy: 'nguyen_huuvan@wohhup.com.vn',
-      UpdatedDate: '2023-07-11T06:35:14.388526Z'
+      UpdatedDate: '2023-08-17T06:18:16.442199Z'
     }
-  ]
+  ],
+  Token:
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhYjEzZTM5MC1kYWExLTQzODUtOTdjNi02ZGFlYzI1ZTVjMTkiLCJpc0FkbWluIjpmYWxzZSwiZW1haWwiOiJuZ3V5ZW5faHV1dmFuQHdvaGh1cC5jb20udm4iLCJjb25maXJtZWQiOmZhbHNlLCJuYW1lIjoiTmd1eWVuIEh1dSBWYW4iLCJzaG9ydE5hbWUiOm51bGwsImlhdCI6MTY5MDY4MjE0MSwiZXhwIjoxNjkwNzY4NTQxfQ.euIX8w20JPgbLXiYljjnXxibbHMnoYSXagpTsgQmp3o'
 };
 
 module.exports = data;

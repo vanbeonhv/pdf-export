@@ -118,7 +118,7 @@ const generatePdf = async (data) => {
       Trade1Score,
       Trade2Score,
       ObservationScore,
-      LastMonthPqaScore,
+      SubAppPqaLastMonthFinding.IsActive ? LastMonthPqaScore : 'NA',
       RFWIRecordsScore,
       FindingScore,
       TotalScore
@@ -197,6 +197,19 @@ const generatePdf = async (data) => {
             align: 'center',
             baseline: 'middle'
           });
+        }
+
+        if (columnIndex === 6) {
+          doc?.setFont(undefined, 'italic');
+          doc.text(
+            SubAppPqaLastMonthFinding.IsActive ? '' : '(pro-rated)',
+            textX,
+            textY + 5,
+            {
+              align: 'center',
+              baseline: 'middle'
+            }
+          );
         }
 
         doc.setLineWidth(0.3);
@@ -535,12 +548,14 @@ const generatePdf = async (data) => {
   //#region Trade 4 table
   const { yes, partial, no, na, totalFindings } =
     SubAppPqaLastMonthFinding.ScoreList;
+  const { isActive } = SubAppPqaLastMonthFinding;
+  const notActive = !isActive ? '  -  (NA)' : '';
   doc.rect(xStart, rowY, 164.4, 10);
   doc.line(154.4, rowY, 154.4, rowY + 25);
   rowY += 6;
   createText('4', xStart + 4, rowY, {}, true, 12);
   createText(
-    'Follow-up on last month PQA findings',
+    'Follow-up on last month PQA findings' + notActive,
     secondColumnStartPoint3 + 1,
     rowY,
     {},
@@ -575,16 +590,82 @@ const generatePdf = async (data) => {
 
   //#region Trade 5 table
   rowY += 10;
-  const {
-    yesNumber,
-    partialNumber,
-    noNumber,
-    naNumber,
-    totalFindings: totalFindingsNumber
-  } = SubAppPqaRFWIRecords.ScoreList;
-  const remark = SubAppPqaRFWIRecords.Remark;
+
+  const generateTrade5 = (scoreList5, tradeTitle, numberTitle) => {
+    const {
+      yesNumber,
+      partialNumber,
+      noNumber,
+      naNumber,
+      totalFindings: totalFindingsNumber
+    } = scoreList5;
+    const remark = scoreList5.remarkRFWI;
+
+    doc.rect(xStart, rowY, 10, 20);
+    doc.rect(xStart + 10, rowY, 154.4, 20);
+    doc.line(154.4, rowY, 154.4, rowY + 20);
+
+    rowY += 5;
+    createTextItalic(`${tradeTitle}:`, xStart + 12, rowY, {}, 12);
+    rowY += 9;
+    createText(numberTitle, xStart + 2, rowY - 2.5, {}, false, 12);
+    createText('Total', xStart + 12, rowY - 2.5, {}, false, 12);
+    createText('Findings', xStart + 12, rowY + 2.5, {}, false, 12);
+    createText(':', xStart + 30, rowY, {}, false, 12);
+    createText(
+      totalFindingsNumber.toString(),
+      xStart + 34,
+      rowY,
+      {},
+      false,
+      12
+    );
+    createText('Yes', xStart + 50, rowY, {}, false, 12);
+    createText(':', xStart + 58, rowY, {}, false, 12);
+    createText(yesNumber.toString(), xStart + 61, rowY, {}, false, 12);
+    createText('Partial', xStart + 76, rowY, {}, false, 12); //+12
+    createText(':', xStart + 88, rowY, {}, false, 12);
+    createText(partialNumber.toString(), xStart + 92, rowY, {}, false, 12); //+4
+    createText('No', xStart + 107, rowY, {}, false, 12); //+15
+    createText(':', xStart + 113, rowY, {}, false, 12);
+    createText(noNumber.toString(), xStart + 116, rowY, {}, false, 12); //+3
+    createText('NA', xStart + 128, rowY, {}, false, 12); //+12
+    createText(':', xStart + 134, rowY, {}, false, 12); //+4
+    createText(naNumber.toString(), xStart + 138, rowY, {}, false, 12); //+12
+    createText(RFWIRecordsScore.toString(), xStart + 150, rowY, {}, true, 12);
+
+    rowY += 6;
+    let remarkHeightRFWI = 0;
+    doc.autoTable({
+      head: [[`Remark: ${remark}`]],
+      startY: rowY,
+      margin: { left: xStart + 10 },
+      theme: 'grid',
+      styles: {
+        fontStyle: 'normal',
+        textColor: '#000',
+        lineColor: '#000',
+        lineWidth: 0.2
+      },
+      headStyles: {
+        fillColor: '#fff',
+        valign: 'top',
+        halign: 'left',
+        minCellHeight: 18
+      },
+      didDrawCell: (data) => {
+        doc.rect(xStart, rowY, 10, data.cell.height);
+        remarkHeightRFWI = remarkHeightRFWI + data.cell.height;
+        createText('', xStart + 2, rowY + remarkHeightRFWI / 2, {}, false, 12);
+      }
+    });
+
+    rowY = rowY + remarkHeightRFWI;
+  };
+
+  //----------TRADE 5 HEADING------------------
   doc.rect(xStart, rowY, 164.4, 10);
-  doc.line(154.4, rowY, 154.4, rowY + 25);
+  doc.line(154.4, rowY, 154.4, rowY + 10);
   rowY += 6;
   createText('5', xStart + 4, rowY, {}, true, 12);
   createText(
@@ -597,60 +678,18 @@ const generatePdf = async (data) => {
   );
   createText('Weightage', 157, rowY - 2, {}, false, 10);
   createText(`(${getWeightage(4)}%)`, 160, rowY + 2, {}, false, 10);
-
   rowY += 4;
-  doc.rect(xStart, rowY, 10, 15);
-  doc.rect(xStart + 10, rowY, 154.4, 15);
 
-  rowY += 10;
-  createText('5.1', xStart + 2, rowY, {}, false, 12);
-  createText('Total', xStart + 12, rowY - 2.5, {}, false, 12);
-  createText('Findings', xStart + 12, rowY + 2.5, {}, false, 12);
-  createText(':', xStart + 30, rowY, {}, false, 12);
-  createText(totalFindingsNumber.toString(), xStart + 34, rowY, {}, false, 12);
-  createText('Yes', xStart + 50, rowY, {}, false, 12);
-  createText(':', xStart + 58, rowY, {}, false, 12);
-  createText(yesNumber.toString(), xStart + 61, rowY, {}, false, 12);
-  createText('Partial', xStart + 76, rowY, {}, false, 12); //+12
-  createText(':', xStart + 88, rowY, {}, false, 12);
-  createText(partialNumber.toString(), xStart + 92, rowY, {}, false, 12); //+4
-  createText('No', xStart + 107, rowY, {}, false, 12); //+15
-  createText(':', xStart + 113, rowY, {}, false, 12);
-  createText(noNumber.toString(), xStart + 116, rowY, {}, false, 12); //+3
-  createText('NA', xStart + 128, rowY, {}, false, 12); //+12
-  createText(':', xStart + 134, rowY, {}, false, 12); //+4
-  createText(naNumber.toString(), xStart + 138, rowY, {}, false, 12); //+12
-  createText(RFWIRecordsScore.toString(), xStart + 150, rowY, {}, true, 12);
+  //------Start generate trade Structural, Archi and Mep
+  const { Archi, Structural, Mep } = SubAppPqaRFWIRecords;
+  generateTrade5(Structural, 'Structural', '5.1');
+  generateTrade5(Archi, 'Architectural', '5.2');
+  generateTrade5(Mep, 'MEP', '5.3');
 
-  rowY += 5;
-  let remarkHeightRFWI = 0;
-  doc.autoTable({
-    head: [[`Remark: ${remark}`]],
-    startY: rowY,
-    margin: { left: xStart + 10 },
-    theme: 'grid',
-    styles: {
-      fontStyle: 'normal',
-      textColor: '#000',
-      lineColor: '#000',
-      lineWidth: 0.2
-    },
-    headStyles: {
-      fillColor: '#fff',
-      valign: 'top',
-      halign: 'left',
-      minCellHeight: 20
-    },
-    didDrawCell: (data) => {
-      doc.rect(xStart, rowY, 10, data.cell.height);
-      remarkHeightRFWI = remarkHeightRFWI + data.cell.height;
-      createText('5.2', xStart + 2, rowY + remarkHeightRFWI / 2, {}, false, 12);
-    }
-  });
   //#endregion Trade 5 table
 
   //#region Trade 6 table
-  rowY = rowY + remarkHeightRFWI + 10;
+  rowY += 5;
   const {
     yesNumber: yesNumberSafety,
     noNumber: noNumberSafety,
@@ -706,7 +745,7 @@ const generatePdf = async (data) => {
       fillColor: '#fff',
       valign: 'top',
       halign: 'left',
-      minCellHeight: 20
+      minCellHeight: 15
     },
     didDrawCell: (data) => {
       doc.rect(xStart, rowY, 10, data.cell.height);
@@ -725,7 +764,7 @@ const generatePdf = async (data) => {
   //#endregion Trade 6 table
 
   //#region Trade 7 table
-  rowY = rowY + remarkHeightSafety + 10;
+  rowY = rowY + remarkHeightSafety + 5;
   doc.rect(xStart, rowY, 164.4, 10);
   doc.line(154.4, rowY, 154.4, rowY + 10);
   doc.rect(154.4, rowY + 10, 22, 8);
@@ -806,7 +845,7 @@ const generatePdf = async (data) => {
     pointListTrade7InOnePage[pageNumber].push({
       severityPoint: findings.SeverityPoint,
       frequencyPoint: findings.FrequencyPoint,
-      points: findings.Points
+      points: findings.Points === 99 ? '-' : findings.Points
     });
   });
 
