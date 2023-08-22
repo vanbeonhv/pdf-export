@@ -593,6 +593,7 @@ const generatePdf = async (data) => {
 
   const generateTrade5 = (scoreList5, tradeTitle, numberTitle) => {
     const {
+      tradePoint,
       yesNumber,
       partialNumber,
       noNumber,
@@ -632,7 +633,7 @@ const generatePdf = async (data) => {
     createText('NA', xStart + 128, rowY, {}, false, 12); //+12
     createText(':', xStart + 134, rowY, {}, false, 12); //+4
     createText(naNumber.toString(), xStart + 138, rowY, {}, false, 12); //+12
-    createText(RFWIRecordsScore.toString(), xStart + 150, rowY, {}, true, 12);
+    createText(tradePoint.toString(), xStart + 150, rowY, {}, true, 12);
 
     rowY += 6;
     let remarkHeightRFWI = 0;
@@ -685,6 +686,11 @@ const generatePdf = async (data) => {
   generateTrade5(Structural, 'Structural', '5.1');
   generateTrade5(Archi, 'Architectural', '5.2');
   generateTrade5(Mep, 'MEP', '5.3');
+
+  doc.rect(154.4, rowY, 22, 8);
+  rowY += 5;
+  createText(RFWIRecordsScore.toString(), 160, rowY, {}, true, 12);
+  createText('Score', 140, rowY, {}, false, 12);
 
   //#endregion Trade 5 table
 
@@ -782,7 +788,7 @@ const generatePdf = async (data) => {
   createText('Weightage', 157, rowY - 2, {}, false, 10);
   createText(`(${getWeightage(7)}%)`, 160, rowY + 2, {}, false, 10);
   rowY += 10;
-  createText(FindingScore.toString(), 162, rowY, {}, true, 12);
+  createText(FindingScore.toString(), 160, rowY, {}, true, 12);
   createText('Score', 140, rowY, {}, false, 12);
   rowY += 10;
   rowY += 56;

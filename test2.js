@@ -9,7 +9,7 @@ const data =
   "Trade2Score": 6.25,
   "ObservationScore": 3.33,
   "LastMonthPqaScore": 2.5,
-  "RFWIRecordsScore": 10,
+  "RFWIRecordsScore": 6.6,
   "FindingScore": 44.44,
   "TotalScore": 72.77,
   "Status": 99,
