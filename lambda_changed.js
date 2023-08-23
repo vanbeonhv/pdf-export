@@ -271,13 +271,19 @@ exports.handler = async (event) => {
       }
 
       rowsDataTrade1[index][2] = conformList1[index];
-      rowsDataTrade1[index][3] = SubAppPqaCheckList1.NoteList[index];
+
+      const siteFinding1 = SubAppPqaCheckList1.NoteList[index];
+      rowsDataTrade1[index][3] =
+        siteFinding1.length > 38
+          ? siteFinding1.slice(0, 35) + '...'
+          : siteFinding1;
+
       rowsDataTrade1[index][4] = score;
     });
 
     let lastColumnWidth1;
     let secondColumnStartPoint1;
-    let thirdColumnStartPoint1;
+    let forthColumnStartPoint1;
     doc.autoTable({
       head: [
         [
@@ -315,8 +321,11 @@ exports.handler = async (event) => {
       didDrawCell: function (data) {
         lastColumnWidth1 = data.table.columns[4].width;
         secondColumnStartPoint1 = xStart + data.table.columns[0].width;
-        thirdColumnStartPoint1 =
-          xStart + data.table.columns[0].width + data.table.columns[1].width;
+        forthColumnStartPoint1 =
+          xStart +
+          data.table.columns[0].width +
+          data.table.columns[1].width +
+          data.table.columns[2].width;
       }
     });
 
@@ -332,17 +341,19 @@ exports.handler = async (event) => {
       false,
       12
     );
-    createText(
-      'Location:',
-      thirdColumnStartPoint1 + 1,
-      rowY - 1.5,
-      {},
-      true,
-      12
-    );
+
+    const spaceWithTradeTitle =
+      SubAppPqaCheckList1.Trade.length > 28
+        ? SubAppPqaCheckList1.Trade.length - 28
+        : 0;
+
+    const newLocationX = forthColumnStartPoint1 + spaceWithTradeTitle * 2;
+    const newLocationValueX = newLocationX + 20;
+    createText('Location:', newLocationX, rowY - 1.5, {}, true, 12);
+
     createText(
       SubAppPqaCheckList1.Location,
-      thirdColumnStartPoint1 + 22,
+      newLocationValueX,
       rowY - 1.5,
       {},
       false,
@@ -395,13 +406,19 @@ exports.handler = async (event) => {
         score = '-';
       }
       rowsDataTrade2[index][2] = conformList2[index];
-      rowsDataTrade2[index][3] = SubAppPqaCheckList2.NoteList[index];
+
+      const siteFinding2 = SubAppPqaCheckList2.NoteList[index];
+      rowsDataTrade2[index][3] =
+        siteFinding2.length > 38
+          ? siteFinding2.slice(0, 35) + '...'
+          : siteFinding2;
+
       rowsDataTrade2[index][4] = score;
     });
 
     let lastColumnWidth2;
     let secondColumnStartPoint2;
-    let thirdColumnStartPoint2;
+    let forthColumnStartPoint2;
     doc.autoTable({
       head: [
         [
@@ -438,8 +455,11 @@ exports.handler = async (event) => {
       didDrawCell: function (data) {
         lastColumnWidth2 = data.table.columns[4].width;
         secondColumnStartPoint2 = xStart + data.table.columns[0].width;
-        thirdColumnStartPoint2 =
-          xStart + data.table.columns[0].width + data.table.columns[1].width;
+        forthColumnStartPoint2 =
+          xStart +
+          data.table.columns[0].width +
+          data.table.columns[1].width +
+          data.table.columns[2].width;
       }
     });
     createText('2', xStart + 4, rowY - 1.5, {}, true, 12);
@@ -452,17 +472,19 @@ exports.handler = async (event) => {
       false,
       12
     );
-    createText(
-      'Location:',
-      thirdColumnStartPoint2 + 1,
-      rowY - 1.5,
-      {},
-      true,
-      12
-    );
+
+    const spaceWithTradeTitle2 =
+      SubAppPqaCheckList2.Trade.length > 28
+        ? SubAppPqaCheckList2.Trade.length - 28
+        : 0;
+
+    const newLocationX2 = forthColumnStartPoint2 + spaceWithTradeTitle2 * 2;
+    const newLocationValueX2 = newLocationX2 + 20;
+    createText('Location:', newLocationX2, rowY - 1.5, {}, true, 12);
+
     createText(
       SubAppPqaCheckList2.Location,
-      thirdColumnStartPoint2 + 22,
+      newLocationValueX2,
       rowY - 1.5,
       {},
       false,
