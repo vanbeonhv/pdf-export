@@ -130,7 +130,7 @@ exports.handler = async (event) => {
         Trade2Score,
         ObservationScore,
         SubAppPqaLastMonthFinding.IsActive ? LastMonthPqaScore : 'NA',
-        RFWIRecordsScore,
+        SubAppPqaRFWIRecords.IsTrade5Active ? RFWIRecordsScore : 'NA',
         FindingScore,
         TotalScore
       ]
@@ -213,7 +213,10 @@ exports.handler = async (event) => {
           if (columnIndex === 6) {
             doc?.setFont(undefined, 'italic');
             doc.text(
-              SubAppPqaLastMonthFinding.IsActive ? '' : '(pro-rated)',
+              SubAppPqaLastMonthFinding.IsActive &&
+                SubAppPqaRFWIRecords.IsTrade5Active
+                ? ''
+                : '(pro-rated)',
               textX,
               textY + 5,
               {
@@ -271,13 +274,19 @@ exports.handler = async (event) => {
       }
 
       rowsDataTrade1[index][2] = conformList1[index];
-      rowsDataTrade1[index][3] = SubAppPqaCheckList1.NoteList[index];
+
+      const siteFinding1 = SubAppPqaCheckList1.NoteList[index];
+      rowsDataTrade1[index][3] =
+        siteFinding1.length > 38
+          ? siteFinding1.slice(0, 35) + '...'
+          : siteFinding1;
+
       rowsDataTrade1[index][4] = score;
     });
 
     let lastColumnWidth1;
     let secondColumnStartPoint1;
-    let thirdColumnStartPoint1;
+    let forthColumnStartPoint1;
     doc.autoTable({
       head: [
         [
@@ -315,8 +324,11 @@ exports.handler = async (event) => {
       didDrawCell: function (data) {
         lastColumnWidth1 = data.table.columns[4].width;
         secondColumnStartPoint1 = xStart + data.table.columns[0].width;
-        thirdColumnStartPoint1 =
-          xStart + data.table.columns[0].width + data.table.columns[1].width;
+        forthColumnStartPoint1 =
+          xStart +
+          data.table.columns[0].width +
+          data.table.columns[1].width +
+          data.table.columns[2].width;
       }
     });
 
@@ -332,17 +344,19 @@ exports.handler = async (event) => {
       false,
       12
     );
-    createText(
-      'Location:',
-      thirdColumnStartPoint1 + 1,
-      rowY - 1.5,
-      {},
-      true,
-      12
-    );
+
+    const spaceWithTradeTitle =
+      SubAppPqaCheckList1.Trade.length > 28
+        ? SubAppPqaCheckList1.Trade.length - 28
+        : 0;
+
+    const newLocationX = forthColumnStartPoint1 + spaceWithTradeTitle * 2;
+    const newLocationValueX = newLocationX + 20;
+    createText('Location:', newLocationX, rowY - 1.5, {}, true, 12);
+
     createText(
       SubAppPqaCheckList1.Location,
-      thirdColumnStartPoint1 + 22,
+      newLocationValueX,
       rowY - 1.5,
       {},
       false,
@@ -395,13 +409,19 @@ exports.handler = async (event) => {
         score = '-';
       }
       rowsDataTrade2[index][2] = conformList2[index];
-      rowsDataTrade2[index][3] = SubAppPqaCheckList2.NoteList[index];
+
+      const siteFinding2 = SubAppPqaCheckList2.NoteList[index];
+      rowsDataTrade2[index][3] =
+        siteFinding2.length > 38
+          ? siteFinding2.slice(0, 35) + '...'
+          : siteFinding2;
+
       rowsDataTrade2[index][4] = score;
     });
 
     let lastColumnWidth2;
     let secondColumnStartPoint2;
-    let thirdColumnStartPoint2;
+    let forthColumnStartPoint2;
     doc.autoTable({
       head: [
         [
@@ -438,8 +458,11 @@ exports.handler = async (event) => {
       didDrawCell: function (data) {
         lastColumnWidth2 = data.table.columns[4].width;
         secondColumnStartPoint2 = xStart + data.table.columns[0].width;
-        thirdColumnStartPoint2 =
-          xStart + data.table.columns[0].width + data.table.columns[1].width;
+        forthColumnStartPoint2 =
+          xStart +
+          data.table.columns[0].width +
+          data.table.columns[1].width +
+          data.table.columns[2].width;
       }
     });
     createText('2', xStart + 4, rowY - 1.5, {}, true, 12);
@@ -452,17 +475,19 @@ exports.handler = async (event) => {
       false,
       12
     );
-    createText(
-      'Location:',
-      thirdColumnStartPoint2 + 1,
-      rowY - 1.5,
-      {},
-      true,
-      12
-    );
+
+    const spaceWithTradeTitle2 =
+      SubAppPqaCheckList2.Trade.length > 28
+        ? SubAppPqaCheckList2.Trade.length - 28
+        : 0;
+
+    const newLocationX2 = forthColumnStartPoint2 + spaceWithTradeTitle2 * 2;
+    const newLocationValueX2 = newLocationX2 + 20;
+    createText('Location:', newLocationX2, rowY - 1.5, {}, true, 12);
+
     createText(
       SubAppPqaCheckList2.Location,
-      thirdColumnStartPoint2 + 22,
+      newLocationValueX2,
       rowY - 1.5,
       {},
       false,
@@ -637,7 +662,8 @@ exports.handler = async (event) => {
         partialNumber,
         noNumber,
         naNumber,
-        totalFindings: totalFindingsNumber
+        totalFindings: totalFindingsNumber,
+        isActive
       } = scoreList5;
       const remark = scoreList5.remarkRFWI;
 
@@ -648,7 +674,13 @@ exports.handler = async (event) => {
       doc.line(154.4, rowY, 154.4, rowY + 20);
 
       rowY += 5;
-      createTextItalic(`${tradeTitle}:`, xStart + 12, rowY, {}, 12);
+      createTextItalic(
+        `${tradeTitle}:  ${isActive ? '' : '(NA)'}`,
+        xStart + 12,
+        rowY,
+        {},
+        12
+      );
       rowY += 9;
       createText(numberTitle, xStart + 2, rowY - 2.5, {}, false, 12);
       createText('Total', xStart + 12, rowY - 2.5, {}, false, 12);
@@ -665,16 +697,20 @@ exports.handler = async (event) => {
       createText('Yes', xStart + 50, rowY, {}, false, 12);
       createText(':', xStart + 58, rowY, {}, false, 12);
       createText(yesNumber.toString(), xStart + 61, rowY, {}, false, 12);
-      createText('Partial', xStart + 76, rowY, {}, false, 12); //+12
-      createText(':', xStart + 88, rowY, {}, false, 12);
-      createText(partialNumber.toString(), xStart + 92, rowY, {}, false, 12); //+4
-      createText('No', xStart + 107, rowY, {}, false, 12); //+15
-      createText(':', xStart + 113, rowY, {}, false, 12);
-      createText(noNumber.toString(), xStart + 116, rowY, {}, false, 12); //+3
-      createText('NA', xStart + 128, rowY, {}, false, 12); //+12
-      createText(':', xStart + 134, rowY, {}, false, 12); //+4
-      createText(naNumber.toString(), xStart + 138, rowY, {}, false, 12); //+12
-      createText(tradePoint.toString(), xStart + 150, rowY, {}, true, 12);
+      createText('No', xStart + 93, rowY, {}, false, 12);
+      createText(':', xStart + 98, rowY, {}, false, 12);
+      createText(noNumber.toString(), xStart + 101, rowY, {}, false, 12);
+      createText('NA', xStart + 123, rowY, {}, false, 12);
+      createText(':', xStart + 129, rowY, {}, false, 12);
+      createText(naNumber.toString(), xStart + 133, rowY, {}, false, 12);
+      createText(
+        isActive ? tradePoint.toString() : '-',
+        xStart + 150,
+        rowY,
+        {},
+        true,
+        12
+      );
 
       rowY += 6;
       let remarkHeightRFWI = 0;
@@ -713,12 +749,15 @@ exports.handler = async (event) => {
     };
 
     //----------TRADE 5 HEADING------------------
+    const { Archi, Structural, Mep, IsTrade5Active } = SubAppPqaRFWIRecords;
     doc.rect(xStart, rowY, 164.4, 10);
     doc.line(154.4, rowY, 154.4, rowY + 10);
     rowY += 6;
     createText('5', xStart + 4, rowY, {}, true, 12);
     createText(
-      'Vertication Of RFWI Records',
+      `Verification - RFWI records (Scanned copy/Digital archive) ${
+        IsTrade5Active ? '' : '- (NA)'
+      }`,
       secondColumnStartPoint3 + 1,
       rowY,
       {},
@@ -730,7 +769,6 @@ exports.handler = async (event) => {
     rowY += 4;
 
     //------Start generate trade Structural, Archi and Mep
-    const { Archi, Structural, Mep } = SubAppPqaRFWIRecords;
     generateTrade5(Structural, 'Structural', '5.1');
     generateTrade5(Archi, 'Architectural', '5.2');
     generateTrade5(Mep, 'MEP', '5.3');
@@ -739,7 +777,14 @@ exports.handler = async (event) => {
     doc.setDrawColor('#000000');
     doc.rect(154.4, rowY, 22, 8);
     rowY += 5;
-    createText(RFWIRecordsScore.toString(), 160, rowY, {}, true, 12);
+    createText(
+      `${IsTrade5Active ? RFWIRecordsScore.toString() : '-'}`,
+      160,
+      rowY,
+      {},
+      true,
+      12
+    );
     createText('Score', 140, rowY, {}, false, 12);
     //#endregion Trade 5 table
 
@@ -751,6 +796,7 @@ exports.handler = async (event) => {
     const {
       yesNumber: yesNumberSafety,
       noNumber: noNumberSafety,
+      naNumber: naNumberSafety,
       totalAward
     } = SubAppPqaSafetyEvaluation.ScoreList;
     const remarkSafety = SubAppPqaSafetyEvaluation.Remark;
@@ -778,13 +824,16 @@ exports.handler = async (event) => {
     createText('Total Award', xStart + 12, rowY, {}, false, 12);
     createText(':', xStart + 36, rowY, {}, false, 12);
     createText(totalAward.toString(), xStart + 38, rowY, {}, false, 12);
-    createText('Yes', xStart + 80, rowY, {}, false, 12);
-    createText(':', xStart + 88, rowY, {}, false, 12);
-    createText(yesNumberSafety.toString(), xStart + 91, rowY, {}, false, 12);
-    createText('No', xStart + 128, rowY, {}, false, 12);
-    createText(':', xStart + 134, rowY, {}, false, 12);
-    createText(noNumberSafety.toString(), xStart + 138, rowY, {}, false, 12);
-    createText('-', xStart + 150, rowY, {}, true, 12);
+    createText('Yes', xStart + 55, rowY, {}, false, 12);
+    createText(':', xStart + 63, rowY, {}, false, 12);
+    createText(yesNumberSafety.toString(), xStart + 66, rowY, {}, false, 12);
+    createText('No', xStart + 93, rowY, {}, false, 12);
+    createText(':', xStart + 99, rowY, {}, false, 12);
+    createText(noNumberSafety.toString(), xStart + 103, rowY, {}, false, 12);
+    createText('NA', xStart + 123, rowY, {}, false, 12);
+    createText(':', xStart + 129, rowY, {}, false, 12);
+    createText(naNumberSafety.toString(), xStart + 132, rowY, {}, false, 12);
+    createText('-', xStart + 152, rowY, {}, true, 12);
 
     rowY += 5;
     let remarkHeightSafety = 0;
