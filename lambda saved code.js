@@ -612,8 +612,8 @@ exports.handler = async (event) => {
     //#region trade 4 table
     const { yes, partial, no, na, totalFindings } =
       SubAppPqaLastMonthFinding.ScoreList;
-    const { isActive } = SubAppPqaLastMonthFinding;
-    const notActive = !isActive ? '  -  (NA)' : '';
+    const { IsActive } = SubAppPqaLastMonthFinding;
+    const notActive = !IsActive ? '  -  (NA)' : '';
     doc.rect(xStart, rowY, 164.4, 10);
     doc.line(154.4, rowY, 154.4, rowY + 25);
     rowY += 6;

@@ -492,10 +492,16 @@ const generatePdf = async (data) => {
     ['3.3', 'Observation', '', '', '']
   ];
   const closeList = getClose(SubAppPqaObservation.ScoreList);
+  let isRemark3TooLong = false;
   SubAppPqaObservation.ScoreList.forEach((score, index) => {
     rowsDataObservation[index][1] = SubAppPqaObservation.Observation[index];
     rowsDataObservation[index][2] = closeList[index];
+
     rowsDataObservation[index][3] = SubAppPqaObservation.RemarkList[index];
+    if (SubAppPqaObservation.RemarkList[index].length > 40) {
+      isRemark3TooLong = true;
+    }
+
     if (SubAppPqaObservation.ScoreList[index] === 99) {
       SubAppPqaObservation.ScoreList[index] = '-';
     }
@@ -504,6 +510,7 @@ const generatePdf = async (data) => {
 
   let secondColumnStartPoint3;
   let lastColumnWidth3;
+  let tableHeight3 = 0;
   doc.autoTable({
     head: [['S/N', 'Observation', 'Close', 'Remark          ', 'Weightage']],
     body: rowsDataObservation,
@@ -526,14 +533,45 @@ const generatePdf = async (data) => {
       0: { halign: 'center' },
       1: { halign: 'left', minCellWidth: 46 },
       2: { halign: 'center' },
-      3: { halign: 'left', minCellWidth: 56 },
+      3: {
+        halign: 'left',
+        minCellWidth: 56,
+        fontSize: isRemark3TooLong ? 7 : 10
+      },
       4: { halign: 'center' }
     },
     didDrawCell: function (data) {
       lastColumnWidth3 = data.table.columns[4].width;
       secondColumnStartPoint3 = xStart + data.table.columns[0].width;
+    },
+    didDrawPage: function (data) {
+      tableHeight3 = data.table.body.reduce(
+        (prevValue, currentValue) => (prevValue += currentValue.height),
+        0
+      );
+      tableHeight3 += data.table.head[0].height;
     }
   });
+
+  //#region score box at the end of table
+  createText(
+    'Score',
+    176.4 - lastColumnWidth3 - 13.3,
+    rowY + tableHeight3 + 4.8,
+    {},
+    false,
+    12
+  );
+  createText(
+    ObservationScore.toString(),
+    176.4 - lastColumnWidth3 / 2 - 3,
+    rowY + tableHeight3 + 4.8,
+    {},
+    true,
+    12
+  );
+  doc.rect(176.4 - lastColumnWidth3, rowY + tableHeight3, lastColumnWidth3, 7);
+  //#endregion score box at the end of table
 
   createText('3', xStart + 4, rowY - 1.5, {}, true, 12);
   createText(
@@ -556,20 +594,6 @@ const generatePdf = async (data) => {
   rowY += 8.8;
   createText(`(${getWeightage(3)}%)`, 159.5, rowY, {}, false, 10);
 
-  rowY += 24;
-  doc.rect(176.4 - lastColumnWidth3, rowY, lastColumnWidth3, 7);
-  rowY += 4.8;
-
-  createText('Score', 176.4 - lastColumnWidth3 - 13.3, rowY, {}, false, 12);
-  createText(
-    ObservationScore.toString(),
-    176.4 - lastColumnWidth3 / 2 - 3,
-    rowY,
-    {},
-    true,
-    12
-  );
-  rowY += 5;
   //#endregion Trade 3 table
 
   //Third page

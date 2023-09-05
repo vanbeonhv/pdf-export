@@ -98,9 +98,9 @@ const data = {
       99.0
     ],
     "RemarkList": [
-      "",
-      "",
-      ""
+      "JOYWAY - Drilling and planting of rebar on",
+      "GUTHRIE - No protection of KO boxes after installation",
+      "JOYWAY - Water seepage due to delayed grouting for PBU"
     ],
     "IsThirdObservationActive": false,
     "IsDeleted": false,
@@ -169,7 +169,7 @@ const data = {
     "Id": "26fcb901-93f4-4c9d-bddc-7d0f768f6df2",
     "PqaId": "c0ebf0fb-70d7-459a-9058-3d33fcb4a7a9",
     "Name": "Nguyen Huu Van",
-    "Remark": "",
+    "Remark": "Awarded Subcontractor: \n 1. Vantage Concept Pte Ltd \n 2. TTJ Design and Engineering Pte Ltd \n No signature is found for both Pre-Award Safety Evaluation Form, under field of Reviewer's 2 (by Project Manager). ",
     "ScoreList": {
       "yesNumber": 2,
       "noNumber": 1,
@@ -217,7 +217,7 @@ const data = {
       "UpdatedDate": "2023-08-24T02:38:21.434779Z"
     }
   ],
-  "Token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhYjEzZTM5MC1kYWExLTQzODUtOTdjNi02ZGFlYzI1ZTVjMTkiLCJpc0FkbWluIjpmYWxzZSwiZW1haWwiOiJuZ3V5ZW5faHV1dmFuQHdvaGh1cC5jb20udm4iLCJjb25maXJtZWQiOmZhbHNlLCJuYW1lIjoiTmd1eWVuIEh1dSBWYW4iLCJzaG9ydE5hbWUiOm51bGwsImlhdCI6MTY5MDY4MjE0MSwiZXhwIjoxNjkwNzY4NTQxfQ.euIX8w20JPgbLXiYljjnXxibbHMnoYSXagpTsgQmp3o"
+  "Token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjODEyZGFiZS1lNWQ2LTRhNDItYTY1OC0yYWZkODQ2Y2VkMDQiLCJpc0FkbWluIjpmYWxzZSwiZW1haWwiOiJuZ3V5ZW5faHV1dmFuQHdvaGh1cC5jb20udm4iLCJjb25maXJtZWQiOmZhbHNlLCJuYW1lIjoiTmd1eWVuIEh1dSBWYW4iLCJzaG9ydE5hbWUiOm51bGwsImlhdCI6MTY5Mzg3NDQ4MiwiZXhwIjoxNjkzOTYwODgyfQ.Eoo5fvBK8kow7Kaym0wCQme3WWQTKKyPmPFV6BPYz0w"
 }
 
 module.exports = data
