@@ -5,14 +5,15 @@ const dayjs = require('dayjs');
 const { exec } = require('child_process');
 const FileReader = require('file-reader');
 const axios = require('axios');
+const sharp = require('sharp');
 
 const { getSecondLineText } = require('./util/getSecondLineText');
 const { getFullProjectName } = require('./util/getFullProjectName');
 const { getConform } = require('./util/getConform');
-const { whLogo } = require('./demoData');
+const { whLogo, portraitImage, errorImage } = require('./demoData');
 const { getClose } = require('./util/getClose');
 const { getWeightage } = require('./util/getWeightage');
-const data = require('./test2.js');
+const data = require('./test3.js');
 
 const generatePdf = async (data) => {
   const pqaDetail = { ...data };
@@ -70,7 +71,7 @@ const generatePdf = async (data) => {
     x,
     y,
     options = {},
-    fontSize = 9,
+    fontSize = 8,
     textColor = 'black'
   ) => {
     doc?.setFontSize(fontSize);
@@ -92,12 +93,31 @@ const generatePdf = async (data) => {
     rowY += 12;
   };
 
+  const resizeImage = async (base64ImageData) => {
+    try {
+      const buffer = Buffer.from(
+        base64ImageData.replace(/^data:image\/\w+;base64,/, ''),
+        'base64'
+      );
+
+      const resizedImageData = await sharp(buffer).rotate().toBuffer();
+
+      return resizedImageData;
+    } catch (error) {
+      return '';
+    }
+  };
+
   //Begin generate pdf
   const doc = new jsPDF({
     unit: 'mm',
     format: [190.5, 275.2]
   });
-
+  doc.addFileToVFS('./fonts/ArialNarrow.txt', 'arial');
+  doc.addFont('./fonts/Arial Narrow.ttf', 'arial', 'normal');
+  doc.addFont('./fonts/Arial Narrow.ttf', 'arial', 'bold');
+  doc.addFont('./fonts/Arial Narrow.ttf', 'arial', 'italic');
+  const list = doc.getFontList();
   //First page
   doc.addImage(whLogo, 'JPEG', 45, 55, 100, 30);
   createText('Project Quality Audit', 40, 105, {}, true, 32);
@@ -893,10 +913,13 @@ const generatePdf = async (data) => {
   const rowsDataTrade7InOnePage = [[]];
   const pointListTrade7InOnePage = [[]];
   // const imageList = [[]];
+
+  const testImage = await resizeImage(errorImage);
+  const testLogo = await resizeImage(whLogo);
   const imageList = [
     [
-      [whLogo, whLogo, whLogo],
-      [whLogo, whLogo],
+      [testImage, testImage, testImage],
+      [testLogo, whLogo],
       [whLogo, whLogo, whLogo],
       [whLogo, whLogo, whLogo]
     ],
@@ -931,7 +954,7 @@ const generatePdf = async (data) => {
     });
   });
 
-  const createTrade5Page = (
+  const createTrade5Page = async (
     rowsDataTrade7,
     pointListTrade7,
     imageListDetail,
@@ -959,7 +982,8 @@ const generatePdf = async (data) => {
         0: { minCellWidth: 10, valign: 'middle', halign: 'center' },
         1: {
           minCellWidth: 154,
-          cellPadding: { top: 1, right: 28.5, botton: 1, left: 1 }
+          cellPadding: { top: 1, right: 28.5, botton: 1, left: 1 },
+          fontSize: 8
         }
       },
       bodyStyles: {
@@ -970,7 +994,7 @@ const generatePdf = async (data) => {
       }
     });
 
-    const insertImage = (imageId, rowY) => {
+    const insertImage = async (imageId, rowY) => {
       imageListDetail[imageId][0] &&
         doc.addImage(
           imageListDetail[imageId][0],
@@ -987,7 +1011,10 @@ const generatePdf = async (data) => {
           73.5,
           rowY - 37,
           45,
-          35
+          35,
+          undefined,
+          undefined,
+          0
         );
       imageListDetail[imageId][2] &&
         doc.addImage(
@@ -1001,6 +1028,7 @@ const generatePdf = async (data) => {
     };
 
     rowY = 36.6;
+
     pointListTrade7.forEach((score, pointListIndex) => {
       doc.rect(148.9, rowY, 27.5, 16);
       rowY += 4;

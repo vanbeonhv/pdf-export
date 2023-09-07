@@ -1,35 +1,35 @@
 const data = {
-  Id: 'e4836379-a4c8-4fb1-ad32-e1eb76e570ca',
-  Name: 'Nguyen Huu Van',
+  Id: '89c814a8-99da-4941-871c-0c6254bda639',
+  Name: 'Tan Hui Qi',
   ProjectCode: 'TGW',
-  ProjectId: 'MTYzMzk1MDIxMTY2Ny1UR7c',
-  FormDate: '2023-08-23T04:27:44.873Z',
-  Trade1Score: 5.71,
-  Trade2Score: 5.71,
-  ObservationScore: 7.5,
-  LastMonthPqaScore: 3.75,
-  RFWIRecordsScore: 6.95,
-  FindingScore: 40.0,
-  TotalScore: 69.62,
-  Status: 99,
+  ProjectId: 'MTYyMDYzMDk4MTY3NS1QaG9lbml4',
+  FormDate: '2023-08-30T06:23:51.53Z',
+  Trade1Score: 10,
+  Trade2Score: 8.75,
+  ObservationScore: 10,
+  LastMonthPqaScore: 7.5,
+  RFWIRecordsScore: 0,
+  FindingScore: 30.83,
+  TotalScore: 74.53,
+  Status: 1,
   Remark: '',
-  PdfUrl: 'prefab/subapp/pqa/pdf-form/e4836379-a4c8-4fb1-ad32-e1eb76e570ca.pdf',
+  PdfUrl: 'prefab/subapp/pqa/pdf-form/89c814a8-99da-4941-871c-0c6254bda639.pdf',
   IsDeleted: false,
-  CreatedBy: 'nguyen_huuvan@wohhup.com.vn',
-  CreatedDate: '2023-08-23T04:29:42.814658Z',
-  UpdatedBy: 'nguyen_huuvan@wohhup.com.vn',
-  UpdatedDate: '2023-08-23T04:46:22.241183Z',
+  CreatedBy: 't_huiqi@wohhup.com',
+  CreatedDate: '2023-09-05T06:29:02.599399Z',
+  UpdatedBy: 't_huiqi@wohhup.com',
+  UpdatedDate: '2023-09-07T06:51:38.566186Z',
   SubAppPqaCheckList1: {
-    Id: 'c3adeb03-f7ac-4ee5-a411-25f21e7a5c3a',
-    PqaId: 'e4836379-a4c8-4fb1-ad32-e1eb76e570ca',
-    Name: 'Nguyen Huu Van',
-    Trade: 'kitchen Cabinet',
-    Location: 'E',
-    ScoreList: [10, 0, 0, 99, 10, 10, 10, 0],
+    Id: 'c4ce5661-2eda-411d-99ba-0dffc494fc1f',
+    PqaId: '89c814a8-99da-4941-871c-0c6254bda639',
+    Name: 'Tan Hui Qi',
+    Trade: 'Lightweight Panel',
+    Location: 'B1 Zone A, L2 Zone D',
+    ScoreList: [10, 10, 10, 10, 10, 10, 10, 10],
     NoteList: [
+      'Approved with comments, resubmission required.',
       '',
       '',
-      'Material testing conducted on actual comment',
       '',
       '',
       '',
@@ -37,172 +37,250 @@ const data = {
       ''
     ],
     IsDeleted: false,
-    CreatedBy: 'nguyen_huuvan@wohhup.com.vn',
-    CreatedDate: '2023-08-23T04:29:42.814817Z',
-    UpdatedBy: 'nguyen_huuvan@wohhup.com.vn',
-    UpdatedDate: '2023-08-23T04:29:42.814878Z'
+    CreatedBy: 't_huiqi@wohhup.com',
+    CreatedDate: '2023-09-05T06:29:02.599401Z',
+    UpdatedBy: 't_huiqi@wohhup.com',
+    UpdatedDate: '2023-09-05T06:29:02.599401Z'
   },
   SubAppPqaCheckList2: {
-    Id: '6503abbb-720b-4378-9f25-744db76bf2ad',
-    PqaId: 'e4836379-a4c8-4fb1-ad32-e1eb76e570ca',
-    Name: 'Nguyen Huu Van',
-    Trade: 'kitchen Cabinet Cabinet ',
-    Location: 'SPV',
-    ScoreList: [0, 10, 10, 10, 0, 99, 0, 10],
+    Id: 'f31941ce-c8f4-48b5-993e-486e59954d4e',
+    PqaId: '89c814a8-99da-4941-871c-0c6254bda639',
+    Name: 'Tan Hui Qi',
+    Trade: 'Tile Installation',
+    Location: 'Tile Installation',
+    ScoreList: [10, 10, 0, 10, 10, 10, 10, 10],
     NoteList: [
       '',
-      '',
-      '',
-      'Material testing conducted on actual comment',
+      'Approved with comments, resubmission required',
+      'Pending submission to consultant',
+      'Approved with comments, resubmission required',
       '',
       '',
       '',
       ''
     ],
     IsDeleted: false,
-    CreatedBy: 'nguyen_huuvan@wohhup.com.vn',
-    CreatedDate: '2023-08-23T04:29:42.815069Z',
-    UpdatedBy: 'nguyen_huuvan@wohhup.com.vn',
-    UpdatedDate: '2023-08-23T04:29:42.815133Z'
+    CreatedBy: 't_huiqi@wohhup.com',
+    CreatedDate: '2023-09-05T06:29:02.599402Z',
+    UpdatedBy: 't_huiqi@wohhup.com',
+    UpdatedDate: '2023-09-05T06:29:02.599402Z'
   },
   SubAppPqaObservation: {
-    Id: '4b28cb59-deb7-493d-a123-211e0bcb715e',
-    Name: 'Nguyen Huu Van',
-    PqaId: 'e4836379-a4c8-4fb1-ad32-e1eb76e570ca',
-    Observation: ['104', '103', ''],
-    ScoreList: [5.0, 2.5, 99.0],
-    RemarkList: ['', '', ''],
-    IsThirdObservationActive: false,
+    Id: '1c7ad95a-c585-4d19-be61-9fef5019226c',
+    Name: 'Tan Hui Qi',
+    PqaId: '89c814a8-99da-4941-871c-0c6254bda639',
+    Observation: ['PSR-OBS-0069', 'PSR-OBS-0070', 'PSR-OBS-0071'],
+    ScoreList: [5, 5, 5],
+    RemarkList: [
+      'JOYWAY - Drilling and planting of rebar on slab w/ embedded conduits',
+      'GUTHRIE - No protection of KO boxes after installation',
+      'JOYWAY - Water seepage due to delayed grouting for PBU'
+    ],
+    IsThirdObservationActive: true,
     IsDeleted: false,
-    CreatedBy: 'nguyen_huuvan@wohhup.com.vn',
-    CreatedDate: '2023-08-23T04:29:42.815319Z',
-    UpdatedBy: 'nguyen_huuvan@wohhup.com.vn',
-    UpdatedDate: '2023-08-23T04:29:42.81538Z'
+    CreatedBy: 't_huiqi@wohhup.com',
+    CreatedDate: '2023-09-05T06:29:02.599403Z',
+    UpdatedBy: 't_huiqi@wohhup.com',
+    UpdatedDate: '2023-09-05T06:29:02.599403Z'
   },
   SubAppPqaLastMonthFinding: {
-    Id: 'b41f9277-38ad-4938-9b93-b57010ef43e4',
-    PqaId: 'e4836379-a4c8-4fb1-ad32-e1eb76e570ca',
-    Name: 'Nguyen Huu Van',
-    ScoreList: {
-      yes: 1,
-      partial: 1,
-      no: 2,
-      na: 1,
-      totalFindings: 4
-    },
+    Id: '57efd202-1c53-4a11-9ffb-46cd80114e65',
+    PqaId: '89c814a8-99da-4941-871c-0c6254bda639',
+    Name: 'Tan Hui Qi',
+    ScoreList: { yes: 5, partial: 2, no: 1, na: 0, totalFindings: 8 },
     IsActive: true,
     IsDeleted: false,
-    CreatedBy: 'nguyen_huuvan@wohhup.com.vn',
-    CreatedDate: '2023-08-23T04:29:42.815447Z',
-    UpdatedBy: 'nguyen_huuvan@wohhup.com.vn',
-    UpdatedDate: '2023-08-23T04:46:17.812648Z'
+    CreatedBy: 't_huiqi@wohhup.com',
+    CreatedDate: '2023-09-05T06:29:02.599404Z',
+    UpdatedBy: 't_huiqi@wohhup.com',
+    UpdatedDate: '2023-09-07T07:20:32.302399Z'
   },
   SubAppPqaRFWIRecords: {
-    Id: '51c9962d-f691-4ff5-9bfa-48c252fab007',
-    PqaId: 'e4836379-a4c8-4fb1-ad32-e1eb76e570ca',
-    Name: 'Nguyen Huu Van',
+    Id: 'b0dbfb29-cdee-4dfc-9f3e-99d29e1bc3a1',
+    PqaId: '89c814a8-99da-4941-871c-0c6254bda639',
+    Name: 'Tan Hui Qi',
     Archi: {
-      tradePoint: 4.17,
-      yesNumber: 2,
-      partialNumber: 1,
+      tradePoint: 0,
+      yesNumber: 0,
       noNumber: 0,
       naNumber: 0,
-      totalFindings: 3,
-      remarkRFWI: ''
+      totalFindings: 0,
+      remarkRFWI: '',
+      isActive: false
     },
     Structural: {
-      tradePoint: 3.75,
-      yesNumber: 1,
-      partialNumber: 1,
+      tradePoint: 0,
+      yesNumber: 0,
       noNumber: 0,
       naNumber: 0,
-      totalFindings: 2,
-      remarkRFWI: 'test'
+      totalFindings: 0,
+      remarkRFWI: '',
+      isActive: false
     },
     Mep: {
-      tradePoint: 2.5,
-      yesNumber: 1,
-      partialNumber: 2,
-      noNumber: 1,
+      tradePoint: 0,
+      yesNumber: 0,
+      noNumber: 0,
       naNumber: 0,
-      totalFindings: 4,
-      remarkRFWI: ''
+      totalFindings: 0,
+      remarkRFWI: '',
+      isActive: false
     },
+    IsTrade5Active: false,
     IsDeleted: false,
-    CreatedBy: 'nguyen_huuvan@wohhup.com.vn',
-    CreatedDate: '2023-08-23T04:29:42.815566Z',
-    UpdatedBy: 'nguyen_huuvan@wohhup.com.vn',
-    UpdatedDate: '2023-08-23T04:46:17.812648Z'
+    CreatedBy: 't_huiqi@wohhup.com',
+    CreatedDate: '2023-09-05T06:29:02.599405Z',
+    UpdatedBy: 't_huiqi@wohhup.com',
+    UpdatedDate: '2023-09-07T07:20:32.3024Z'
   },
   SubAppPqaSafetyEvaluation: {
-    Id: 'd37e0bdc-2855-4974-874b-92a5c20129f7',
-    PqaId: 'e4836379-a4c8-4fb1-ad32-e1eb76e570ca',
-    Name: 'Nguyen Huu Van',
-    Remark: '',
-    ScoreList: {
-      yesNumber: 2,
-      noNumber: 1,
-      naNumber: 1,
-      totalAward: 3
-    },
+    Id: '99aef0c1-63f2-4ec6-a23b-2c2f2aa8d921',
+    PqaId: '89c814a8-99da-4941-871c-0c6254bda639',
+    Name: 'Tan Hui Qi',
+    Remark:
+      "Awarded Subcontractor:\n1. Vantage Concept Pte Ltd\n2. TTJ Design and Engineering Pte Ltd\n\nNo signature is found for both Pre-Award Safety Evaluation Form, under field of Reviewer's 2 (by Project Manager). ",
+    ScoreList: { yesNumber: 0, noNumber: 2, naNumber: 0, totalAward: 2 },
     IsDeleted: false,
-    CreatedBy: 'nguyen_huuvan@wohhup.com.vn',
-    CreatedDate: '2023-08-23T04:29:42.81568Z',
-    UpdatedBy: 'nguyen_huuvan@wohhup.com.vn',
-    UpdatedDate: '2023-08-23T04:46:17.812649Z'
+    CreatedBy: 't_huiqi@wohhup.com',
+    CreatedDate: '2023-09-05T06:29:02.599406Z',
+    UpdatedBy: 't_huiqi@wohhup.com',
+    UpdatedDate: '2023-09-07T07:20:32.302401Z'
   },
   SubAppPqaFinding: [
     {
-      Id: '1e0f816e-ed49-49cb-8896-5d90b5951097',
-      PqaId: 'e4836379-a4c8-4fb1-ad32-e1eb76e570ca',
-      Name: 'Nguyen Huu Van',
+      Id: '2e876515-7bb2-41ec-8c55-709373c3b0a1',
+      PqaId: '89c814a8-99da-4941-871c-0c6254bda639',
+      Name: 'Tan Hui Qi',
+      SeverityPoint: 2,
+      FrequencyPoint: 2,
+      Points: 20,
+      FindingReport:
+        'B1 Zone A, L2 Zone D - Inconsistent provision of brackets for connection between dyntek stiffener and ALC panel. To ensure compliance with detail, sufficient and correct numbers of ties (top, bottom, sides) to be provided at the respective locations as required.',
+      FindingImage: [
+        'prefab/subapp/pqa/20230830_153010.jpg',
+        'prefab/subapp/pqa/20230830_153002.jpg',
+        'prefab/subapp/pqa/20230906_093451.jpg'
+      ],
+      IsDeleted: false,
+      CreatedBy: 't_huiqi@wohhup.com',
+      CreatedDate: '2023-09-05T06:29:02.599407Z',
+      UpdatedBy: 't_huiqi@wohhup.com',
+      UpdatedDate: '2023-09-06T01:42:13.043599Z'
+    },
+    {
+      Id: '05cf5614-aeb1-4b26-af85-ab23b694fcd1',
+      PqaId: '89c814a8-99da-4941-871c-0c6254bda639',
+      Name: 'Tan Hui Qi',
       SeverityPoint: 0,
       FrequencyPoint: 0,
       Points: 99,
-      FindingReport: 'good comment',
-      FindingImage: [],
+      FindingReport:
+        'JOE Green panels joints exposed to weather at the current stage and thus prone to water seepage from the joints. To check for stagnant water within and release from the hollow core as required later on. ',
+      FindingImage: ['prefab/subapp/pqa/20230830_170748.jpg'],
       IsDeleted: false,
-      CreatedBy: 'nguyen_huuvan@wohhup.com.vn',
-      CreatedDate: '2023-08-23T04:29:42.815812Z',
-      UpdatedBy: 'nguyen_huuvan@wohhup.com.vn',
-      UpdatedDate: '2023-08-23T04:29:42.815812Z'
+      CreatedBy: 't_huiqi@wohhup.com',
+      CreatedDate: '2023-09-05T06:29:02.599408Z',
+      UpdatedBy: 't_huiqi@wohhup.com',
+      UpdatedDate: '2023-09-06T01:30:57.158877Z'
     },
     {
-      Id: '8d720f40-566b-4396-a56f-6f6e2e3d5be0',
-      PqaId: 'e4836379-a4c8-4fb1-ad32-e1eb76e570ca',
-      Name: 'Nguyen Huu Van',
-      SeverityPoint: 1,
-      FrequencyPoint: 2,
+      Id: '6caa6961-393a-4642-9e89-9acfbfe8a3b5',
+      PqaId: '89c814a8-99da-4941-871c-0c6254bda639',
+      Name: 'Tan Hui Qi',
+      SeverityPoint: 2,
+      FrequencyPoint: 1,
       Points: 40,
-      FindingReport: 'bad comment',
-      FindingImage: ['prefab/subapp/pqa/pexels-trushotz-3635300.jpg'],
+      FindingReport:
+        'Blk 18, Level 5 - Surface of splatterdash on the balcony wall appears to be quite smooth, without sufficient roughness for proper bonding to subsequent layer. May lead to hollowness of the plastering / skimcoat.',
+      FindingImage: ['prefab/subapp/pqa/20230830_145005.jpg'],
       IsDeleted: false,
-      CreatedBy: 'nguyen_huuvan@wohhup.com.vn',
-      CreatedDate: '2023-08-23T04:29:42.815812Z',
-      UpdatedBy: 'nguyen_huuvan@wohhup.com.vn',
-      UpdatedDate: '2023-08-23T04:29:42.815812Z'
+      CreatedBy: 't_huiqi@wohhup.com',
+      CreatedDate: '2023-09-05T06:29:02.599408Z',
+      UpdatedBy: 't_huiqi@wohhup.com',
+      UpdatedDate: '2023-09-06T01:42:13.053773Z'
     },
     {
-      Id: 'af4bcd55-01ff-45d5-86c5-6d6d7457604e',
-      PqaId: 'e4836379-a4c8-4fb1-ad32-e1eb76e570ca',
-      Name: 'Nguyen Huu Van',
-      SeverityPoint: 1,
-      FrequencyPoint: 2,
-      Points: 40,
-      FindingReport: 'Test',
+      Id: '3d5614a4-c719-4186-bc81-d48120226638',
+      PqaId: '89c814a8-99da-4941-871c-0c6254bda639',
+      Name: 'Tan Hui Qi',
+      SeverityPoint: 3,
+      FrequencyPoint: 1,
+      Points: 30,
+      FindingReport:
+        'B2 - Gap between door frame and dyntek stiffener were filled up with AAC block to make up the big gap. Door frame brackets were observed to be secured to the AAC blocks, which is a concern as AAC blocks are non-load bearing, potentially posing as a safety concern. ',
       FindingImage: [
-        'prefab/subapp/pqa/peter-olexa-mxIGWk111u0-unsplash.jpg',
-        'prefab/subapp/pqa/pexels-andy-vu-3244513.jpg'
+        'prefab/subapp/pqa/20230830_165011.jpg',
+        'prefab/subapp/pqa/20230830_165017.jpg',
+        'prefab/subapp/pqa/20230830_165909.jpg'
       ],
       IsDeleted: false,
-      CreatedBy: 'nguyen_huuvan@wohhup.com.vn',
-      CreatedDate: '2023-08-23T04:29:42.815801Z',
-      UpdatedBy: 'nguyen_huuvan@wohhup.com.vn',
-      UpdatedDate: '2023-08-23T04:29:42.815806Z'
+      CreatedBy: 't_huiqi@wohhup.com',
+      CreatedDate: '2023-09-05T06:29:02.599408Z',
+      UpdatedBy: 't_huiqi@wohhup.com',
+      UpdatedDate: '2023-09-06T08:10:26.530401Z'
+    },
+    {
+      Id: 'a84032d1-8494-4a16-9a05-04fdefdc2f3b',
+      PqaId: '89c814a8-99da-4941-871c-0c6254bda639',
+      Name: 'Tan Hui Qi',
+      SeverityPoint: 2,
+      FrequencyPoint: 3,
+      Points: 10,
+      FindingReport:
+        'B2 - Additional aluminium plate attached to drywall frame, which differs from original detail where a hollow section support is present. May cause a compromise on the integrity of the drywall frame, as it may not be designed for additional load. To verify suitability and obtain approval.',
+      FindingImage: [
+        'prefab/subapp/pqa/20230830_163922.jpg',
+        'prefab/subapp/pqa/20230830_164000.jpg',
+        'prefab/subapp/pqa/Screenshot_20230905_121951_Adobe Acrobat.jpg'
+      ],
+      IsDeleted: false,
+      CreatedBy: 't_huiqi@wohhup.com',
+      CreatedDate: '2023-09-05T06:29:02.599408Z',
+      UpdatedBy: 't_huiqi@wohhup.com',
+      UpdatedDate: '2023-09-06T08:10:26.5392Z'
+    },
+    {
+      Id: 'cbb8dc49-55cb-40c7-8950-122827069750',
+      PqaId: '89c814a8-99da-4941-871c-0c6254bda639',
+      Name: 'Tan Hui Qi',
+      SeverityPoint: 1,
+      FrequencyPoint: 1,
+      Points: 45,
+      FindingReport:
+        'B2 - Rubbish and debris found within the cistern compartment. To clear the debris and call for inspection clearance prior to closure.',
+      FindingImage: [
+        'prefab/subapp/pqa/20230830_165200.jpg',
+        'prefab/subapp/pqa/20230830_165213.jpg'
+      ],
+      IsDeleted: false,
+      CreatedBy: 't_huiqi@wohhup.com',
+      CreatedDate: '2023-09-05T06:29:02.599408Z',
+      UpdatedBy: 't_huiqi@wohhup.com',
+      UpdatedDate: '2023-09-06T01:30:57.172407Z'
+    },
+    {
+      Id: '8474021d-1b44-45f2-9918-bc98a2c5c460',
+      PqaId: '89c814a8-99da-4941-871c-0c6254bda639',
+      Name: 'Tan Hui Qi',
+      SeverityPoint: 1,
+      FrequencyPoint: 2,
+      Points: 40,
+      FindingReport:
+        'B1 Zone A - Absence of mesh observed at upper half height of ALC panel, which may lead to formation of cracks on the finishes eventually. Recommended for mesh to completed in one operation after the installation of the panels, to avoid missing out.',
+      FindingImage: [
+        'prefab/subapp/pqa/20230830_152255.jpg',
+        'prefab/subapp/pqa/20230830_152332.jpg',
+        'prefab/subapp/pqa/20230830_152350.jpg'
+      ],
+      IsDeleted: false,
+      CreatedBy: 't_huiqi@wohhup.com',
+      CreatedDate: '2023-09-05T06:29:02.599408Z',
+      UpdatedBy: 't_huiqi@wohhup.com',
+      UpdatedDate: '2023-09-06T01:42:13.068011Z'
     }
   ],
   Token:
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhYjEzZTM5MC1kYWExLTQzODUtOTdjNi02ZGFlYzI1ZTVjMTkiLCJpc0FkbWluIjpmYWxzZSwiZW1haWwiOiJuZ3V5ZW5faHV1dmFuQHdvaGh1cC5jb20udm4iLCJjb25maXJtZWQiOmZhbHNlLCJuYW1lIjoiTmd1eWVuIEh1dSBWYW4iLCJzaG9ydE5hbWUiOm51bGwsImlhdCI6MTY5MDY4MjE0MSwiZXhwIjoxNjkwNzY4NTQxfQ.euIX8w20JPgbLXiYljjnXxibbHMnoYSXagpTsgQmp3o'
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJiZjljZDlmYi05YjMxLTQ0NWItOWQxMS02ZmIwODUxOWU4ZWUiLCJpc0FkbWluIjpmYWxzZSwiZW1haWwiOiJ0X2h1aXFpQHdvaGh1cC5jb20iLCJjb25maXJtZWQiOnRydWUsIm5hbWUiOiJUYW4gSHVpIFFpIiwic2hvcnROYW1lIjpudWxsLCJpYXQiOjE2OTQwNjczODQsImV4cCI6MTY5NDE1Mzc4NH0.nslvsqWyOtzw_wyUZUZ3CGmFJ4_rTW-agBP9L_TtA4A'
 };
 
 module.exports = data;

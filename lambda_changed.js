@@ -3,6 +3,7 @@ require('jspdf-autotable');
 const fs = require('fs');
 const dayjs = require('dayjs');
 const AWS = require('aws-sdk');
+const sharp = require('sharp');
 
 const { getSecondLineText } = require('./util/getSecondLineText');
 const { getFullProjectName } = require('./util/getFullProjectName');
@@ -12,14 +13,20 @@ const { getClose } = require('./util/getClose');
 const { getWeightage } = require('./util/getWeightage');
 
 const s3bucket = new AWS.S3();
-const BUCKET_NAME = 'wh-idd-test';
+const BUCKET_NAME = process.env.BUCKET_NAME;
 
 async function getBase64(key) {
   if (!key) return null;
   const params = { Bucket: BUCKET_NAME, Key: key };
   const data = await s3bucket.getObject(params).promise();
-  let buffer64 = Buffer.from(data.Body).toString('base64');
-  return 'data:image/png;base64,' + buffer64;
+  let buffer64 = Buffer.from(data.Body);
+  try {
+    const resizedImageData = await sharp(buffer64).rotate().toBuffer();
+    return resizedImageData;
+  } catch (error) {
+    console.log('error:', error.message);
+    return '';
+  }
 }
 
 exports.handler = async (event) => {
@@ -1000,7 +1007,8 @@ exports.handler = async (event) => {
           0: { minCellWidth: 10, valign: 'middle', halign: 'center' },
           1: {
             minCellWidth: 154,
-            cellPadding: { top: 1, right: 28.5, botton: 1, left: 1 }
+            cellPadding: { top: 1, right: 28.5, botton: 1, left: 1 },
+            fontSize: 8
           }
         },
         bodyStyles: {
@@ -1070,7 +1078,8 @@ exports.handler = async (event) => {
       const params = {
         Bucket: BUCKET_NAME,
         Key: objectName,
-        Body: fileContent
+        Body: fileContent,
+        ContentType: 'application/pdf'
       };
       await s3bucket.upload(params).promise();
     }
@@ -1081,7 +1090,7 @@ exports.handler = async (event) => {
     await uploadObjectToS3Bucket(key, bf);
     return key;
   } catch (err) {
-    console.log(err.message);
+    console.log('error message:', err.message);
     return null;
   }
 };

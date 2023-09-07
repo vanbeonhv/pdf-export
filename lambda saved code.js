@@ -3,6 +3,7 @@ require('jspdf-autotable');
 const fs = require('fs');
 const dayjs = require('dayjs');
 const AWS = require('aws-sdk');
+const sharp = require('sharp');
 
 const { getSecondLineText } = require('./util/getSecondLineText');
 const { getFullProjectName } = require('./util/getFullProjectName');
@@ -12,14 +13,15 @@ const { getClose } = require('./util/getClose');
 const { getWeightage } = require('./util/getWeightage');
 
 const s3bucket = new AWS.S3();
-const BUCKET_NAME = 'wh-idd-test';
+const BUCKET_NAME = process.env.BUCKET_NAME;
 
 async function getBase64(key) {
   if (!key) return null;
   const params = { Bucket: BUCKET_NAME, Key: key };
   const data = await s3bucket.getObject(params).promise();
-  let buffer64 = Buffer.from(data.Body).toString('base64');
-  return 'data:image/png;base64,' + buffer64;
+  let buffer64 = Buffer.from(data.Body);
+  const resizedImageData = await sharp(buffer64).rotate().toBuffer();
+  return resizedImageData;
 }
 
 exports.handler = async (event) => {
@@ -525,10 +527,17 @@ exports.handler = async (event) => {
       ['3.3', 'Observation', '', '', '']
     ];
     const closeList = getClose(SubAppPqaObservation.ScoreList);
+    let isRemark3TooLong = false;
+
     SubAppPqaObservation.ScoreList.forEach((score, index) => {
       rowsDataObservation[index][1] = SubAppPqaObservation.Observation[index];
       rowsDataObservation[index][2] = closeList[index];
+
       rowsDataObservation[index][3] = SubAppPqaObservation.RemarkList[index];
+      if (SubAppPqaObservation.RemarkList[index].length > 40) {
+        isRemark3TooLong = true;
+      }
+
       if (SubAppPqaObservation.ScoreList[index] === 99) {
         SubAppPqaObservation.ScoreList[index] = '-';
       }
@@ -537,6 +546,8 @@ exports.handler = async (event) => {
 
     let secondColumnStartPoint3;
     let lastColumnWidth3;
+    let tableHeight3 = 0;
+
     doc.autoTable({
       head: [['S/N', 'Observation', 'Close', 'Remark          ', 'Weightage']],
       body: rowsDataObservation,
@@ -559,14 +570,52 @@ exports.handler = async (event) => {
         0: { halign: 'center' },
         1: { halign: 'left', minCellWidth: 46 },
         2: { halign: 'center' },
-        3: { halign: 'left', minCellWidth: 56 },
+        3: {
+          halign: 'left',
+          minCellWidth: 56,
+          fontSize: isRemark3TooLong ? 7 : 10
+        },
         4: { halign: 'center' }
       },
       didDrawCell: function (data) {
         lastColumnWidth3 = data.table.columns[4].width;
         secondColumnStartPoint3 = xStart + data.table.columns[0].width;
+      },
+      didDrawPage: function (data) {
+        tableHeight3 = data.table.body.reduce(
+          (prevValue, currentValue) => (prevValue += currentValue.height),
+          0
+        );
+        tableHeight3 += data.table.head[0].height;
       }
     });
+
+    //#region score box at the end of table
+    doc.setLineWidth(0.3);
+    doc.setDrawColor('#000000');
+    createText(
+      'Score',
+      176.4 - lastColumnWidth3 - 13.3,
+      rowY + tableHeight3 + 4.8,
+      {},
+      false,
+      12
+    );
+    createText(
+      ObservationScore.toString(),
+      176.4 - lastColumnWidth3 / 2 - 3,
+      rowY + tableHeight3 + 4.8,
+      {},
+      true,
+      12
+    );
+    doc.rect(
+      176.4 - lastColumnWidth3,
+      rowY + tableHeight3,
+      lastColumnWidth3,
+      7
+    );
+    //#endregion score box at the end of table
 
     createText('3', xStart + 4, rowY - 1.5, {}, true, 12);
     createText(
@@ -589,22 +638,6 @@ exports.handler = async (event) => {
     rowY += 8.8;
     createText(`(${getWeightage(3)}%)`, 159.5, rowY, {}, false, 10);
 
-    rowY += 24;
-    doc.setLineWidth(0.3);
-    doc.setDrawColor('#000000');
-    doc.rect(176.4 - lastColumnWidth3, rowY, lastColumnWidth3, 7);
-    rowY += 4.8;
-
-    createText('Score', 176.4 - lastColumnWidth3 - 13.3, rowY, {}, false, 12);
-    createText(
-      ObservationScore.toString(),
-      176.4 - lastColumnWidth3 / 2 - 3,
-      rowY,
-      {},
-      true,
-      12
-    );
-    rowY += 5;
     //#endregion trade 3 table
 
     //Third page
@@ -1039,7 +1072,8 @@ exports.handler = async (event) => {
       const params = {
         Bucket: BUCKET_NAME,
         Key: objectName,
-        Body: fileContent
+        Body: fileContent,
+        ContentType: 'application/pdf'
       };
       await s3bucket.upload(params).promise();
     }
@@ -1050,7 +1084,7 @@ exports.handler = async (event) => {
     await uploadObjectToS3Bucket(key, bf);
     return key;
   } catch (err) {
-    console.log(err.message);
+    console.log('error message:', err.message);
     return null;
   }
 };
