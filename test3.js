@@ -175,7 +175,7 @@ const data = {
       FrequencyPoint: 0,
       Points: 99,
       FindingReport:
-        'JOE Green panels joints exposed to weather at the current stage and thus prone to water seepage from the joints. To check for stagnant water within and release from the hollow core as required later on. ',
+        'JOE Green panels joints exposed to weather at the current stage and thus prone to water seepage from the joints. To check for stagnant water within and release from the hollow core as required later on. \n To check for stagnant water within and release from the hollow core as required later on. \n To check for stagnant water within and release from the hollow core as required later on \n Testing nt water within and release from th le llow core as required later on.  check for stagnant water within and release fro',
       FindingImage: ['prefab/subapp/pqa/20230830_170748.jpg'],
       IsDeleted: false,
       CreatedBy: 't_huiqi@wohhup.com',

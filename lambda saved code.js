@@ -20,8 +20,13 @@ async function getBase64(key) {
   const params = { Bucket: BUCKET_NAME, Key: key };
   const data = await s3bucket.getObject(params).promise();
   let buffer64 = Buffer.from(data.Body);
-  const resizedImageData = await sharp(buffer64).rotate().toBuffer();
-  return resizedImageData;
+  try {
+    const resizedImageData = await sharp(buffer64).rotate().toBuffer();
+    return resizedImageData;
+  } catch (error) {
+    console.log('error:', error.message);
+    return '';
+  }
 }
 
 exports.handler = async (event) => {
@@ -1002,7 +1007,8 @@ exports.handler = async (event) => {
           0: { minCellWidth: 10, valign: 'middle', halign: 'center' },
           1: {
             minCellWidth: 154,
-            cellPadding: { top: 1, right: 28.5, botton: 1, left: 1 }
+            cellPadding: { top: 1, right: 28.5, botton: 1, left: 1 },
+            fontSize: 8
           }
         },
         bodyStyles: {

@@ -1000,7 +1000,7 @@ const generatePdf = async (data) => {
           imageListDetail[imageId][0],
           'JPEG',
           23.5,
-          rowY - 37,
+          rowY - 36,
           45,
           35
         );
@@ -1009,19 +1009,16 @@ const generatePdf = async (data) => {
           imageListDetail[imageId][1],
           'JPEG',
           73.5,
-          rowY - 37,
+          rowY - 36,
           45,
-          35,
-          undefined,
-          undefined,
-          0
+          35
         );
       imageListDetail[imageId][2] &&
         doc.addImage(
           imageListDetail[imageId][2],
           'JPEG',
           123.5,
-          rowY - 37,
+          rowY - 36,
           45,
           35
         );

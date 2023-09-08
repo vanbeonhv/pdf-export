@@ -1038,7 +1038,7 @@ exports.handler = async (event) => {
             imageListDetail[index][0],
             'JPEG',
             23.5,
-            rowY - 37,
+            rowY - 36,
             45,
             35
           );
@@ -1047,7 +1047,7 @@ exports.handler = async (event) => {
             imageListDetail[index][1],
             'JPEG',
             73.5,
-            rowY - 37,
+            rowY - 36,
             45,
             35
           );
@@ -1056,7 +1056,7 @@ exports.handler = async (event) => {
             imageListDetail[index][2],
             'JPEG',
             123.5,
-            rowY - 37,
+            rowY - 36,
             45,
             35
           );
