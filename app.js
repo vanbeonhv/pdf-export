@@ -100,7 +100,10 @@ const generatePdf = async (data) => {
         'base64'
       );
 
-      const resizedImageData = await sharp(buffer).rotate().toBuffer();
+      const resizedImageData = await sharp(buffer)
+        .resize(1000, null)
+        .rotate()
+        .toBuffer();
 
       return resizedImageData;
     } catch (error) {
@@ -914,25 +917,29 @@ const generatePdf = async (data) => {
   const pointListTrade7InOnePage = [[]];
   // const imageList = [[]];
 
-  const testImage = await resizeImage(errorImage);
+  const testImage = await resizeImage(portraitImage);
   const testLogo = await resizeImage(whLogo);
   const imageList = [
     [
       [testImage, testImage, testImage],
-      [testLogo, whLogo],
-      [whLogo, whLogo, whLogo],
-      [whLogo, whLogo, whLogo]
+      [testImage, testImage, testImage],
+      [testImage, testImage, testImage],
+      [testImage, testImage, testImage]
     ],
     [
-      [whLogo, whLogo],
-      [whLogo, whLogo],
-      [whLogo, whLogo],
-      [whLogo, whLogo]
-    ]
-    // [
-    //   [whLogo, whLogo],
-    //   [whLogo, whLogo]
-    // ]
+      [testImage, testImage, testImage],
+      [testImage, testImage, testImage],
+      [testImage, testImage, testImage],
+      [testImage, testImage, testImage]
+    ],
+
+    [
+      [testImage, testImage, testImage],
+      [testImage, testImage, testImage],
+      [testImage, testImage, testImage],
+      [testImage, testImage, testImage]
+    ],
+    [[testImage, testImage, testImage]]
   ];
 
   let pageNumber = 0;

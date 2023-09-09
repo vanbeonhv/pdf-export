@@ -277,6 +277,67 @@ const data = {
       CreatedDate: '2023-09-05T06:29:02.599408Z',
       UpdatedBy: 't_huiqi@wohhup.com',
       UpdatedDate: '2023-09-06T01:42:13.068011Z'
+    },
+
+    {
+      Id: '8474021d-1b44-45f2-9918-bc98a2c5c460',
+      PqaId: '89c814a8-99da-4941-871c-0c6254bda639',
+      Name: 'Tan Hui Qi',
+      SeverityPoint: 1,
+      FrequencyPoint: 2,
+      Points: 40,
+      FindingReport:
+        'B1 Zone A - Absence of mesh observed at upper half height of ALC panel, which may lead to formation of cracks on the finishes eventually. Recommended for mesh to completed in one operation after the installation of the panels, to avoid missing out.',
+      FindingImage: [
+        'prefab/subapp/pqa/20230830_152255.jpg',
+        'prefab/subapp/pqa/20230830_152332.jpg',
+        'prefab/subapp/pqa/20230830_152350.jpg'
+      ],
+      IsDeleted: false,
+      CreatedBy: 't_huiqi@wohhup.com',
+      CreatedDate: '2023-09-05T06:29:02.599408Z',
+      UpdatedBy: 't_huiqi@wohhup.com',
+      UpdatedDate: '2023-09-06T01:42:13.068011Z'
+    },
+    {
+      Id: '8474021d-1b44-45f2-9918-bc98a2c5c460',
+      PqaId: '89c814a8-99da-4941-871c-0c6254bda639',
+      Name: 'Tan Hui Qi',
+      SeverityPoint: 1,
+      FrequencyPoint: 2,
+      Points: 40,
+      FindingReport:
+        'B1 Zone A - Absence of mesh observed at upper half height of ALC panel, which may lead to formation of cracks on the finishes eventually. Recommended for mesh to completed in one operation after the installation of the panels, to avoid missing out.',
+      FindingImage: [
+        'prefab/subapp/pqa/20230830_152255.jpg',
+        'prefab/subapp/pqa/20230830_152332.jpg',
+        'prefab/subapp/pqa/20230830_152350.jpg'
+      ],
+      IsDeleted: false,
+      CreatedBy: 't_huiqi@wohhup.com',
+      CreatedDate: '2023-09-05T06:29:02.599408Z',
+      UpdatedBy: 't_huiqi@wohhup.com',
+      UpdatedDate: '2023-09-06T01:42:13.068011Z'
+    },
+    {
+      Id: '8474021d-1b44-45f2-9918-bc98a2c5c460',
+      PqaId: '89c814a8-99da-4941-871c-0c6254bda639',
+      Name: 'Tan Hui Qi',
+      SeverityPoint: 1,
+      FrequencyPoint: 2,
+      Points: 40,
+      FindingReport:
+        'B1 Zone A - Absence of mesh observed at upper half height of ALC panel, which may lead to formation of cracks on the finishes eventually. Recommended for mesh to completed in one operation after the installation of the panels, to avoid missing out.',
+      FindingImage: [
+        'prefab/subapp/pqa/20230830_152255.jpg',
+        'prefab/subapp/pqa/20230830_152332.jpg',
+        'prefab/subapp/pqa/20230830_152350.jpg'
+      ],
+      IsDeleted: false,
+      CreatedBy: 't_huiqi@wohhup.com',
+      CreatedDate: '2023-09-05T06:29:02.599408Z',
+      UpdatedBy: 't_huiqi@wohhup.com',
+      UpdatedDate: '2023-09-06T01:42:13.068011Z'
     }
   ],
   Token:
