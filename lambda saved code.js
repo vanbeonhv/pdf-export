@@ -2,6 +2,14 @@ const { jsPDF } = require('jspdf');
 require('jspdf-autotable');
 const fs = require('fs');
 const dayjs = require('dayjs');
+const utc = require('dayjs/plugin/utc')
+const timezone = require('dayjs/plugin/timezone')
+dayjs.extend(utc)
+dayjs.extend(timezone);
+
+dayjs.tz.setDefault('Asia/Singapore');
+
+const tz='Asia/Singapore';
 const AWS = require('aws-sdk');
 const sharp = require('sharp');
 
@@ -15,13 +23,15 @@ const { getWeightage } = require('./util/getWeightage');
 const s3bucket = new AWS.S3();
 const BUCKET_NAME = process.env.BUCKET_NAME;
 
+
+
 async function getBase64(key) {
   if (!key) return null;
   const params = { Bucket: BUCKET_NAME, Key: key };
   const data = await s3bucket.getObject(params).promise();
   let buffer64 = Buffer.from(data.Body);
   try {
-    const resizedImageData = await sharp(buffer64).rotate().toBuffer();
+    const resizedImageData = await sharp(buffer64).resize(600, null).rotate().toBuffer();
     return resizedImageData;
   } catch (error) {
     console.log('error:', error.message);
@@ -95,7 +105,7 @@ exports.handler = async (event) => {
       createText('Project:', xStart, 25, {}, false, 12);
       createText(projectName, 27, 25, {}, false, 12);
       createText('Date:', 140, 25, {}, false, 12);
-      createText(dayjs(FormDate).format('DD-MMM-YYYY'), 150, 25, {}, false, 12);
+      createText(dayjs(FormDate).tz(tz).format('DD-MMM-YYYY'), 150, 25, {}, false, 12);
       rowY += 12;
     };
 
@@ -114,9 +124,11 @@ exports.handler = async (event) => {
     createText('Project:', 40, 134, {}, false, 22);
     createText(projectName, 68, 134, {}, false, 18);
     createText('Audit Date:', 40, 154, {}, false, 22);
-    createText(dayjs(FormDate).format('DD-MMM-YYYY'), 80, 154, {}, false, 18);
+    createText(dayjs(FormDate).tz(tz).format('DD-MMM-YYYY'), 80, 154, {}, false, 18);
     createText('Audited by:', 40, 174, {}, false, 22);
     createText(pqaDetail.Name, 80, 174, {}, false, 18);
+    
+    console.log(dayjs(FormDate).tz(tz))
 
     //table
     const headers = [
@@ -133,9 +145,9 @@ exports.handler = async (event) => {
     ];
     const pointList = [
       [
-        Trade1Score,
-        Trade2Score,
-        ObservationScore,
+        SubAppPqaCheckList1.IsActive ? Trade1Score : '-',
+        SubAppPqaCheckList2.IsActive ? Trade2Score : '-',
+        SubAppPqaObservation.IsActive ? ObservationScore : '-',
         SubAppPqaLastMonthFinding.IsActive ? LastMonthPqaScore : 'NA',
         SubAppPqaRFWIRecords.IsTrade5Active ? RFWIRecordsScore : 'NA',
         FindingScore,
@@ -274,7 +286,7 @@ exports.handler = async (event) => {
       ['1.7', 'Critical check implemented', '', '', ''],
       ['1.8', 'Common check implemented', '', '', '']
     ];
-    const conformList1 = getConform(SubAppPqaCheckList1.ScoreList);
+    const conformList1 = getConform(SubAppPqaCheckList1.ScoreList, SubAppPqaCheckList1.IsActive);
     SubAppPqaCheckList1.ScoreList.forEach((score, index) => {
       if (score === 99) {
         score = '-';
@@ -380,7 +392,7 @@ exports.handler = async (event) => {
     rowY += 4.8;
     createText('Score', 176.4 - lastColumnWidth1 - 13.3, rowY, {}, false, 12);
     createText(
-      Trade1Score.toString(),
+      SubAppPqaCheckList1.IsActive ? Trade1Score.toString() : '-',
       176.4 - lastColumnWidth1 / 2 - 3,
       rowY,
       {},
@@ -410,7 +422,7 @@ exports.handler = async (event) => {
       ['2.7', 'Critical check implemented', '', '', ''],
       ['2.8', 'Common check implemented', '', '', '']
     ];
-    const conformList2 = getConform(SubAppPqaCheckList2.ScoreList);
+    const conformList2 = getConform(SubAppPqaCheckList2.ScoreList, SubAppPqaCheckList2.IsActive);
     SubAppPqaCheckList2.ScoreList.forEach((score, index) => {
       if (score === 99) {
         score = '-';
@@ -511,7 +523,7 @@ exports.handler = async (event) => {
     rowY += 4.8;
     createText('Score', 176.4 - lastColumnWidth2 - 13.3, rowY, {}, false, 12);
     createText(
-      Trade2Score.toString(),
+      SubAppPqaCheckList2.IsActive ? Trade2Score.toString() : '-',
       176.4 - lastColumnWidth2 / 2 - 3,
       rowY,
       {},
@@ -531,7 +543,7 @@ exports.handler = async (event) => {
       ['3.2', 'Observation', '', '', ''],
       ['3.3', 'Observation', '', '', '']
     ];
-    const closeList = getClose(SubAppPqaObservation.ScoreList);
+    const closeList = getClose(SubAppPqaObservation.ScoreList, SubAppPqaObservation.IsActive);
     let isRemark3TooLong = false;
 
     SubAppPqaObservation.ScoreList.forEach((score, index) => {
@@ -607,7 +619,7 @@ exports.handler = async (event) => {
       12
     );
     createText(
-      ObservationScore.toString(),
+      SubAppPqaObservation.IsActive ? ObservationScore.toString() : '-',
       176.4 - lastColumnWidth3 / 2 - 3,
       rowY + tableHeight3 + 4.8,
       {},
@@ -827,6 +839,8 @@ exports.handler = async (event) => {
     //#endregion Trade 5 table
 
     //#region Trade 6 table
+    let remarkHeightSafety = 0;
+    /*
     doc.setLineWidth(0.3);
     doc.setDrawColor('#000000');
     rowY += 5;
@@ -837,6 +851,7 @@ exports.handler = async (event) => {
       naNumber: naNumberSafety,
       totalAward
     } = SubAppPqaSafetyEvaluation.ScoreList;
+
     const remarkSafety = SubAppPqaSafetyEvaluation.Remark;
     doc.rect(xStart, rowY, 164.4, 10);
     doc.line(154.4, rowY, 154.4, rowY + 25);
@@ -861,20 +876,21 @@ exports.handler = async (event) => {
     createText('6.1', xStart + 2, rowY, {}, false, 12);
     createText('Total Award', xStart + 12, rowY, {}, false, 12);
     createText(':', xStart + 36, rowY, {}, false, 12);
-    createText(totalAward.toString(), xStart + 38, rowY, {}, false, 12);
+    createText(totalAward?.toString(), xStart + 38, rowY, {}, false, 12);
     createText('Yes', xStart + 55, rowY, {}, false, 12);
     createText(':', xStart + 63, rowY, {}, false, 12);
-    createText(yesNumberSafety.toString(), xStart + 66, rowY, {}, false, 12);
+    createText(yesNumberSafety?.toString(), xStart + 66, rowY, {}, false, 12);
     createText('No', xStart + 93, rowY, {}, false, 12);
     createText(':', xStart + 99, rowY, {}, false, 12);
-    createText(noNumberSafety.toString(), xStart + 103, rowY, {}, false, 12);
+    createText(noNumberSafety?.toString(), xStart + 103, rowY, {}, false, 12);
     createText('NA', xStart + 123, rowY, {}, false, 12);
     createText(':', xStart + 129, rowY, {}, false, 12);
-    createText(naNumberSafety.toString(), xStart + 132, rowY, {}, false, 12);
+    createText(naNumberSafety == null ? '' : naNumberSafety.toString(), xStart + 132, rowY, {}, false, 12);
     createText('-', xStart + 152, rowY, {}, true, 12);
 
+    
     rowY += 5;
-    let remarkHeightSafety = 0;
+
     doc.autoTable({
       head: [[`Remark: ${remarkSafety}`]],
       startY: rowY,
@@ -905,7 +921,7 @@ exports.handler = async (event) => {
         );
       }
     });
-
+    */
     //#endregion Trade 6 table
 
     //#region trade 7 table
@@ -917,7 +933,7 @@ exports.handler = async (event) => {
     doc.rect(154.4, rowY + 10, 22, 8);
 
     rowY += 6;
-    createText('7', xStart + 4, rowY, {}, true, 12);
+    createText('6', xStart + 4, rowY, {}, true, 12);
     createText(
       'Site findings - detailed report (next page)',
       secondColumnStartPoint3 + 1,
@@ -1038,7 +1054,7 @@ exports.handler = async (event) => {
             imageListDetail[index][0],
             'JPEG',
             23.5,
-            rowY - 37,
+            rowY - 36,
             45,
             35
           );
@@ -1047,7 +1063,7 @@ exports.handler = async (event) => {
             imageListDetail[index][1],
             'JPEG',
             73.5,
-            rowY - 37,
+            rowY - 36,
             45,
             35
           );
@@ -1056,7 +1072,7 @@ exports.handler = async (event) => {
             imageListDetail[index][2],
             'JPEG',
             123.5,
-            rowY - 37,
+            rowY - 36,
             45,
             35
           );
@@ -1072,6 +1088,8 @@ exports.handler = async (event) => {
         addNewPage();
       }
     });
+
+    
     async function uploadObjectToS3Bucket(objectName, objectData) {
       fs.writeFileSync('/tmp/pc.pdf', objectData);
       const fileContent = fs.readFileSync('/tmp/pc.pdf');

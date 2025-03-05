@@ -1,9 +1,9 @@
-const convertScoreToConform = (score) => {
+const convertScoreToConform = (score, isActive) => {
   switch (score) {
     case 10:
       return 'Yes';
     case 0:
-      return 'No';
+      return isActive ? 'No' : '-';
     case 99:
       return 'NA';
     default:
@@ -12,10 +12,10 @@ const convertScoreToConform = (score) => {
 };
 
 let conform = '';
-const getConform = (scoreList) => {
+const getConform = (scoreList, isActive = true) => {
   const conformList = [];
   scoreList.forEach((score) => {
-    conform = convertScoreToConform(score);
+    conform = convertScoreToConform(score, isActive);
     conformList.push(conform);
   });
   return conformList;

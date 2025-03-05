@@ -1,0 +1,178 @@
+const data = {
+  Id: 'a9c4dd45-d0f5-4e10-878b-d146d156fb9d',
+  Name: 'Nguyen Huu Van',
+  ProjectId: 'MTYzMDE1MzU3NjA3My10ZXN0MTA',
+  ProjectCode: 'TGW',
+  FormDate: '2025-03-04T17:00:00Z',
+  Trade1Score: 0.0,
+  Trade2Score: 0.0,
+  ObservationScore: 0.0,
+  LastMonthPqaScore: 5.0,
+  RFWIRecordsScore: 6.0,
+  FindingScore: 30.0,
+  TotalScore: 58.57,
+  Status: 1,
+  Remark: '',
+  PdfUrl: 'prefab/subapp/pqa/pdf-form/a9c4dd45-d0f5-4e10-878b-d146d156fb9d.pdf',
+  IsDeleted: false,
+  CreatedBy: 'nguyen_huuvan@wohhup.com.vn',
+  CreatedDate: '2025-03-05T03:53:43.74636Z',
+  UpdatedBy: 'nguyen_huuvan@wohhup.com.vn',
+  UpdatedDate: '2025-03-05T06:27:02.340786Z',
+  SubAppPqaCheckList1: {
+    Id: 'a97fe1ab-43a2-4978-ac33-98028c211b45',
+    PqaId: 'a9c4dd45-d0f5-4e10-878b-d146d156fb9d',
+    Name: 'Nguyen Huu Van',
+    Trade: '',
+    Location: '',
+    ScoreList: [0, 0, 0, 0, 0, 0, 0, 0],
+    NoteList: ['', '', '', '', '', '', '', ''],
+    IsActive: false,
+    IsDeleted: false,
+    CreatedBy: 'nguyen_huuvan@wohhup.com.vn',
+    CreatedDate: '2025-03-05T03:53:43.746681Z',
+    UpdatedBy: 'nguyen_huuvan@wohhup.com.vn',
+    UpdatedDate: '2025-03-05T03:53:43.746755Z'
+  },
+  SubAppPqaCheckList2: {
+    Id: '536ea55e-523b-40d0-b757-c26ec2f37188',
+    PqaId: 'a9c4dd45-d0f5-4e10-878b-d146d156fb9d',
+    Name: 'Nguyen Huu Van',
+    Trade: '',
+    Location: '',
+    ScoreList: [0, 0, 0, 0, 0, 0, 0, 0],
+    NoteList: ['', '', '', '', '', '', '', ''],
+    IsActive: false,
+    IsDeleted: false,
+    CreatedBy: 'nguyen_huuvan@wohhup.com.vn',
+    CreatedDate: '2025-03-05T03:53:43.74695Z',
+    UpdatedBy: 'nguyen_huuvan@wohhup.com.vn',
+    UpdatedDate: '2025-03-05T06:27:02.340786Z'
+  },
+  SubAppPqaObservation: {
+    Id: 'd38e0001-2b2f-462c-92c8-46ca6e31c4ed',
+    Name: 'Nguyen Huu Van',
+    PqaId: 'a9c4dd45-d0f5-4e10-878b-d146d156fb9d',
+    Observation: ['', '', ''],
+    IsActive: false,
+    ScoreList: [0.0, 0.0, 0.0],
+    RemarkList: ['', '', ''],
+    IsThirdObservationActive: false,
+    IsDeleted: false,
+    CreatedBy: 'nguyen_huuvan@wohhup.com.vn',
+    CreatedDate: '2025-03-05T03:53:43.747213Z',
+    UpdatedBy: 'nguyen_huuvan@wohhup.com.vn',
+    UpdatedDate: '2025-03-05T06:27:02.340787Z'
+  },
+  SubAppPqaLastMonthFinding: {
+    Id: '2b25c2d1-8cca-4f3b-a0e0-0ef76cd9c22d',
+    PqaId: 'a9c4dd45-d0f5-4e10-878b-d146d156fb9d',
+    Name: 'Nguyen Huu Van',
+    ScoreList: {
+      yes: 1,
+      partial: 2,
+      no: 1,
+      na: 1,
+      totalFindings: 4
+    },
+    IsActive: true,
+    IsDeleted: false,
+    CreatedBy: 'nguyen_huuvan@wohhup.com.vn',
+    CreatedDate: '2025-03-05T03:53:43.747466Z',
+    UpdatedBy: 'nguyen_huuvan@wohhup.com.vn',
+    UpdatedDate: '2025-03-05T06:27:02.340811Z'
+  },
+  SubAppPqaRFWIRecords: {
+    Id: '091d8cce-d385-4757-a5b1-e5f62e9cd345',
+    PqaId: 'a9c4dd45-d0f5-4e10-878b-d146d156fb9d',
+    Name: 'Nguyen Huu Van',
+    Archi: {
+      tradePoint: 0.0,
+      yesNumber: 0,
+      noNumber: 0,
+      naNumber: 0,
+      totalFindings: 0,
+      remarkRFWI: '',
+      isActive: false
+    },
+    Structural: {
+      tradePoint: 3.0,
+      yesNumber: 3,
+      noNumber: 2,
+      naNumber: 1,
+      totalFindings: 5,
+      remarkRFWI: 'this is remark',
+      isActive: true
+    },
+    Mep: {
+      tradePoint: 0.0,
+      yesNumber: 0,
+      noNumber: 0,
+      naNumber: 0,
+      totalFindings: 0,
+      remarkRFWI: '',
+      isActive: false
+    },
+    IsTrade5Active: true,
+    IsDeleted: false,
+    CreatedBy: 'nguyen_huuvan@wohhup.com.vn',
+    CreatedDate: '2025-03-05T03:53:43.747724Z',
+    UpdatedBy: 'nguyen_huuvan@wohhup.com.vn',
+    UpdatedDate: '2025-03-05T06:27:02.340812Z'
+  },
+  SubAppPqaSafetyEvaluation: {
+    Id: '1df3d83e-c8d4-4f16-9cb9-cf2dd77a79a8',
+    PqaId: 'a9c4dd45-d0f5-4e10-878b-d146d156fb9d',
+    Name: 'Nguyen Huu Van',
+    Remark: '',
+    ScoreList: {
+      yesNumber: 0,
+      noNumber: 0,
+      naNumber: 0,
+      totalAward: 0
+    },
+    IsDeleted: false,
+    CreatedBy: 'nguyen_huuvan@wohhup.com.vn',
+    CreatedDate: '2025-03-05T03:53:43.747979Z',
+    UpdatedBy: 'nguyen_huuvan@wohhup.com.vn',
+    UpdatedDate: '2025-03-05T06:27:02.340812Z'
+  },
+  SubAppPqaFinding: [
+    {
+      Id: 'd157c424-1891-424a-a76b-58b5a739571f',
+      PqaId: 'a9c4dd45-d0f5-4e10-878b-d146d156fb9d',
+      Name: 'Nguyen Huu Van',
+      SeverityPoint: 1,
+      FrequencyPoint: 2,
+      Points: 40,
+      FindingReport: '1',
+      FindingImage: ['prefab/subapp/pqa/image/WhatsApp Image 2025-02-21 at 16.54.33_de9a4f28.WEBP'],
+      OrderNo: 0,
+      IsDeleted: false,
+      CreatedBy: 'nguyen_huuvan@wohhup.com.vn',
+      CreatedDate: '2025-03-05T03:53:43.748222Z',
+      UpdatedBy: 'nguyen_huuvan@wohhup.com.vn',
+      UpdatedDate: '2025-03-05T03:56:19.380293Z'
+    },
+    {
+      Id: 'b8d66b7d-d442-455c-bce0-56acc47a1415',
+      PqaId: 'a9c4dd45-d0f5-4e10-878b-d146d156fb9d',
+      Name: 'Nguyen Huu Van',
+      SeverityPoint: 2,
+      FrequencyPoint: 2,
+      Points: 20,
+      FindingReport: '2',
+      FindingImage: ['prefab/subapp/pqa/image/WhatsApp Image 2025-02-21 at 16.54.35_e8e8a494.WEBP'],
+      OrderNo: 1,
+      IsDeleted: false,
+      CreatedBy: 'nguyen_huuvan@wohhup.com.vn',
+      CreatedDate: '2025-03-05T03:53:43.748494Z',
+      UpdatedBy: 'nguyen_huuvan@wohhup.com.vn',
+      UpdatedDate: '2025-03-05T03:56:19.562202Z'
+    }
+  ],
+  Token:
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhYjEzZTM5MC1kYWExLTQzODUtOTdjNi02ZGFlYzI1ZTVjMTkiLCJpc0FkbWluIjp0cnVlLCJlbWFpbCI6Im5ndXllbl9odXV2YW5Ad29oaHVwLmNvbS52biIsImNvbmZpcm1lZCI6ZmFsc2UsIm5hbWUiOiJOZ3V5ZW4gSHV1IFZhbiIsInNob3J0TmFtZSI6bnVsbCwiaXNBY3RpdmUiOnRydWUsImlhdCI6MTc0MTA3NTczOSwiZXhwIjoxNzQxMTYyMTM5fQ.QX8JFiSBmjLe0_gLxFTD0DwRDzQX23bP9A9EkP4vCM0'
+};
+
+module.exports = data;

@@ -13,11 +13,12 @@ const { getConform } = require('./util/getConform');
 const { whLogo, portraitImage, errorImage } = require('./demoData');
 const { getClose } = require('./util/getClose');
 const { getWeightage } = require('./util/getWeightage');
-const data = require('./test3.js');
+const data = require('./test4.js');
 
 const generatePdf = async (data) => {
   const pqaDetail = { ...data };
 
+  //#region Copy từ đây
   async function getBase64(key) {
     if (!key) return null;
     const params = { Bucket: BUCKET_NAME, Key: `prefab/${key}` };
@@ -138,9 +139,9 @@ const generatePdf = async (data) => {
   ];
   const pointList = [
     [
-      Trade1Score,
-      Trade2Score,
-      ObservationScore,
+      SubAppPqaCheckList1.IsActive ? Trade1Score : '-',
+      SubAppPqaCheckList2.IsActive ? Trade2Score : '-',
+      SubAppPqaObservation.IsActive ? ObservationScore : '-',
       SubAppPqaLastMonthFinding.IsActive ? LastMonthPqaScore : 'NA',
       SubAppPqaRFWIRecords.IsTrade5Active ? RFWIRecordsScore : 'NA',
       FindingScore,
@@ -269,7 +270,7 @@ const generatePdf = async (data) => {
     ['1.7', 'Critical check implemented', '', '', ''],
     ['1.8', 'Common check implemented', '', '', '']
   ];
-  const conformList1 = getConform(SubAppPqaCheckList1.ScoreList);
+  const conformList1 = getConform(SubAppPqaCheckList1.ScoreList, SubAppPqaCheckList1.IsActive);
   SubAppPqaCheckList1.ScoreList.forEach((score, index) => {
     if (score === 99) {
       score = '-';
@@ -372,7 +373,7 @@ const generatePdf = async (data) => {
   rowY += 4.8;
   createText('Score', 176.4 - lastColumnWidth1 - 13.3, rowY, {}, false, 12);
   createText(
-    Trade1Score.toString(),
+    SubAppPqaCheckList1.IsActive ? Trade1Score.toString() : '-',
     176.4 - lastColumnWidth1 / 2 - 3,
     rowY,
     {},
@@ -396,7 +397,7 @@ const generatePdf = async (data) => {
     ['2.7', 'Critical check implemented', '', '', ''],
     ['2.8', 'Common check implemented', '', '', '']
   ];
-  const conformList2 = getConform(SubAppPqaCheckList2.ScoreList);
+  const conformList2 = getConform(SubAppPqaCheckList2.ScoreList, SubAppPqaCheckList2.IsActive);
   SubAppPqaCheckList2.ScoreList.forEach((score, index) => {
     if (score === 99) {
       score = '-';
@@ -494,7 +495,7 @@ const generatePdf = async (data) => {
   rowY += 4.8;
   createText('Score', 176.4 - lastColumnWidth2 - 13.3, rowY, {}, false, 12);
   createText(
-    Trade2Score.toString(),
+    SubAppPqaCheckList2.IsActive ? Trade2Score.toString() : '-',
     176.4 - lastColumnWidth2 / 2 - 3,
     rowY,
     {},
@@ -514,7 +515,7 @@ const generatePdf = async (data) => {
     ['3.2', 'Observation', '', '', ''],
     ['3.3', 'Observation', '', '', '']
   ];
-  const closeList = getClose(SubAppPqaObservation.ScoreList);
+  const closeList = getClose(SubAppPqaObservation.ScoreList, SubAppPqaObservation.IsActive);
   let isRemark3TooLong = false;
   SubAppPqaObservation.ScoreList.forEach((score, index) => {
     rowsDataObservation[index][1] = SubAppPqaObservation.Observation[index];
@@ -586,7 +587,7 @@ const generatePdf = async (data) => {
     12
   );
   createText(
-    ObservationScore.toString(),
+    SubAppPqaObservation.IsActive ? ObservationScore.toString() : '-',
     176.4 - lastColumnWidth3 / 2 - 3,
     rowY + tableHeight3 + 4.8,
     {},
@@ -757,8 +758,7 @@ const generatePdf = async (data) => {
   rowY += 6;
   createText('5', xStart + 4, rowY, {}, true, 12);
   createText(
-    `Verification - RFWI records (Scanned copy/Digital archive) ${
-      IsTrade5Active ? '' : '- (NA)'
+    `Verification - RFWI records (Scanned copy/Digital archive) ${IsTrade5Active ? '' : '- (NA)'
     }`,
     secondColumnStartPoint3 + 1,
     rowY,
@@ -790,6 +790,8 @@ const generatePdf = async (data) => {
   //#endregion Trade 5 table
 
   //#region Trade 6 table
+  let remarkHeightSafety = 0;
+  /*
   rowY += 5;
   const {
     yesNumber: yesNumberSafety,
@@ -834,7 +836,7 @@ const generatePdf = async (data) => {
   createText('-', xStart + 152, rowY, {}, true, 12);
 
   rowY += 5;
-  let remarkHeightSafety = 0;
+
   doc.autoTable({
     head: [[`Remark: ${remarkSafety}`]],
     startY: rowY,
@@ -865,7 +867,7 @@ const generatePdf = async (data) => {
       );
     }
   });
-
+*/
   //#endregion Trade 6 table
 
   //#region Trade 7 table
@@ -875,7 +877,7 @@ const generatePdf = async (data) => {
   doc.rect(154.4, rowY + 10, 22, 8);
 
   rowY += 6;
-  createText('7', xStart + 4, rowY, {}, true, 12);
+  createText('6', xStart + 4, rowY, {}, true, 12);
   createText(
     'Site findings - detailed report (next page)',
     secondColumnStartPoint3 + 1,
@@ -1058,6 +1060,9 @@ const generatePdf = async (data) => {
       addNewPage();
     }
   });
+
+  //#endregion 
+
   doc.save(`${Id}.pdf`);
   exec(`start ${Id}.pdf`);
 };

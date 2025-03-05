@@ -2,6 +2,14 @@ const { jsPDF } = require('jspdf');
 require('jspdf-autotable');
 const fs = require('fs');
 const dayjs = require('dayjs');
+const utc = require('dayjs/plugin/utc')
+const timezone = require('dayjs/plugin/timezone')
+dayjs.extend(utc)
+dayjs.extend(timezone);
+
+dayjs.tz.setDefault('Asia/Singapore');
+
+const tz = 'Asia/Singapore';
 const AWS = require('aws-sdk');
 const sharp = require('sharp');
 
@@ -15,13 +23,15 @@ const { getWeightage } = require('./util/getWeightage');
 const s3bucket = new AWS.S3();
 const BUCKET_NAME = process.env.BUCKET_NAME;
 
+
+
 async function getBase64(key) {
   if (!key) return null;
   const params = { Bucket: BUCKET_NAME, Key: key };
   const data = await s3bucket.getObject(params).promise();
   let buffer64 = Buffer.from(data.Body);
   try {
-    const resizedImageData = await sharp(buffer64).rotate().toBuffer();
+    const resizedImageData = await sharp(buffer64).resize(600, null).rotate().toBuffer();
     return resizedImageData;
   } catch (error) {
     console.log('error:', error.message);
@@ -32,8 +42,19 @@ async function getBase64(key) {
 exports.handler = async (event) => {
   try {
     const pqaDetail = { ...event };
+    
+    //#region Copy từ đây
+    async function getBase64(key) {
+      if (!key) return null;
+      const params = { Bucket: BUCKET_NAME, Key: `prefab/${key}` };
+      const data = await s3bucket.getObject(params).promise();
+      let buffer64 = Buffer.from(data.Body).toString('base64');
+      return 'data:image/png;base64,' + buffer64;
+    }
+
     const {
-      ProjectId,
+      Id,
+      ProjectCode,
       FormDate,
       Trade1Score,
       Trade2Score,
@@ -48,11 +69,10 @@ exports.handler = async (event) => {
       SubAppPqaLastMonthFinding,
       SubAppPqaRFWIRecords,
       SubAppPqaSafetyEvaluation,
-      SubAppPqaFinding,
-      Token
+      SubAppPqaFinding
     } = pqaDetail;
 
-    const projectName = await getFullProjectName(ProjectId, Token);
+    const projectName = getFullProjectName(ProjectCode);
 
     const xStart = 12;
     let rowY = 5;
@@ -77,7 +97,7 @@ exports.handler = async (event) => {
       x,
       y,
       options = {},
-      fontSize = 9,
+      fontSize = 8,
       textColor = 'black'
     ) => {
       doc?.setFontSize(fontSize);
@@ -99,15 +119,34 @@ exports.handler = async (event) => {
       rowY += 12;
     };
 
+    const resizeImage = async (base64ImageData) => {
+      try {
+        const buffer = Buffer.from(
+          base64ImageData.replace(/^data:image\/\w+;base64,/, ''),
+          'base64'
+        );
+
+        const resizedImageData = await sharp(buffer)
+          .resize(1000, null)
+          .rotate()
+          .toBuffer();
+
+        return resizedImageData;
+      } catch (error) {
+        return '';
+      }
+    };
+
     //Begin generate pdf
     const doc = new jsPDF({
       unit: 'mm',
       format: [190.5, 275.2]
     });
-
-    doc.setLineWidth(1);
-    doc.setDrawColor('#000000');
-
+    // doc.addFileToVFS('./fonts/ArialNarrow.txt', 'arial');
+    // doc.addFont('./fonts/Arial Narrow.ttf', 'arial', 'normal');
+    // doc.addFont('./fonts/Arial Narrow.ttf', 'arial', 'bold');
+    // doc.addFont('./fonts/Arial Narrow.ttf', 'arial', 'italic');
+    const list = doc.getFontList();
     //First page
     doc.addImage(whLogo, 'JPEG', 45, 55, 100, 30);
     createText('Project Quality Audit', 40, 105, {}, true, 32);
@@ -120,22 +159,14 @@ exports.handler = async (event) => {
 
     //table
     const headers = [
-      [
-        'Trade 1',
-        'Trade 2',
-        'Observation',
-        'PQA',
-        'RFWI',
-        'Findings',
-        '       '
-      ],
+      ['Trade 1', 'Trade 2', 'Observation', 'PQA', 'RFWI', 'Finding', '       '],
       ['', '', '', ' ', '', '', '']
     ];
     const pointList = [
       [
-        Trade1Score,
-        Trade2Score,
-        ObservationScore,
+        SubAppPqaCheckList1.IsActive ? Trade1Score : '-',
+        SubAppPqaCheckList2.IsActive ? Trade2Score : '-',
+        SubAppPqaObservation.IsActive ? ObservationScore : '-',
         SubAppPqaLastMonthFinding.IsActive ? LastMonthPqaScore : 'NA',
         SubAppPqaRFWIRecords.IsTrade5Active ? RFWIRecordsScore : 'NA',
         FindingScore,
@@ -235,12 +266,7 @@ exports.handler = async (event) => {
 
           doc.setLineWidth(0.3);
           doc.setDrawColor('#000000');
-          doc.rect(
-            startX,
-            startY,
-            columnList[columnIndex].width,
-            cellHeight - 1
-          );
+          doc.rect(startX, startY, columnList[columnIndex].width, cellHeight - 1);
           doc.rect(
             startX,
             startY + cellHeight - 1,
@@ -252,20 +278,15 @@ exports.handler = async (event) => {
     });
 
     //Second page
+
     addNewPage();
-    //#region trade 1 table
+    //#region Trade 1 table
     doc.rect(xStart, rowY, 164.4, 6);
     rowY += 6;
-    //table trade 1
+    //table Trade 1
 
     const rowsDataTrade1 = [
-      [
-        '1.1',
-        'Latest approved drawing',
-        'Conform',
-        'Site Findings',
-        'Weightage'
-      ],
+      ['1.1', 'Latest approved drawing', 'Conform', 'Site Findings', 'Weightage'],
       ['1.2', 'Approved material(s)', '', '', ''],
       ['1.3', 'Approved method statement', '', '', ''],
       ['1.4', 'Test report submission (pass)', '', '', ''],
@@ -274,7 +295,7 @@ exports.handler = async (event) => {
       ['1.7', 'Critical check implemented', '', '', ''],
       ['1.8', 'Common check implemented', '', '', '']
     ];
-    const conformList1 = getConform(SubAppPqaCheckList1.ScoreList);
+    const conformList1 = getConform(SubAppPqaCheckList1.ScoreList, SubAppPqaCheckList1.IsActive);
     SubAppPqaCheckList1.ScoreList.forEach((score, index) => {
       if (score === 99) {
         score = '-';
@@ -360,7 +381,6 @@ exports.handler = async (event) => {
     const newLocationX = forthColumnStartPoint1 + spaceWithTradeTitle * 2;
     const newLocationValueX = newLocationX + 20;
     createText('Location:', newLocationX, rowY - 1.5, {}, true, 12);
-
     createText(
       SubAppPqaCheckList1.Location,
       newLocationValueX,
@@ -374,13 +394,11 @@ exports.handler = async (event) => {
     createText(`(${getWeightage(1)}%)`, 159.5, rowY, {}, false, 10);
 
     rowY += 61.9;
-    doc.setLineWidth(0.3);
-    doc.setDrawColor('#000000');
     doc.rect(176.4 - lastColumnWidth1, rowY, lastColumnWidth1, 7);
     rowY += 4.8;
     createText('Score', 176.4 - lastColumnWidth1 - 13.3, rowY, {}, false, 12);
     createText(
-      Trade1Score.toString(),
+      SubAppPqaCheckList1.IsActive ? Trade1Score.toString() : '-',
       176.4 - lastColumnWidth1 / 2 - 3,
       rowY,
       {},
@@ -388,20 +406,14 @@ exports.handler = async (event) => {
       12
     );
     rowY += 5;
-    //#endregion trade 1 table
+    //#endregion Trade 1 table
 
-    //#region trade 2 table
+    //#region Trade 2 table
     doc.rect(xStart, rowY, 164.4, 6);
     rowY += 6;
 
     const rowsDataTrade2 = [
-      [
-        '2.1',
-        'Latest approved drawing',
-        'Conform',
-        'Site Findings',
-        'Weightage'
-      ],
+      ['2.1', 'Latest approved drawing', 'Conform', 'Site Findings', 'Weightage'],
       ['2.2', 'Approved material(s)', '', '', ''],
       ['2.3', 'Approved method statement', '', '', ''],
       ['2.4', 'Test report submission (pass)', '', '', ''],
@@ -410,7 +422,7 @@ exports.handler = async (event) => {
       ['2.7', 'Critical check implemented', '', '', ''],
       ['2.8', 'Common check implemented', '', '', '']
     ];
-    const conformList2 = getConform(SubAppPqaCheckList2.ScoreList);
+    const conformList2 = getConform(SubAppPqaCheckList2.ScoreList, SubAppPqaCheckList2.IsActive);
     SubAppPqaCheckList2.ScoreList.forEach((score, index) => {
       if (score === 99) {
         score = '-';
@@ -491,7 +503,6 @@ exports.handler = async (event) => {
     const newLocationX2 = forthColumnStartPoint2 + spaceWithTradeTitle2 * 2;
     const newLocationValueX2 = newLocationX2 + 20;
     createText('Location:', newLocationX2, rowY - 1.5, {}, true, 12);
-
     createText(
       SubAppPqaCheckList2.Location,
       newLocationValueX2,
@@ -505,13 +516,11 @@ exports.handler = async (event) => {
     createText(`(${getWeightage(2)}%)`, 159.5, rowY, {}, false, 10);
 
     rowY += 61.9;
-    doc.setLineWidth(0.3);
-    doc.setDrawColor('#000000');
     doc.rect(176.4 - lastColumnWidth2, rowY, lastColumnWidth2, 7);
     rowY += 4.8;
     createText('Score', 176.4 - lastColumnWidth2 - 13.3, rowY, {}, false, 12);
     createText(
-      Trade2Score.toString(),
+      SubAppPqaCheckList2.IsActive ? Trade2Score.toString() : '-',
       176.4 - lastColumnWidth2 / 2 - 3,
       rowY,
       {},
@@ -520,9 +529,9 @@ exports.handler = async (event) => {
     );
     rowY += 5;
 
-    //#endregion trade 2 table
+    //#endregion Trade 2 table
 
-    //#region trade 3 table
+    //#region Trade 3 table
     doc.rect(xStart, rowY, 164.4, 6);
     rowY += 6;
 
@@ -531,9 +540,8 @@ exports.handler = async (event) => {
       ['3.2', 'Observation', '', '', ''],
       ['3.3', 'Observation', '', '', '']
     ];
-    const closeList = getClose(SubAppPqaObservation.ScoreList);
+    const closeList = getClose(SubAppPqaObservation.ScoreList, SubAppPqaObservation.IsActive);
     let isRemark3TooLong = false;
-
     SubAppPqaObservation.ScoreList.forEach((score, index) => {
       rowsDataObservation[index][1] = SubAppPqaObservation.Observation[index];
       rowsDataObservation[index][2] = closeList[index];
@@ -552,7 +560,6 @@ exports.handler = async (event) => {
     let secondColumnStartPoint3;
     let lastColumnWidth3;
     let tableHeight3 = 0;
-
     doc.autoTable({
       head: [['S/N', 'Observation', 'Close', 'Remark          ', 'Weightage']],
       body: rowsDataObservation,
@@ -596,8 +603,6 @@ exports.handler = async (event) => {
     });
 
     //#region score box at the end of table
-    doc.setLineWidth(0.3);
-    doc.setDrawColor('#000000');
     createText(
       'Score',
       176.4 - lastColumnWidth3 - 13.3,
@@ -607,24 +612,19 @@ exports.handler = async (event) => {
       12
     );
     createText(
-      ObservationScore.toString(),
+      SubAppPqaObservation.IsActive ? ObservationScore.toString() : '-',
       176.4 - lastColumnWidth3 / 2 - 3,
       rowY + tableHeight3 + 4.8,
       {},
       true,
       12
     );
-    doc.rect(
-      176.4 - lastColumnWidth3,
-      rowY + tableHeight3,
-      lastColumnWidth3,
-      7
-    );
+    doc.rect(176.4 - lastColumnWidth3, rowY + tableHeight3, lastColumnWidth3, 7);
     //#endregion score box at the end of table
 
     createText('3', xStart + 4, rowY - 1.5, {}, true, 12);
     createText(
-      'Follow-up on site QA/QC observations:',
+      'Follow-up on site QA/QC Observations:',
       secondColumnStartPoint3 + 1,
       rowY - 1.5,
       {},
@@ -643,11 +643,11 @@ exports.handler = async (event) => {
     rowY += 8.8;
     createText(`(${getWeightage(3)}%)`, 159.5, rowY, {}, false, 10);
 
-    //#endregion trade 3 table
+    //#endregion Trade 3 table
 
     //Third page
     addNewPage();
-    //#region trade 4 table
+    //#region Trade 4 table
     const { yes, partial, no, na, totalFindings } =
       SubAppPqaLastMonthFinding.ScoreList;
     const { IsActive } = SubAppPqaLastMonthFinding;
@@ -688,7 +688,7 @@ exports.handler = async (event) => {
     createText(':', xStart + 134, rowY, {}, false, 12); //+4
     createText(na.toString(), xStart + 138, rowY, {}, false, 12); //+12
     createText(LastMonthPqaScore.toString(), xStart + 150, rowY, {}, true, 12);
-    //#endregion trade 4 table
+    //#endregion Trade 4 table
 
     //#region Trade 5 table
     rowY += 10;
@@ -697,7 +697,6 @@ exports.handler = async (event) => {
       const {
         tradePoint,
         yesNumber,
-        partialNumber,
         noNumber,
         naNumber,
         totalFindings: totalFindingsNumber,
@@ -705,8 +704,6 @@ exports.handler = async (event) => {
       } = scoreList5;
       const remark = scoreList5.remarkRFWI;
 
-      doc.setLineWidth(0.3);
-      doc.setDrawColor('#000000');
       doc.rect(xStart, rowY, 10, 20);
       doc.rect(xStart + 10, rowY, 154.4, 20);
       doc.line(154.4, rowY, 154.4, rowY + 20);
@@ -772,14 +769,7 @@ exports.handler = async (event) => {
         didDrawCell: (data) => {
           doc.rect(xStart, rowY, 10, data.cell.height);
           remarkHeightRFWI = remarkHeightRFWI + data.cell.height;
-          createText(
-            '',
-            xStart + 2,
-            rowY + remarkHeightRFWI / 2,
-            {},
-            false,
-            12
-          );
+          createText('', xStart + 2, rowY + remarkHeightRFWI / 2, {}, false, 12);
         }
       });
 
@@ -793,8 +783,7 @@ exports.handler = async (event) => {
     rowY += 6;
     createText('5', xStart + 4, rowY, {}, true, 12);
     createText(
-      `Verification - RFWI records (Scanned copy/Digital archive) ${
-        IsTrade5Active ? '' : '- (NA)'
+      `Verification - RFWI records (Scanned copy/Digital archive) ${IsTrade5Active ? '' : '- (NA)'
       }`,
       secondColumnStartPoint3 + 1,
       rowY,
@@ -811,8 +800,6 @@ exports.handler = async (event) => {
     generateTrade5(Archi, 'Architectural', '5.2');
     generateTrade5(Mep, 'MEP', '5.3');
 
-    doc.setLineWidth(0.3);
-    doc.setDrawColor('#000000');
     doc.rect(154.4, rowY, 22, 8);
     rowY += 5;
     createText(
@@ -824,13 +811,13 @@ exports.handler = async (event) => {
       12
     );
     createText('Score', 140, rowY, {}, false, 12);
+
     //#endregion Trade 5 table
 
     //#region Trade 6 table
-    doc.setLineWidth(0.3);
-    doc.setDrawColor('#000000');
+    let remarkHeightSafety = 0;
+    /*
     rowY += 5;
-
     const {
       yesNumber: yesNumberSafety,
       noNumber: noNumberSafety,
@@ -852,11 +839,11 @@ exports.handler = async (event) => {
     );
     createText('Weightage', 157, rowY - 2, {}, false, 10);
     createText(`(--%)`, 162, rowY + 2, {}, false, 10);
-
+  
     rowY += 4;
     doc.rect(xStart, rowY, 10, 15);
     doc.rect(xStart + 10, rowY, 154.4, 15);
-
+  
     rowY += 10;
     createText('6.1', xStart + 2, rowY, {}, false, 12);
     createText('Total Award', xStart + 12, rowY, {}, false, 12);
@@ -872,9 +859,9 @@ exports.handler = async (event) => {
     createText(':', xStart + 129, rowY, {}, false, 12);
     createText(naNumberSafety.toString(), xStart + 132, rowY, {}, false, 12);
     createText('-', xStart + 152, rowY, {}, true, 12);
-
+  
     rowY += 5;
-    let remarkHeightSafety = 0;
+  
     doc.autoTable({
       head: [[`Remark: ${remarkSafety}`]],
       startY: rowY,
@@ -905,12 +892,10 @@ exports.handler = async (event) => {
         );
       }
     });
-
+  */
     //#endregion Trade 6 table
 
-    //#region trade 7 table
-    doc.setLineWidth(0.3);
-    doc.setDrawColor('#000000');
+    //#region Trade 7 table
     rowY = rowY + remarkHeightSafety + 5;
     doc.rect(xStart, rowY, 164.4, 10);
     doc.line(154.4, rowY, 154.4, rowY + 10);
@@ -933,36 +918,60 @@ exports.handler = async (event) => {
     createText('Score', 140, rowY, {}, false, 12);
     rowY += 10;
     rowY += 56;
-    //#endregion trade 7 table
+
+    //#endregion Trade 7 table
+
     addNewPage();
+
+    const getImage = async () => {
+      try {
+        const imageListTemp = [];
+        SubAppPqaFinding.forEach((finding, index) => {
+          const innerImageList = [];
+          finding.FindingImage.forEach(async (image) => {
+            const base64Image = await getBase64FromUrl(image);
+            innerImageList.push(base64Image);
+          });
+          imageListTemp.push(innerImageList);
+        });
+        return imageListTemp;
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
 
     const rowsDataTrade7InOnePage = [[]];
     const pointListTrade7InOnePage = [[]];
-    const imageList = [[]];
+    // const imageList = [[]];
 
-    let pageNumberForImage = 0;
-    async function processImages() {
-      for (let i = 0; i < SubAppPqaFinding.length; i++) {
-        if (i > 0 && i % 4 === 0) {
-          pageNumberForImage++;
-          imageList.push([]);
-        }
-        const findingImages = SubAppPqaFinding[i].FindingImage;
-        const base64Images = await Promise.all(
-          findingImages.map(async (image) => await getBase64(image))
-        );
-        findingImages.splice(0, findingImages.length, ...base64Images);
-        imageList[pageNumberForImage].push(findingImages);
-      }
-    }
+    const testImage = await resizeImage(portraitImage);
+    const testLogo = await resizeImage(whLogo);
+    const imageList = [
+      [
+        [testImage, testImage, testImage],
+        [testImage, testImage, testImage],
+        [testImage, testImage, testImage],
+        [testImage, testImage, testImage]
+      ],
+      [
+        [testImage, testImage, testImage],
+        [testImage, testImage, testImage],
+        [testImage, testImage, testImage],
+        [testImage, testImage, testImage]
+      ],
 
-    await processImages();
+      [
+        [testImage, testImage, testImage],
+        [testImage, testImage, testImage],
+        [testImage, testImage, testImage],
+        [testImage, testImage, testImage]
+      ],
+      [[testImage, testImage, testImage]]
+    ];
 
     let pageNumber = 0;
     SubAppPqaFinding.forEach((findings, index) => {
       if (index > 0 && index % 4 === 0) {
-        //Divide to group 3 in first page
-        //Divide to group 4 findings in one page from secord page
         pageNumber++;
         rowsDataTrade7InOnePage.push([]);
         pointListTrade7InOnePage.push([]);
@@ -973,13 +982,13 @@ exports.handler = async (event) => {
         findings.FindingReport
       ]);
       pointListTrade7InOnePage[pageNumber].push({
-        SeverityPoint: findings.SeverityPoint,
-        FrequencyPoint: findings.FrequencyPoint,
-        Points: findings.Points === 99 ? '-' : findings.Points
+        severityPoint: findings.SeverityPoint,
+        frequencyPoint: findings.FrequencyPoint,
+        points: findings.Points === 99 ? '-' : findings.Points
       });
     });
 
-    const createTrade5Page = (
+    const createTrade5Page = async (
       rowsDataTrade7,
       pointListTrade7,
       imageListDetail,
@@ -1014,52 +1023,56 @@ exports.handler = async (event) => {
         bodyStyles: {
           minCellHeight: 56
         },
-        didDrawCell: function (data) {}
+        didDrawCell: function (data) {
+          //dummy
+        }
       });
 
-      rowY = 36.6;
-      pointListTrade7.forEach((score, index) => {
-        doc.setLineWidth(0.3);
-        doc.setDrawColor('#000000');
-        doc.rect(148.9, rowY, 27.5, 16);
-        rowY += 4;
-        createTextItalic('Severity:', 150, rowY, {}, 10);
-        createText(score.SeverityPoint.toString(), 170, rowY, {}, false, 10);
-        rowY += 5;
-        createTextItalic('Frequency:', 150, rowY, {}, 10);
-        createText(score.FrequencyPoint.toString(), 170.5, rowY, {}, false, 10);
-        rowY += 5;
-        createTextItalic('Points:', 150, rowY, {}, 10);
-        createText(score.Points.toString(), 170, rowY, {}, false, 10);
-        rowY += 42;
-
-        imageListDetail[index][0] &&
+      const insertImage = async (imageId, rowY) => {
+        imageListDetail[imageId][0] &&
           doc.addImage(
-            imageListDetail[index][0],
+            imageListDetail[imageId][0],
             'JPEG',
             23.5,
             rowY - 36,
             45,
             35
           );
-        imageListDetail[index][1] &&
+        imageListDetail[imageId][1] &&
           doc.addImage(
-            imageListDetail[index][1],
+            imageListDetail[imageId][1],
             'JPEG',
             73.5,
             rowY - 36,
             45,
             35
           );
-        imageListDetail[index][2] &&
+        imageListDetail[imageId][2] &&
           doc.addImage(
-            imageListDetail[index][2],
+            imageListDetail[imageId][2],
             'JPEG',
             123.5,
             rowY - 36,
             45,
             35
           );
+      };
+
+      rowY = 36.6;
+
+      pointListTrade7.forEach((score, pointListIndex) => {
+        doc.rect(148.9, rowY, 27.5, 16);
+        rowY += 4;
+        createTextItalic('Severity:', 150, rowY, {}, 10);
+        createText(score.severityPoint.toString(), 170, rowY, {}, false, 10);
+        rowY += 5;
+        createTextItalic('Frequency:', 150, rowY, {}, 10);
+        createText(score.frequencyPoint.toString(), 170.5, rowY, {}, false, 10);
+        rowY += 5;
+        createTextItalic('Points:', 150, rowY, {}, 10);
+        createText(score.points.toString(), 170, rowY, {}, false, 10);
+        rowY += 42;
+        insertImage(pointListIndex, rowY);
       });
     };
 
@@ -1072,6 +1085,9 @@ exports.handler = async (event) => {
         addNewPage();
       }
     });
+
+    //#endregion 
+
     async function uploadObjectToS3Bucket(objectName, objectData) {
       fs.writeFileSync('/tmp/pc.pdf', objectData);
       const fileContent = fs.readFileSync('/tmp/pc.pdf');
