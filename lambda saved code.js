@@ -805,7 +805,7 @@ exports.handler = async (event) => {
     rowY += 6;
     createText('5', xStart + 4, rowY, {}, true, 12);
     createText(
-      `Verification - RFWI records (Scanned copy/Digital archive) ${
+      `Verification - RFWI records (Scanned copy/Digital archive/Closure) ${
         IsTrade5Active ? '' : '- (NA)'
       }`,
       secondColumnStartPoint3 + 1,
